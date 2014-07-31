@@ -1,0 +1,150 @@
+#
+# bspwm hotkeys
+#
+
+# quit bspwm
+super + shift + q
+	bspc quit
+
+# close window
+super + shift + x
+	bspc window -c
+
+# next layout
+super + t
+	bspc desktop -l next
+
+# balance current desktop
+super + b
+	bspc desktop -B
+
+# toggle floating/pseudotile/fullscreen
+super + {s,d,f}
+	bspc window -t {floating,pseudo_tiled,fullscreen}
+
+# focus previously focused window
+super + Tab
+	bspc window -f last
+
+# swap window with biggest window on current desktop
+super + m
+	bspc window -s biggest
+
+# flip bsp tree
+super + {comma,period}
+	bspc desktop -F {horizontal,vertical}
+
+# rotate bsp tree
+super + shift + {comma,period}
+	bspc desktop -R {90,270}
+
+# focus/move window left/down/up/right
+super + {_,shift + }{h,j,k,l}
+	bspc window -{f,s} {left,down,up,right}
+
+# focus next/previous window
+super + {_,shift + }Tab
+	bspc window -f {next,prev}
+
+# presel left/down/up/right
+super + ctrl + {h,j,k,l}
+	bspc window -p {left,down,up,right}
+
+# increase window size to the left/down/up/right
+super + alt + {h,j,k,l}
+	bspc window -e {left -25,down +25,up -25,right +25}
+
+# decrease window size to the left/down/up/right
+super + alt + shift + {h,j,k,l}
+	bspc window -e {right -25,up +25,down -25,left +25}
+
+# set split ratio
+super + ctrl + {1-9}
+	bspc window -r 0.{1-9}
+
+# focus/move to desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,window -d} \^{1-9,10}
+
+# move/resize window
+super + button{1-3}
+	bspc pointer -g {move,resize_side,resize_corner}
+
+# required for above
+super + !button{1-3}
+	bspc pointer -t %i %i
+
+# required for above
+super + @button{1-3}
+	bspc pointer -u
+
+# Change desktop padding
+super + alt + {_, shift} + bracketright
+	bspc config -d focused right_padding $((`bspc config -d focused right_padding` {+,-} 20 ))
+
+super + alt + {_, shift} + bracketleft
+	bspc config -d focused left_padding $((`bspc config -d focused left_padding` {+,-} 20 ))
+
+super + ctrl + {_, shift} + bracketright
+	bspc config -d focused bottom_padding $((`bspc config -d focused bottom_padding` {+,-} 20 ))
+
+super + ctrl + {_, shift} + bracketleft
+	bspc config -d focused top_padding $((`bspc config -d focused top_padding` {+,-} 20 ))
+
+# Toggle monocle
+super + space
+	bspc desktop -l next
+
+# Toggle pseudotiled (floating in tile)
+super + shift + space
+	bspc window -t pseudo_tiled
+
+# Select previous / next desktop
+super + shift + {Left,Right}
+	bspc desktop -f {prev,next}
+
+
+# Select previous / next desktop
+super + {Left,Right}
+	bspc desktop -f {prev.occupied,next.occupied}
+
+#
+# wm independent hotkeys
+#
+super + Return
+	urxvtc -e tmux -2
+
+#~/.scripts/zshrun
+super + x
+	dmenu_run -i -h 16 -w 1920 -q -p " > " -nb "#1D1F21" -nf "#C5C8C6" -sb "#1D1F21" -sf "#5E8D87"
+
+super + r
+	urxvtc -e ranger
+
+# Mute source
+shift + XF86AudioMute
+	pulseaudio-ctl mute-input
+
+# Mute sink
+XF86AudioMute
+	~/.scripts/volume_adjust mute
+
+# Volume
+XF86Audio{Lower,Raise}Volume
+	~/.scripts/volume_adjust {down,up}
+
+XF86Audio{Prev,Next}
+    mpc -q {prev,next}
+
+XF86MonBrightness{Up,Down}
+	~/.scripts/brightness_adjust
+
+super + F1
+	xautolock -locknow
+
+super + {minus,equal}
+	bspc config -d focused window_gap $((`bspc config -d focused window_gap` {+,-} 2 ))
+
+# make sxhkd reload its configuration files:
+super + shift + r
+	pkill -USR1 -x sxhkd

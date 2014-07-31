@@ -1,0 +1,22 @@
+#!/bin/sh
+
+bmax=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+bactual=$(cat /sys/class/backlight/intel_backlight/actual_brightness)
+
+blevel=$(echo "scale=2; $bactual / $bmax * 100" | bc | awk '{printf "%.0f\n", $1}')
+
+case $blevel in
+        0?) notify-send "brightness:" "▒▒▒▒▒▒▒▒▒▒";;
+        1?) notify-send "brightness:" "█▒▒▒▒▒▒▒▒▒";;
+        2?) notify-send "brightness:" "██▒▒▒▒▒▒▒▒";;
+        3?) notify-send "brightness:" "███▒▒▒▒▒▒▒";;
+        4?) notify-send "brightness:" "████▒▒▒▒▒▒";;
+        5?) notify-send "brightness:" "█████▒▒▒▒▒";;
+        6?) notify-send "brightness:" "██████▒▒▒▒";;
+        7?) notify-send "brightness:" "███████▒▒▒";;
+        8?) notify-send "brightness:" "████████▒▒";;
+        9?) notify-send "brightness:" "█████████▒";;
+        10?) notify-send "brightness:" "██████████";;
+esac
+▒
+
