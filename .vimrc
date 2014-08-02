@@ -37,7 +37,7 @@ endif
 set shortmess+=filmnrxoOtT
 set viewoptions=folds,options,cursor,unix,slash
 set sessionoptions=buffers,folds,tabpages,winsize
-set virtualedit=onemore
+set virtualedit=block,insert
 set history=1000
 set hidden
 
@@ -245,10 +245,6 @@ nnoremap <silent> <leader>gg :SignifyToggle<CR>
 
 let g:ycm_collect_identifiers_from_tags_files = 1
 
-if !executable("ghcmod")
-    autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-endif
-
 let g:haskell_conceal=0
 let g:haddock_browser="firefox"
 
@@ -268,7 +264,7 @@ if has("gui_running")
     set guioptions-=l
     set guioptions-=r
     set guioptions-=R
-    set guifont=Monospace\ 11.7
+    set guifont=Monospace\ 10
 else
     set t_Co=256
     let g:rehash256=1
@@ -548,9 +544,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_auto_jump = 0
 let g:syntastic_java_checker = 'javac'
 let g:syntastic_mode_map = {
-            \ "mode": "active",
+            \ "mode": "passive",
             \ "active_filetypes": [],
-            \ "passive_filetypes": ['java', 'html', 'rst']
             \ }
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
@@ -613,8 +608,8 @@ endif
 "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplete#force_overwrite_completefunc=1
-"}}}
 
-"{{{
-
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 "}}}
