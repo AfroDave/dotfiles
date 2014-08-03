@@ -30,7 +30,6 @@ export CDPATH=$CDPATH:/home/${USER}/dev:/home/${USER}/dev/projects
 export EDITOR=vim
 
 export JAVA_HOME=/opt/java/
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=setting'
 
 # powerline
 POWERLINE_NO_BLANK_LINE="true"

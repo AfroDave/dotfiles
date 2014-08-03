@@ -160,22 +160,6 @@ autocmd FileType ruby setlocal expandtab shiftwidth=2 softtabstop=2
 " }}}
 
 " Plugins {{{
-augroup textobj_sentence
-    autocmd!
-    autocmd FileType markdown call textobj#sentence#init()
-    autocmd FileType pandoc call textobj#sentence#init()
-    autocmd FileType textile call textobj#sentence#init()
-    autocmd FileType text call textobj#sentence#init()
-augroup END
-
-augroup textobj_quote
-    autocmd!
-    autocmd FileType markdown call textobj#quote#init()
-    autocmd FileType pandoc call textobj#sentence#init()
-    autocmd FileType textile call textobj#quote#init()
-    autocmd FileType text call textobj#quote#init({'educate': 0})
-augroup END
-
 set cole=0
 
 if has("autocmd") && exists("+omnifunc")
@@ -485,6 +469,8 @@ cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
 map <leader>ew :e %%
 map <leader>es :sp %%
 map <leader>ev :vsp %%
+map <leader>bh :split 
+map <leader>bv :vert 
 map <leader>et :tabe %%
 
 map <Leader>= <C-w>=
@@ -590,8 +576,8 @@ function! s:my_cr_function()
 endfunction
 
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-h>  neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>   neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 

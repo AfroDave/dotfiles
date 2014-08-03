@@ -36,9 +36,9 @@ function prompt_setup {
     zstyle ':prezto:module:ruby:info:version' format ' %F{white}%v%f'
 
 
-    # %F{magenta}%n%f@%F{green}%m%f 
+    # %F{magenta}%n%f@%F{green}%m%f
     PROMPT="%F{007}%~%f
-%(?.%F{green}${1:-━━━━╸}%f.%F{red}${1:-━━━━╸}%f) "
+%(?.%F{green}${1:-━}%f.%F{red}${1:-━}%f) "
     RPROMPT='${ruby_info[version]}${vcs_info_msg_0_}'
 }
 
