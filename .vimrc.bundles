@@ -5,33 +5,28 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
-if executable('ag')
-    Plugin 'mileszs/ack.vim'
-    let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-elseif executable('ack-grep')
-    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-    Plugin 'mileszs/ack.vim'
-elseif executable('ack')
-    Plugin 'mileszs/ack.vim'
-endif
 
-Plugin 'sjl/badwolf'
-Plugin 'spf13/vim-colors'
+Plugin 'w0ng/vim-hybrid'
+
 Plugin 'tpope/vim-surround'
 Plugin 'spf13/vim-autoclose'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
-Plugin 'terryma/vim-multiple-cursors'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'honza/vim-snippets'
+
+" fixes conflict with neocomplete
+Plugin 'joedicastro/vim-multiple-cursors'
+
+Plugin 'junegunn/goyo.vim'
+Plugin 'mhinz/vim-startify'
 
 Plugin 'itchyny/lightline.vim'
-
-Plugin 'kana/vim-textobj-user'
-Plugin 'kana/vim-textobj-indent'
-
-Plugin 'reedes/vim-litecorrect'
-Plugin 'reedes/vim-textobj-sentence'
-Plugin 'reedes/vim-textobj-quote'
-Plugin 'reedes/vim-wordy'
 
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
@@ -56,14 +51,6 @@ Plugin 'hail2u/vim-css3-syntax'
 Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'tpope/vim-haml'
 
-Plugin 'tpope/vim-rails'
-let g:rubycomplete_buffer_loading = 1
-
-Plugin 'tpope/vim-markdown'
-Plugin 'spf13/vim-preview'
-Plugin 'tpope/vim-cucumber'
-Plugin 'quentindecock/vim-cucumber-align-pipes'
-
 Plugin 'guns/vim-clojure-static'
 Plugin 'tpope/vim-fireplace'
 Plugin 'tpope/vim-classpath'
@@ -72,25 +59,12 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'jelera/vim-javascript-syntax'
 
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
-
-Plugin 'w0ng/vim-hybrid'
-
 Plugin 'wting/rust.vim'
+
+Plugin 'JuliaLang/julia-vim'
 
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
-
-Plugin 'scrooloose/nerdtree'
-
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
-Plugin 'honza/vim-snippets'
-
-Plugin 'junegunn/goyo.vim'
-
-Plugin 'JuliaLang/julia-vim'
 
 call vundle#end()
 filetype plugin indent on

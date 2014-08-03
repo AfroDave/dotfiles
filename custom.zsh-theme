@@ -2,7 +2,7 @@
 
 function +vi-git-status() {
     if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
-        hook_com[unstaged]=' %F{8}✗%f'
+        hook_com[unstaged]=' %F{239}✗%f'
     fi
 }
 
@@ -28,14 +28,17 @@ function prompt_setup {
     zstyle ':vcs_info:*' check-for-changes true
     zstyle ':vcs_info:*' get-revision true
     zstyle ':vcs_info:*' use-simple true
-    zstyle ':vcs_info:*' unstagedstr ' %F{8}✗%f'
-    zstyle ':vcs_info:*' formats ' %F{8}%b%f %F{white}%.7i%f%u'
-    zstyle ':vcs_info:*' actionformats ' %F{8}%b%f %F{white}%.7i%f +%a%u'
+    zstyle ':vcs_info:*' unstagedstr ' %F{239}✗%f'
+    zstyle ':vcs_info:*' formats ' %F{239}%b%f %F{white}%.7i%f%u'
+    zstyle ':vcs_info:*' actionformats ' %F{239}%b%f %F{white}%.7i%f +%a%u'
     zstyle ':vcs_info:git*+set-message:*' hooks git-status
 
     zstyle ':prezto:module:ruby:info:version' format ' %F{white}%v%f'
 
-    PROMPT="%c %(?.%F{green}${1:-■}%f.%F{red}${1:-■}%f) "
+
+    # %F{magenta}%n%f@%F{green}%m%f 
+    PROMPT="%F{007}%~%f
+%(?.%F{green}${1:-━━━━╸}%f.%F{red}${1:-━━━━╸}%f) "
     RPROMPT='${ruby_info[version]}${vcs_info_msg_0_}'
 }
 
