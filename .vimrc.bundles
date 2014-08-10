@@ -52,7 +52,6 @@ Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'tpope/vim-haml'
 
 Plugin 'tpope/vim-fireplace'
-Plugin 'tpope/vim-classpath'
 
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'jelera/vim-javascript-syntax'

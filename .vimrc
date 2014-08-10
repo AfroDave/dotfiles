@@ -37,7 +37,7 @@ endif
 set shortmess+=filmnrxoOtT
 set viewoptions=folds,options,cursor,unix,slash
 set sessionoptions=buffers,folds,tabpages,winsize
-set virtualedit=block,insert
+set virtualedit=block
 set history=1000
 set hidden
 
@@ -598,6 +598,8 @@ let g:neocomplete#force_overwrite_completefunc=1
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 "}}}
 
 " Startify {{{

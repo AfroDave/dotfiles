@@ -112,14 +112,14 @@ super + {Left,Right}
 # wm independent hotkeys
 #
 super + Return
-	urxvtc -e tmux -2
+	uxterm -e tmux -2
 
 #~/.scripts/zshrun
 super + x
 	dmenu_run -i -h 16 -w 1920 -q -p " > " -nb "#1D1F21" -nf "#C5C8C6" -sb "#1D1F21" -sf "#5E8D87"
 
 super + r
-	urxvtc -e ranger
+	uxterm -e ranger
 
 # Mute source
 shift + XF86AudioMute

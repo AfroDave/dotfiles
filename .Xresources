@@ -7,29 +7,32 @@ Xft.hinting: true
 Xft.hintstyle: hintfull
 Xft.lcdfilter: lcddefault
 
+*loginShell: true
+
 URxvt*locale: true
-XTerm*locale: true
+UXTerm*locale: true
 
 ! Font
 URxvt*font: xft:Monospace:size=11
-XTerm*font: xft:Monospace:size=11
-XTerm*faceName: xft:Monospace:size=11
+UXTerm*font: xft:Monospace:size=11
+UXTerm*faceName: Monospace
+UXTerm*faceSize: 11
 
 URxvt*boldMode: false
-XTerm*boldMode: false
+UXTerm*boldMode: false
+UXTerm*allowBoldFonts: false
 URxvt*boldFont: xft:Monospace:size=11
-XTerm*boldFont: xft:Monospace:size=11
+UXTerm*boldFont: Monospace
 
-! General
+! URxvt General
 URxvt*depth: 32
 URxvt*intensityStyles: true
 URxvt*scrollBar: false
 URxvt*jumpScroll: true
 URxvt*skipScroll: true
 URxvt*transparent: false
-! *shading: 15
 URxvt*letterSpace: 0
-URxvt*internalBorder: 8
+URxvt*internalBorder: 6
 URxvt*saveLines: 4095
 URxvt*perl-ext-common: default,clipboard,matcher
 URxvt*cursorBlink: 1
@@ -41,6 +44,25 @@ URxvt*url-select.underline: true
 URxvt*urgentOnBell : false
 URxvt*visualBell : false
 URxvt*buffered : false
+
+! UXTerm General
+UXTerm*intensityStyles: true
+UXTerm*scrollBar: false
+UXTerm*jumpScroll: true
+UXTerm*skipScroll: true
+UXTerm*letterSpace: 0
+UXTerm*internalBorder: 6
+UXTerm*saveLines: 4095
+UXTerm*perl-ext-common: default,clipboard,matcher
+UXTerm*cursorBlink: 1
+UXTerm*termName: xterm-256color
+UXTerm*matcher.button: 1
+UXTerm*url-launcher: firefox
+UXTerm*underlineURLs: true
+UXTerm*url-select.underline: true
+UXTerm*urgentOnBell : false
+UXTerm*visualBell : false
+UXTerm*buffered : false
 
 ! Theme
 *cursorColor: #72757b
@@ -89,3 +111,13 @@ URxvt*buffered : false
 *keysym.Shift-Control-V: perl:clipboard:paste
 *keysym.Shift-Control-C: perl:clipboard:copy
 *iso14755: False
+
+*VT100.Translations: #override \
+        Shift <Key>Up: scroll-back(1) \n\
+        Shift <Key>Down: scroll-forw(1) \n\
+        ~Meta Shift Ctrl <Key>V: insert-selection(CLIPBOARD) \n\
+        Meta Shift Ctrl <Key>V: insert-selection(CLIPBOARD) \n\
+        ~Shift <Btn1Up>: select-end(CLIPBOARD, CUT_BUFFER0) \n\
+        Shift <Btn1Up>: select-end(CLIPBOARD, CUT_BUFFER1) \n\
+        ~Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(CLIPBOARD, CUT_BUFFER0) \n\
+        Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(CLIPBOARD, CUT_BUFFER1)
