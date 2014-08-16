@@ -14,7 +14,7 @@ setopt share_history
 setopt hist_verify
 setopt hist_ignore_all_dups
 export HISTFILE="${HOME}"/.zsh-history
-export HISTSIZE=1000
+export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
 unsetopt correct_all
 
@@ -46,6 +46,7 @@ POWERLINE_GIT_UNMERGED="═"
 # paths
 export NOTES=/home/${USER}/dev/notes
 export SCRIPTS=/home/${USER}/.scripts
+export DOTFILES=/home/${USER}/dev/dotfiles
 
 # functions
 mkcd() {
@@ -57,7 +58,7 @@ mkcd() {
 }
 
 brightness() {
-    sudo su -c "echo $@ > /sys/class/backlight/intel_backlight/brightness"
+    sudo su -c "echo ${@} > /sys/class/backlight/intel_backlight/brightness"
 }
 
 note() {
@@ -130,7 +131,9 @@ alias :Q=' exit'
 alias :x=' exit'
 alias cd..='cd ..'
 
-alias grep='grep --color=auto -B 3 -A 3 -n'
+alias grep='grep --color=auto'
+alias grepf='grep -l'
+alias grepa='grep -B 3 -A 3 -n'
 
 alias df='pydf -h'
 alias du='du -c -h'

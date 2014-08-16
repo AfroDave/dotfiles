@@ -20,7 +20,7 @@ set nostartofline
 
 set encoding=utf-8
 setglobal fileencoding=utf-8
-set fileencodings=ucs-bom,utf-8,latin1
+set fileencodings=utf-8,latin1
 scriptencoding utf-8
 
 let mapleader=','
@@ -137,9 +137,6 @@ set scrolljump=5
 set scrolloff=3
 set nofoldenable
 set foldmethod=marker
-
-set list
-set listchars=tab:›\ ,eol:¬
 " }}}
 
 " Formatting {{{
@@ -155,8 +152,11 @@ set nojoinspaces
 set splitright
 set splitbelow
 
-autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2
-autocmd FileType ruby setlocal expandtab shiftwidth=2 softtabstop=2
+set list 
+set listchars=tab:›\ ,trail:·,extends:»,precedes:«,nbsp:×
+autocmd! bufreadpost * set noexpandtab | retab! 4
+autocmd! bufwritepre * set expandtab | retab! 4
+autocmd! bufwritepost * set noexpandtab | retab! 4
 " }}}
 
 " Plugins {{{
@@ -173,23 +173,12 @@ hi Pmenu guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
 hi PmenuSbar guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
 hi PmenuThumb guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
-inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-inoremap <expr> <C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set complete=.,w,b,u,t
 set completeopt=menu,preview,longest
 
-au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-nmap <Leader>ac <Plug>ToggleAutoCloseMappings
-
-let g:ctrlp_working_path_mode = 'ra'
-nnoremap <silent> <D-t> :CtrlP<CR>
-nnoremap <silent> <D-r> :CtrlPMRU<CR>
+let g:ctrlp_working_path_mode = 'c'
+nnoremap <silent> <M-t> :CtrlP<CR>
+nnoremap <silent> <M-r> :CtrlPMRU<CR>
 let g:ctrlp_custom_ignore = {
             \ 'dir': '\.git$\|\.hg$\|\.svn$',
             \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
@@ -203,6 +192,7 @@ elseif executable('ack')
 else
     let s:ctrlp_fallback = 'find %s -type f'
 endif
+
 let g:ctrlp_user_command = {
             \ 'types': {
             \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
@@ -214,25 +204,6 @@ let g:ctrlp_user_command = {
 let g:ctrlp_extensions = ['funky']
 
 nnoremap <Leader>fu :CtrlPFunky<Cr>
-
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gl :Glog<CR>
-nnoremap <silent> <leader>gp :Git push<CR>
-nnoremap <silent> <leader>gr :Gread<CR>
-nnoremap <silent> <leader>gw :Gwrite<CR>
-nnoremap <silent> <leader>ge :Gedit<CR>
-nnoremap <silent> <leader>gi :Git add -p %<CR>
-nnoremap <silent> <leader>gg :SignifyToggle<CR>
-
-let g:ycm_collect_identifiers_from_tags_files = 1
-
-let g:haskell_conceal=0
-let g:haddock_browser="firefox"
-
-" set completeopt-=preview
 " }}}
 
 " GUI {{{
@@ -256,8 +227,10 @@ endif
 " }}}
 
 " Further Config {{{
+set timeout
+set timeoutlen=600
+set ttimeout
 set ttimeoutlen=10
-set timeoutlen=1000
 
 set autoread
 
@@ -279,31 +252,7 @@ function! StripTrailingWhitespace()
 endfunction
 " }}}
 
-" Airline/Lightline {{{
-let g:airline_theme='murmur'
-let g:airline_symbols = {}
-
-let g:airline_left_sep = ''
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_sep = ''
-" let g:airline_symbols.linenr = '␊'
-" let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
-
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = ''
-
-let g:airline#extensions#whitespace#trailing_format = '[%s]'
-let g:airline#extensions#whitespace#mixed_indent_format = '[%s]'
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing' ]
-
+" Lightline {{{
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ 'active': {
@@ -420,15 +369,6 @@ function! TagbarStatusFunc(current, sort, fname, ...) abort
   return lightline#statusline(0)
 endfunction
 
-augroup AutoSyntastic
-  autocmd!
-  autocmd BufWritePost *.c,*.cpp call s:syntastic()
-augroup END
-function! s:syntastic()
-  SyntasticCheck
-  call lightline#update()
-endfunction
-
 let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
@@ -509,46 +449,6 @@ nnoremap <silent> <Up> <c-w>k
 nnoremap <silent> <Down> <c-w>j
 " }}}
 
-" YCM {{{
-let g:ycm_global_ycm_extra_conf='/home/user/.vim/.ycm_extra_conf.py'
-" }}}
-
-" Syntastic {{{
-" let g:syntastic_c_checkers=['make']
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_enable_signs=1
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
-" let g:loaded_syntastic_nasm_nasm_checker=0
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options=" -Wall -Wshadow -Wpedantic -Wextra -Weffc++ -std=c++11 -stdlib=libc++ "
-" let g:syntastic_python_python_exe = 'python'
-let g:syntastic_enable_signs = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_jump = 0
-let g:syntastic_java_checker = 'javac'
-let g:syntastic_mode_map = {
-            \ "mode": "passive",
-            \ "active_filetypes": [],
-            \ }
-let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
-let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
-let g:syntastic_scala_checkers = ['fsc']
- " }}}
-
-" Pandoc {{{
-autocmd FileType * setlocal conceallevel=0
-let g:pandoc#syntax#conceal#use=0
-set cole=0
-set conceallevel=0
-command! -nargs=1 Silent
-\ | execute ':silent !'.<q-args>
-\ | execute ':redraw!'
-nnoremap <Leader>hmd :Silent htmlmd %<Cr>
-" }}}
-
 " Neocomplete {{{
 let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_at_startup = 1
@@ -601,14 +501,3 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 "}}}
-
-" Startify {{{
-let g:startify_custom_header = [
-            \'   ██╗   ██╗██╗███╗   ███╗',
-            \'   ██║   ██║██║████╗ ████║',
-            \'   ██║   ██║██║██╔████╔██║',
-            \'   ╚██╗ ██╔╝██║██║╚██╔╝██║',
-            \'    ╚████╔╝ ██║██║ ╚═╝ ██║',
-            \'     ╚═══╝  ╚═╝╚═╝     ╚═╝',
-            \'                          ']
-" }}}

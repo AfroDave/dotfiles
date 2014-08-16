@@ -6,62 +6,41 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 
+" theme
 Plugin 'w0ng/vim-hybrid'
 
+" general
 Plugin 'tpope/vim-surround'
-Plugin 'spf13/vim-autoclose'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'majutsushi/tagbar'
+Plugin 'joedicastro/vim-multiple-cursors'
+Plugin 'scrooloose/syntastic'
 
+" neo
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'honza/vim-snippets'
 
-" fixes conflict with neocomplete
-Plugin 'joedicastro/vim-multiple-cursors'
-
-Plugin 'junegunn/goyo.vim'
-Plugin 'mhinz/vim-startify'
-
+" status
 Plugin 'itchyny/lightline.vim'
 
-Plugin 'scrooloose/syntastic'
+" git
 Plugin 'tpope/vim-fugitive'
 
-Plugin 'klen/python-mode'
-Plugin 'python.vim'
-Plugin 'python_match.vim'
-Plugin 'pythoncomplete'
-
-Plugin 'elzr/vim-json'
-Plugin 'groenewege/vim-less'
+" web
 Plugin 'pangloss/vim-javascript'
-Plugin 'briancollins/vim-jst'
-Plugin 'kchmck/vim-coffee-script'
-
-Plugin 'travitch/hasksyn'
-Plugin 'eagletmt/neco-ghc'
-
-Plugin 'amirh/HTML-AutoCloseTag'
-Plugin 'mattn/emmet-vim'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'gorodinskiy/vim-coloresque'
-Plugin 'tpope/vim-haml'
 
+" clojure
 Plugin 'tpope/vim-fireplace'
 
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'jelera/vim-javascript-syntax'
-
+" rust
 Plugin 'wting/rust.vim'
-
-Plugin 'JuliaLang/julia-vim'
-
-Plugin 'vim-pandoc/vim-pandoc'
-Plugin 'vim-pandoc/vim-pandoc-syntax'
 
 call vundle#end()
 filetype plugin indent on

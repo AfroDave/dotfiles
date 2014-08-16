@@ -6,5 +6,5 @@
 + bspwm
 + sxhkd
 + ranger
-+ urxvt
++ uxterm
 + misc
