@@ -409,8 +409,8 @@ cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
 map <leader>ew :e %%
 map <leader>es :sp %%
 map <leader>ev :vsp %%
-map <leader>bh :split 
-map <leader>bv :vert 
+map <leader>bs :split<CR>
+map <leader>bv :vsp<CR>
 map <leader>et :tabe %%
 
 map <Leader>= <C-w>=

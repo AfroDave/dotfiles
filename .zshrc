@@ -1,52 +1,41 @@
-ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="custom"
-DISABLE_AUTO_UPDATE="true"
-DISABLE_CORRECTION="true"
-COMPLETION_WAITING_DOTS="true"
-plugins=(git mercurial zsh-syntax-highlighting)
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+    source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
 
 # configure zsh
 setopt AUTO_CD
 setopt BRACE_CCL
-setopt completealiases
-setopt append_history
-setopt share_history
-setopt hist_verify
-setopt hist_ignore_all_dups
-export HISTFILE="${HOME}"/.zsh-history
+setopt MULTIOS
+setopt AUTO_PUSHD
+setopt AUTO_NAME_DIRS
+setopt GLOB_COMPLETE
+setopt PUSHD_MINUS
+setopt PUSHD_SILENT
+setopt PUSHD_TO_HOME
+setopt PUSHD_IGNORE_DUPS
+setopt RM_STAR_WAIT
+setopt ZLE
+setopt NO_HUP
+setopt IGNORE_EOF
+setopt NO_FLOW_CONTROL
+setopt NO_CLOBBER
+setopt NO_CASE_GLOB
+setopt NUMERIC_GLOB_SORT
+setopt EXTENDED_GLOB
+setopt RC_EXPAND_PARAM
+setopt COMPLETEALIASES
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_VERIFY
+setopt HIST_IGNORE_ALL_DUPS
+export HISTFILE="${HOME}"/.zsh_history
 export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
-unsetopt correct_all
+unsetopt CORRECT_ALL
 
-source $ZSH/oh-my-zsh.sh
-
-# path
-export PATH=$PATH:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/${USER}/.gem/ruby/2.1.0/bin:/home/${USER}/.scripts:/home/${USER}/.scripts/panel:/home/${USER}/.cabal/bin:/home/${USER}/.npm/bin
-
-# cd path
-export CDPATH=$CDPATH:/home/${USER}/dev:/home/${USER}/dev/projects
-
-# default editor
-export EDITOR=vim
-
-export JAVA_HOME=/opt/java/
-
-# powerline
-POWERLINE_NO_BLANK_LINE="true"
-POWERLINE_RIGHT_A="exit-status"
-POWERLINE_GIT_CLEAN="✔"
-POWERLINE_GIT_DIRTY="✘"
-POWERLINE_GIT_ADDED="%F{green}✚%F{black}"
-POWERLINE_GIT_MODIFIED="%F{blue}✹%F{black}"
-POWERLINE_GIT_DELETED="%F{red}✖%F{black}"
-POWERLINE_GIT_UNTRACKED="%F{yellow}✭%F{black}"
-POWERLINE_GIT_RENAMED="➜"
-POWERLINE_GIT_UNMERGED="═"
-
-# paths
-export NOTES=/home/${USER}/dev/notes
-export SCRIPTS=/home/${USER}/.scripts
-export DOTFILES=/home/${USER}/dev/dotfiles
+# keys
+bindkey -v '^A' vi-beginning-of-line
+bindkey -v '^E' vi-end-of-line
 
 # functions
 mkcd() {
@@ -151,7 +140,7 @@ compinit -i
 promptinit
 colors
 
-# zsh syntax highlighting
+zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format ''
@@ -166,6 +155,29 @@ zstyle ':completion:*' menu select=long
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose false
-
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u ${USER} -o pid,%cpu,tty,cputime,cmd'
+
+ZSH_HIGHLIGHT_STYLES[default]=none
+ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red,bold
+ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[alias]=fg=blue
+ZSH_HIGHLIGHT_STYLES[builtin]=fg=blue
+ZSH_HIGHLIGHT_STYLES[function]=fg=blue
+ZSH_HIGHLIGHT_STYLES[command]=fg=blue
+ZSH_HIGHLIGHT_STYLES[precommand]=fg=blue,underline
+ZSH_HIGHLIGHT_STYLES[commandseparator]=none
+ZSH_HIGHLIGHT_STYLES[hashed-command]=fg=blue
+ZSH_HIGHLIGHT_STYLES[path]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[path_prefix]=yellow
+ZSH_HIGHLIGHT_STYLES[path_approx]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue
+ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=blue
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=none
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=none
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=none
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=cyan
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=cyan
+ZSH_HIGHLIGHT_STYLES[assign]=none
