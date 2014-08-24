@@ -14,7 +14,6 @@ zstyle ':prezto:load' pmodule \
     'prompt'
 
 zstyle ':prezto:module:editor' key-bindings 'vi'
-
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 zstyle ':prezto:module:history-substring-search' color 'yes'
@@ -32,9 +31,29 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
     'root'
 
 zstyle ':prezto:module:syntax-highlighting' styles \
-    'builtin' 'bg=magenta' \
-    'command' 'bg=blue' \
-    'function' 'bg=blue'
+    'builtin' 'fg=magenta' \
+    'command' 'fg=blue' \
+    'function' 'fg=blue' \
+    'default' 'none' \
+    'unknown-token' 'bg=none,fg=red,bold' \
+    'reserved-word' 'bg=none,fg=yellow' \
+    'alias' 'fg=blue' \
+    'precommand' 'fg=green' \
+    'commandseparator' 'none' \
+    'hashed-command' 'fg=blue' \
+    'path' 'fg=yellow' \
+    'path_prefix' 'fg=yellow' \
+    'path_approx' 'fg=yellow' \
+    'globbing' 'fg=blue' \
+    'history-expansion' 'fg=blue' \
+    'single-hyphen-option' 'none' \
+    'double-hyphen-option' 'none' \
+    'back-quoted-argument' 'none' \
+    'single-quoted-argument' 'fg=yellow' \
+    'double-quoted-argument' 'fg=yellow' \
+    'dollar-double-quoted-argument' 'fg=cyan' \
+    'back-double-quoted-argument' 'fg=cyan' \
+    'assign' 'none'
 
 zstyle ':prezto:module:terminal' auto-title 'yes'
 

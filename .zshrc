@@ -18,7 +18,6 @@ setopt ZLE
 setopt NO_HUP
 setopt IGNORE_EOF
 setopt NO_FLOW_CONTROL
-setopt NO_CLOBBER
 setopt NO_CASE_GLOB
 setopt NUMERIC_GLOB_SORT
 setopt EXTENDED_GLOB
@@ -32,6 +31,14 @@ export HISTFILE="${HOME}"/.zsh_history
 export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
 unsetopt CORRECT_ALL
+unsetopt CORRECT
+setopt nocorrectall
+DISABLE_CORRECTION="true"
+
+# grep
+export GREP_COLOR='032;255'
+export GREP_OPTIONS='--color=auto'
+
 
 # keys
 bindkey -v '^A' vi-beginning-of-line
@@ -98,15 +105,9 @@ alias .5="cd ../../../../.."
 
 alias more='less'
 
-alias lsa='ls -alhFG'
+alias l='ls'
 alias ls='ls -hF --color=auto'
-alias lr='ls -R'
-alias ll='ls -l'
-alias la='ll -A'
-alias lx='ll -BX'
-alias lz='ll -rS'
-alias lt='ll -rt'
-alias lm='la | more'
+alias la='ls -alhFG'
 
 alias c='clear'
 
@@ -140,12 +141,10 @@ compinit -i
 promptinit
 colors
 
-zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*:*:*:*:*' menu select=2
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format ''
 zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select=2
 eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
@@ -158,26 +157,30 @@ zstyle ':completion:*' verbose false
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u ${USER} -o pid,%cpu,tty,cputime,cmd'
 
-ZSH_HIGHLIGHT_STYLES[default]=none
-ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red,bold
-ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=yellow
-ZSH_HIGHLIGHT_STYLES[alias]=fg=blue
-ZSH_HIGHLIGHT_STYLES[builtin]=fg=blue
-ZSH_HIGHLIGHT_STYLES[function]=fg=blue
-ZSH_HIGHLIGHT_STYLES[command]=fg=blue
-ZSH_HIGHLIGHT_STYLES[precommand]=fg=blue,underline
-ZSH_HIGHLIGHT_STYLES[commandseparator]=none
-ZSH_HIGHLIGHT_STYLES[hashed-command]=fg=blue
-ZSH_HIGHLIGHT_STYLES[path]=fg=yellow
-ZSH_HIGHLIGHT_STYLES[path_prefix]=yellow
-ZSH_HIGHLIGHT_STYLES[path_approx]=fg=yellow
-ZSH_HIGHLIGHT_STYLES[globbing]=fg=blue
-ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=blue
-ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=none
-ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=none
-ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=none
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=yellow
-ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=cyan
-ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=cyan
-ZSH_HIGHLIGHT_STYLES[assign]=none
+ZSH_HIGHLIGHT_STYLES[default]='fg=white'
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=red,bold'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=yellow'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[function]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[command]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=red'
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=white'
+ZSH_HIGHLIGHT_STYLES[hashed-command]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[path]='fg=yellow'
+ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=yellow'
+ZSH_HIGHLIGHT_STYLES[path_approx]='fg=yellow'
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=green'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=green'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[assign]='none'
+
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=none,fg=magenta,bold'
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=none,fg=red,bold'
+HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'

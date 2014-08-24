@@ -18,6 +18,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'majutsushi/tagbar'
 Plugin 'joedicastro/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
+Plugin 'jiangmiao/auto-pairs'
 
 " neo
 Plugin 'Shougo/neocomplete.vim'
