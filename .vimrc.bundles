@@ -8,17 +8,18 @@ Plugin 'tomtom/tlib_vim'
 
 " theme
 Plugin 'w0ng/vim-hybrid'
+Plugin 'jonathanfilip/vim-lucius'
 
 " general
 Plugin 'tpope/vim-surround'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
+Plugin 'Shougo/vimfiler.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'joedicastro/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'Yggdroot/indentLine'
 
 " neo
 Plugin 'Shougo/neocomplete.vim'
@@ -42,6 +43,13 @@ Plugin 'tpope/vim-fireplace'
 
 " rust
 Plugin 'wting/rust.vim'
+
+" markdown
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
+
+" html
+Plugin 'gregsexton/MatchTag'
 
 call vundle#end()
 filetype plugin indent on

@@ -13,7 +13,6 @@ setopt PUSHD_MINUS
 setopt PUSHD_SILENT
 setopt PUSHD_TO_HOME
 setopt PUSHD_IGNORE_DUPS
-setopt RM_STAR_WAIT
 setopt ZLE
 setopt NO_HUP
 setopt IGNORE_EOF
@@ -39,7 +38,6 @@ DISABLE_CORRECTION="true"
 export GREP_COLOR='032;255'
 export GREP_OPTIONS='--color=auto'
 
-
 # keys
 bindkey -v '^A' vi-beginning-of-line
 bindkey -v '^E' vi-end-of-line
@@ -58,40 +56,40 @@ brightness() {
 }
 
 note() {
-    if [[ ! -f $HOME/.notes ]]; then
-        touch "$HOME/.notes"
+    if [[ ! -f ${HOME}/.notes ]]; then
+        touch "${HOME}/.notes"
     fi
     if ! (($#)); then
-        cat "$HOME/.notes"
+        cat "${HOME}/.notes"
     elif [[ "$1" == "-c" ]]; then
-        > "$HOME/.notes"
+        > "${HOME}/.notes"
     else
-        printf "%s\n" "$*" >> "$HOME/.notes"
+        printf "%s\n" "$*" >> "${HOME}/.notes"
     fi
 }
 
 todo() {
-    if [[ ! -f $HOME/.todo ]]; then
-        touch "$HOME/.todo"
+    if [[ ! -f ${HOME}/.todo ]]; then
+        touch "${HOME}/.todo"
     fi
     if ! (($#)); then
-        cat "$HOME/.todo"
+        cat "${HOME}/.todo"
     elif [[ "$1" == "-l" ]]; then
-        nl -b a "$HOME/.todo"
+        nl -b a "${HOME}/.todo"
     elif [[ "$1" == "-c" ]]; then
-        > $HOME/.todo
+        > ${HOME}/.todo
     elif [[ "$1" == "-r" ]]; then
-        nl -b a "$HOME/.todo"
+        nl -b a "${HOME}/.todo"
         printf "----------------------------\n"
         read -p "Type a number to remove: " number
-        ex -sc "${number}d" "$HOME/.todo"
+        ex -sc "${number}d" "${HOME}/.todo"
     else
-        printf "%s\n" "$*" >> "$HOME/.todo"
+        printf "%s\n" "$*" >> "${HOME}/.todo"
     fi
 }
 
 calc() {
-    echo "scale=3;$@" | bc -ql
+    echo "scale=3;${@}" | bc -ql
 }
 
 # aliases
@@ -108,6 +106,7 @@ alias more='less'
 alias l='ls'
 alias ls='ls -hF --color=auto'
 alias la='ls -alhFG'
+alias lr='ls -R'
 
 alias c='clear'
 
@@ -125,7 +124,7 @@ alias grep='grep --color=auto'
 alias grepf='grep -l'
 alias grepa='grep -B 3 -A 3 -n'
 
-alias df='pydf -h'
+alias df='df -h'
 alias du='du -c -h'
 
 alias bc='bc -ql'

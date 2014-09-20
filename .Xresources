@@ -1,11 +1,11 @@
 !Xft settings
 Xft.autohint: 0
-Xft.dpi: 96
-Xft.antialias: true
-Xft.rgba: rgb
-Xft.hinting: true
-Xft.hintstyle: hintfull
 Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+Xft.dpi: 96
 
 *loginShell: true
 
@@ -65,42 +65,43 @@ UXTerm*visualBell : false
 UXTerm*buffered : false
 
 ! Theme
-*cursorColor: #72757b
+*background:  #303030
+*foreground:  #d7d7d7
+*cursorColor: #87afd7
+*color0:      #303030
+*color8:      #303030
+*color1:      #ff5f5f
+*color9:      #ff5f5f
+*color2:      #afd787
+*color10:     #afd787
+*color3:      #d7d7af
+*color11:     #d7d7af
+*color4:      #87d7ff
+*color12:     #87d7ff
+*color5:      #d7afd7
+*color13:     #d7afd7
+*color6:      #87d7af
+*color14:     #87d7af
+*color7:      #d7d7d7
+*color15:     #d7d7d7
 
-*background: #1D1F21
-*foreground: #C5C8C6
-
-! Black
-*color0: #282A2E
-*color8: #373B41
-
-! Red
-*color1: #A54242
-*color9: #CC6666
-
-! Green
-*color2: #8C9440
-*color10: #B5BD68
-
-! Yellow
-*color3: #DE935F
-*color11: #F0C674
-
-! Blue
-*color4: #5F819D
-*color12: #81A2BE
-
-! Magenta
-*color5: #85678F
-*color13: #B294BB
-
-! Cyan
-*color6: #5E8D87
-*color14: #8ABEB7
-
-! White
-*color7: #707880
-*color15: #C5C8C6
+! *background: #1D1F21
+! *foreground: #C5C8C6
+! *color0: #282A2E
+! *color8: #373B41
+! *color1: #A54242
+! *color9: #CC6666
+! *color2: #8C9440
+! *color10: #B5BD68
+! *color3: #DE935F
+! *color11: #F0C674
+! *color4: #5F819D
+! *color12: #81A2BE
+! *color13: #B294BB
+! *color6: #5E8D87
+! *color14: #8ABEB7
+! *color7: #707880
+! *color15: #C5C8C6
 
 ! Man
 *colorIT: #87af5f

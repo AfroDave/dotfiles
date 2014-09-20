@@ -1,18 +1,3 @@
 #!/bin/sh
 
 pulseaudio-ctl "$@"
-vlevel=$(amixer get Master | egrep -o "[0-9]+%" | head -1 | awk '{printf "%i\n", $1}')
-
-case $vlevel in
-        0?) notify-send "volume:" "▒▒▒▒▒▒▒▒▒▒";;
-        1?) notify-send "volume:" "█▒▒▒▒▒▒▒▒▒";;
-        2?) notify-send "volume:" "██▒▒▒▒▒▒▒▒";;
-        3?) notify-send "volume:" "███▒▒▒▒▒▒▒";;
-        4?) notify-send "volume:" "████▒▒▒▒▒▒";;
-        5?) notify-send "volume:" "█████▒▒▒▒▒";;
-        6?) notify-send "volume:" "██████▒▒▒▒";;
-        7?) notify-send "volume:" "███████▒▒▒";;
-        8?) notify-send "volume:" "████████▒▒";;
-        9?) notify-send "volume:" "█████████▒";;
-        10?) notify-send "volume:" "██████████";;
-esac

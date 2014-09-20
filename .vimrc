@@ -53,8 +53,10 @@ augroup resCur
     autocmd BufWinEnter * call ResCur()
 augroup END
 
-set nobackup
-set noswapfile
+set backup
+set backupdir=~/.vim/tmp/backup
+set swapfile
+set dir=~/.vim/tmp/swap
 set undodir=~/.vim/tmp/undo
 if has('persistent_undo')
     set undofile
@@ -66,8 +68,7 @@ autocmd BufEnter * silent! lcd %:p:h
 " }}}
 
 " UI {{{
-let g:hybrid_use_Xresources = 1
-colorscheme hybrid
+colorscheme lucius
 
 let &t_SI .= "\<Esc>[5 q"
 let &t_EI .= "\<Esc>[0 q"
@@ -498,3 +499,20 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 "}}}
+
+" Syntastic {{{
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++1y'
+"}}}
+
+" Pandoc {{{
+autocmd FileType md,markdown,pandoc setlocal conceallevel=0
+let g:pandoc#syntax#conceal#use=0
+set cole=0
+set conceallevel=0
+command! -nargs=1 Silent
+            \ | execute ':silent !'.<q-args>
+            \ | execute ':redraw!'
+nnoremap <Leader>hmd :Silent htmlmd %<Cr>
+" }}}

@@ -6,8 +6,6 @@ export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
 
-export JAVA_HOME=/opt/java/
-
 # user paths
 export NOTES=/home/${USER}/dev/notes
 export SCRIPTS=/home/${USER}/.scripts
@@ -22,7 +20,7 @@ typeset -gU cdpath fpath mailpath path
 cdpath=(
     $cdpath
     /home/${USER}/dev
-    /home/${USER}/dev/projects
+    /home/${USER}/dev/proj
 )
 
 path=(
@@ -30,7 +28,6 @@ path=(
     $path
     /home/${USER}/.gem/ruby/2.1.0/bin
     /home/${USER}/.scripts
-    /home/${USER}/.scripts/panel
     /home/${USER}/.cabal/bin
     /home/${USER}/.npm/bin
 )
@@ -52,6 +49,6 @@ if [[ ! -d "$TMPPREFIX" ]]; then
 fi
 
 export XDG_CONFIG_HOME="/home/${USER}/.config"
-export BSPWM_SOCKET="/tmp/bspwm-socket"
 export PANEL_FIFO="/tmp/panel-fifo"
-export PANEL_HEIGHT=16
+
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
