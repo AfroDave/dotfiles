@@ -33,10 +33,14 @@ Plugin 'itchyny/lightline.vim'
 " git
 Plugin 'tpope/vim-fugitive'
 
-" web
-Plugin 'pangloss/vim-javascript'
+" html
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'gorodinskiy/vim-coloresque'
+Plugin 'gregsexton/MatchTag'
+
+" js
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'pangloss/vim-javascript'
 
 " clojure
 Plugin 'tpope/vim-fireplace'
@@ -48,8 +52,6 @@ Plugin 'wting/rust.vim'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
 
-" html
-Plugin 'gregsexton/MatchTag'
 
 call vundle#end()
 filetype plugin indent on

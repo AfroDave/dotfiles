@@ -7,9 +7,11 @@ export VISUAL='vim'
 export PAGER='less'
 
 # user paths
-export NOTES=/home/${USER}/dev/notes
-export SCRIPTS=/home/${USER}/.scripts
-export DOTFILES=/home/${USER}/dev/dotfiles
+export NOTES="${HOME}/dev/notes"
+export SCRIPTS="${HOME}/.scripts"
+export DOTFILES="${HOME}/dev/dotfiles"
+NPM_LOCAL="${HOME}/.npm"
+export NODE_PATH="${NPM_LOCAL}/lib/node_modules:${NODE_PATH}"
 
 if [[ -z "$LANG" ]]; then
   export LANG='en_GB.UTF-8'
@@ -19,18 +21,21 @@ typeset -gU cdpath fpath mailpath path
 
 cdpath=(
     $cdpath
-    /home/${USER}/dev
-    /home/${USER}/dev/proj
+    ${HOME}/dev
+    ${HOME}/dev/proj
 )
 
 path=(
     /usr/local/{bin,sbin}
     $path
-    /home/${USER}/.gem/ruby/2.1.0/bin
-    /home/${USER}/.scripts
-    /home/${USER}/.cabal/bin
-    /home/${USER}/.npm/bin
+    ${HOME}/.gem/ruby/2.1.0/bin
+    ${HOME}/.scripts
+    ${HOME}/.cabal/bin
+    ${NPM_LOCAL}
 )
+
+unset MANPATH
+MANPATH="${NPM_LOCAL}/share/man:$(manpath)"
 
 export LESS='-F -g -i -M -R -S -w -X -z-4'
 
@@ -48,7 +53,7 @@ if [[ ! -d "$TMPPREFIX" ]]; then
   mkdir -p "$TMPPREFIX"
 fi
 
-export XDG_CONFIG_HOME="/home/${USER}/.config"
+export XDG_CONFIG_HOME="${HOME}/.config"
 export PANEL_FIFO="/tmp/panel-fifo"
 
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx

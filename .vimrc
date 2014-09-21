@@ -217,7 +217,7 @@ if has("gui_running")
     set guioptions-=l
     set guioptions-=r
     set guioptions-=R
-    set guifont=Monospace\ 10
+    set guifont=Monospace\ 11
 else
     set t_Co=256
     let g:rehash256=1
@@ -515,4 +515,8 @@ command! -nargs=1 Silent
             \ | execute ':silent !'.<q-args>
             \ | execute ':redraw!'
 nnoremap <Leader>hmd :Silent htmlmd %<Cr>
+" }}}
+
+" indentLine {{{
+let g:indentLine_char='│'
 " }}}

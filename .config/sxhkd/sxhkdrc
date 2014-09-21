@@ -18,9 +18,9 @@ super + t
 super + b
 	bspc desktop -B
 
-# toggle floating/pseudotile/fullscreen
-super + {s,d,f}
-	bspc window -t {floating,pseudo_tiled,fullscreen}
+# toggle floating/sticky/pseudo_tiled/fullscreen
+super + {a,s,d,f}
+	bspc window -t {floating,sticky,pseudo_tiled,fullscreen}
 
 # focus previously focused window
 super + Tab
@@ -138,6 +138,6 @@ XF86MonBrightness{Up,Down}
 super + F1
 	xautolock -locknow
 
-# make sxhkd reload its configuration files:
+# reload sxhkd
 super + shift + r
 	pkill -USR1 -x sxhkd
