@@ -520,3 +520,9 @@ nnoremap <Leader>hmd :Silent htmlmd %<Cr>
 " indentLine {{{
 let g:indentLine_char='│'
 " }}}
+
+" VimFiler {{{
+imap <F3> :VimFilerExplorer<CR>
+nmap <F3> :VimFilerExplorer<CR>
+let g:vimfiler_as_default_explorer = 1
+" }}}

@@ -14,12 +14,14 @@ Plugin 'jonathanfilip/vim-lucius'
 Plugin 'tpope/vim-surround'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
+Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimfiler.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'joedicastro/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Yggdroot/indentLine'
+Plugin 'bling/vim-bufferline'
 
 " neo
 Plugin 'Shougo/neocomplete.vim'
@@ -51,7 +53,6 @@ Plugin 'wting/rust.vim'
 " markdown
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
-
 
 call vundle#end()
 filetype plugin indent on

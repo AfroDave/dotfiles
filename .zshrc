@@ -89,7 +89,7 @@ todo() {
 }
 
 calc() {
-    echo "scale=3;${@}" | bc -ql
+    qalc -t "${@}"
 }
 
 # aliases
