@@ -2,7 +2,7 @@
 
 adjust=${1}
 if [[ "${adjust}" == "up" ]]; then
-    xbacklight -inc 10
+    xbacklight -inc 5
 elif [[ "${adjust}" == "down" ]]; then
-    xbacklight -dec 10
+    xbacklight -dec 5
 fi

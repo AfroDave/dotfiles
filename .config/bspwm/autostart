@@ -5,6 +5,7 @@ xset +fp /usr/share/fonts/misc
 xset fp rehash
 xset -dpms
 xset s off
+xset -b
 
 wmname LG3D &
 thunar --daemon &

@@ -14,19 +14,20 @@ Plugin 'jonathanfilip/vim-lucius'
 Plugin 'tpope/vim-surround'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/vimfiler.vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'joedicastro/vim-multiple-cursors'
 Plugin 'scrooloose/syntastic'
+Plugin 'terryma/vim-multiple-cursors'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Yggdroot/indentLine'
 Plugin 'bling/vim-bufferline'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'tpope/vim-repeat'
 
-" neo
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
+" autocomplete
+Plugin 'Valloric/YouCompleteMe'
+
+" snippets
+Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
 " status
@@ -36,6 +37,7 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'tpope/vim-fugitive'
 
 " html
+Plugin 'amirh/HTML-AutoCloseTag'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'gregsexton/MatchTag'
@@ -49,6 +51,9 @@ Plugin 'tpope/vim-fireplace'
 
 " rust
 Plugin 'wting/rust.vim'
+
+" python
+Plugin 'hdima/python-syntax'
 
 " markdown
 Plugin 'vim-pandoc/vim-pandoc'

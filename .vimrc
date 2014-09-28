@@ -67,7 +67,7 @@ endif
 autocmd BufEnter * silent! lcd %:p:h
 " }}}
 
-" UI {{{
+" Config {{{
 colorscheme lucius
 
 let &t_SI .= "\<Esc>[5 q"
@@ -79,9 +79,6 @@ set nocursorcolumn
 set lazyredraw
 set ttyfast
 set winminheight=0
-
-highlight ColorColumn ctermbg=lightgray
-call matchadd('ColorColumn', '\%81v', 100)
 
 highlight clear NonText
 highlight clear SpecialKey
@@ -120,24 +117,36 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest
 set wildignore+=*.pyc,*.class,*.aux,*.odg,*.pdf
 set wildignore+=*.spl
-set wildignore+=*.sw?
+set wildignore+=*.swp
+set wildignore+=*/tmp/*
+set wildignore+=*.zip,*.tar*
 set wildignore+=*.DS_Store
-
 set wildignore+=*.luac
-
 set wildignore+=migrations
 set wildignore+=*.pyc
-
 set wildignore+=*.orig
-
 set wildignore+=classes
 set wildignore+=lib
 
 set whichwrap=b,s,h,l,<,>,[,]
 set scrolljump=5
 set scrolloff=3
-set nofoldenable
-set foldmethod=marker
+set foldenable
+set foldlevelstart=99
+set foldmethod=syntax
+
+au FileType javascript call JavaScriptFold()
+
+set timeout
+set timeoutlen=600
+set ttimeout
+set ttimeoutlen=10
+
+set autoread
+set number
+
+set spelllang=en_gb
+nmap <silent> <leader>s :set spell!<CR>
 " }}}
 
 " Formatting {{{
@@ -158,8 +167,6 @@ set listchars=tab:›\ ,trail:·,extends:»,precedes:«,nbsp:×
 " }}}
 
 " Plugins {{{
-set cole=0
-
 if has("autocmd") && exists("+omnifunc")
     autocmd Filetype *
                 \if &omnifunc == "" |
@@ -167,37 +174,14 @@ if has("autocmd") && exists("+omnifunc")
                 \endif
 endif
 
-hi Pmenu guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-hi PmenuSbar guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-hi PmenuThumb guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-
 set complete=.,w,b,u,t
 set completeopt=menu,preview,longest
+" }}}
 
-let g:ctrlp_working_path_mode = 'c'
-nnoremap <silent> <M-t> :CtrlP<CR>
-nnoremap <silent> <M-r> :CtrlPMRU<CR>
+" CtrlP {{{
 let g:ctrlp_custom_ignore = {
             \ 'dir': '\.git$\|\.hg$\|\.svn$',
             \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
-
-if executable('ag')
-    let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
-elseif executable('ack-grep')
-    let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
-elseif executable('ack')
-    let s:ctrlp_fallback = 'ack %s --nocolor -f'
-else
-    let s:ctrlp_fallback = 'find %s -type f'
-endif
-
-let g:ctrlp_user_command = {
-            \ 'types': {
-            \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-            \ },
-            \ 'fallback': s:ctrlp_fallback
-            \ }
 
 let g:ctrlp_extensions = ['funky']
 
@@ -224,21 +208,6 @@ else
 endif
 " }}}
 
-" Further Config {{{
-set timeout
-set timeoutlen=600
-set ttimeout
-set ttimeoutlen=10
-
-set autoread
-
-au FocusLost * :wa
-
-set number
-
-au BufRead,BufNewFile *.cljdoc set filetype=cljdoc
-" }}}
-
 " Commands {{{
 function! StripTrailingWhitespace()
     normal mZ
@@ -248,6 +217,68 @@ function! StripTrailingWhitespace()
     endif
     normal `Z
 endfunction
+" }}}
+
+" Mapping {{{
+nnoremap j jzz
+nnoremap k kzz
+
+nnoremap x "_x
+
+map <C-J> <C-W>j<C-W>_
+map <C-K> <C-W>k<C-W>_
+map <C-L> <C-W>l<C-W>_
+map <C-H> <C-W>h<C-W>_
+
+command! -bang -nargs=* -complete=file E e<bang> <args>
+command! -bang -nargs=* -complete=file W w<bang> <args>
+command! -bang -nargs=* -complete=file Wq wq<bang> <args>
+command! -bang -nargs=* -complete=file WQ wq<bang> <args>
+command! -bang Wa wa<bang>
+command! -bang WA wa<bang>
+command! -bang Q q<bang>
+command! -bang QA qa<bang>
+command! -bang Qa qa<bang>
+
+cmap Tabe tab
+
+nnoremap Y y$
+
+cmap cwd lcd %:p:h
+
+vnoremap < <gv
+vnoremap > >gv
+
+vnoremap . :normal .<CR>
+
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+map <leader>ew :e %%
+map <leader>es :sp %%
+map <leader>ev :vsp %%
+map <leader>bs :split<CR>
+map <leader>bv :vsp<CR>
+map <leader>et :tabe %%
+
+map zl zL
+map zh zH
+
+nnoremap <silent> <leader>q gwip
+nnoremap <Leader>l :ls<CR>
+nnoremap <Leader>b :bp<CR>
+nnoremap <Leader>f :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <C-B> :b#<CR>
+
+noremap <Tab> :<C-U>bn<CR>
+noremap <C-Tab> :<C-U>bp<CR>
+
+nnoremap <Space> za
+vnoremap <Space> za
+
+nnoremap <silent> <Right> <c-w>l
+nnoremap <silent> <Left> <c-w>h
+nnoremap <silent> <Up> <c-w>k
+nnoremap <silent> <Down> <c-w>j
 " }}}
 
 " Lightline {{{
@@ -307,10 +338,6 @@ function! MyFilename()
     let fname = expand('%:t')
     return fname == 'ControlP' ? g:lightline.ctrlp_item :
                 \ fname == '__Tagbar__' ? g:lightline.fname :
-                \ fname =~ '__Gundo\|NERD_tree' ? '' :
-                \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-                \ &ft == 'unite' ? unite#get_status_string() :
-                \ &ft == 'vimshell' ? vimshell#get_status_string() :
                 \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
                 \ ('' != fname ? fname : '[No Name]') .
                 \ ('' != MyModified() ? ' ' . MyModified() : '')
@@ -319,7 +346,7 @@ endfunction
 function! MyFugitive()
     try
         if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-            let mark = ''  " edit here for cool mark
+            let mark = ''
             let _ = fugitive#head()
             return strlen(_) ? mark._ : ''
         endif
@@ -344,12 +371,6 @@ function! MyMode()
     let fname = expand('%:t')
     return fname == '__Tagbar__' ? 'Tagbar' :
                 \ fname == 'ControlP' ? 'CtrlP' :
-                \ fname == '__Gundo__' ? 'Gundo' :
-                \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-                \ fname =~ 'NERD_tree' ? 'NERDTree' :
-                \ &ft == 'unite' ? 'Unite' :
-                \ &ft == 'vimfiler' ? 'VimFiler' :
-                \ &ft == 'vimshell' ? 'VimShell' :
                 \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
@@ -386,139 +407,7 @@ function! TagbarStatusFunc(current, sort, fname, ...) abort
     let g:lightline.fname = a:fname
     return lightline#statusline(0)
 endfunction
-
-let g:unite_force_overwrite_statusline = 0
-let g:vimfiler_force_overwrite_statusline = 0
-let g:vimshell_force_overwrite_statusline = 0
 " }}}
-
-" Mapping {{{
-nnoremap j jzz
-nnoremap k kzz
-
-map <C-J> <C-W>j<C-W>_
-map <C-K> <C-W>k<C-W>_
-map <C-L> <C-W>l<C-W>_
-map <C-H> <C-W>h<C-W>_
-
-command! -bang -nargs=* -complete=file E e<bang> <args>
-command! -bang -nargs=* -complete=file W w<bang> <args>
-command! -bang -nargs=* -complete=file Wq wq<bang> <args>
-command! -bang -nargs=* -complete=file WQ wq<bang> <args>
-command! -bang Wa wa<bang>
-command! -bang WA wa<bang>
-command! -bang Q q<bang>
-command! -bang QA qa<bang>
-command! -bang Qa qa<bang>
-
-cmap Tabe tab
-
-nnoremap Y y$
-
-cmap cwd lcd %:p:h
-cmap cd. lcd %:p:h
-
-vnoremap < <gv
-vnoremap > >gv
-
-vnoremap . :normal .<CR>
-
-cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
-map <leader>ew :e %%
-map <leader>es :sp %%
-map <leader>ev :vsp %%
-map <leader>bs :split<CR>
-map <leader>bv :vsp<CR>
-map <leader>et :tabe %%
-
-map <Leader>= <C-w>=
-
-nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-
-map zl zL
-map zh zH
-
-nnoremap <silent> <leader>q gwip
-nnoremap <Leader>l :ls<CR>
-nnoremap <Leader>b :bp<CR>
-nnoremap <Leader>f :bn<CR>
-nnoremap <Leader>g :e#<CR>
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-nnoremap <Leader>0 :10b<CR>
-nnoremap <C-B> :b#<CR>
-
-noremap <Tab> :<C-U>bn<CR>
-noremap <C-Tab> :<C-U>bp<CR>
-
-nnoremap <Space> za
-vnoremap <Space> za
-
-nnoremap <silent> <Right> <c-w>l
-nnoremap <silent> <Left> <c-w>h
-nnoremap <silent> <Up> <c-w>k
-nnoremap <silent> <Down> <c-w>j
-" }}}
-
-" Neocomplete {{{
-let g:acp_enableAtStartup = 0
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 2
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-let g:neocomplete#sources#dictionary#dictionaries = {
-            \ 'default' : '',
-            \ 'vimshell' : $HOME.'/.vimshell_hist',
-            \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
-
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-    return neocomplete#close_popup() . "\<CR>"
-endfunction
-
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h>  neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS>   neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplete#force_overwrite_completefunc=1
-
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-"}}}
 
 " Syntastic {{{
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
@@ -527,10 +416,6 @@ let g:syntastic_cpp_compiler_options = ' -std=c++1y'
 "}}}
 
 " Pandoc {{{
-autocmd FileType md,markdown,pandoc setlocal conceallevel=0
-let g:pandoc#syntax#conceal#use=0
-set cole=0
-set conceallevel=0
 command! -nargs=1 Silent
             \ | execute ':silent !'.<q-args>
             \ | execute ':redraw!'
@@ -541,12 +426,16 @@ nnoremap <Leader>hmd :Silent htmlmd %<Cr>
 let g:indentLine_char='│'
 " }}}
 
-" VimFiler {{{
-imap <F3> :VimFilerExplorer<CR>
-nmap <F3> :VimFilerExplorer<CR>
-let g:vimfiler_as_default_explorer = 1
-" }}}
-
 " bufferline {{{
 let g:bufferline_echo = 0
+" }}}
+
+" UltiSnips {{{
+let g:UltiSnipsExpandTrigger="<C-k>"
+let g:UltiSnipsJumpForwardTrigger="<C-S-k>"
+let g:UltiSnipsJumpBackwardTrigger="<C-M-k>"
+" }}}
+
+" YouCompleteMe {{{
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 " }}}

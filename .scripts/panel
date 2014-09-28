@@ -19,6 +19,6 @@ xtitle -sf 'T%s' > "${PANEL_FIFO}" &
 cat ${PANEL_FIFO} \
     | ./panel_bar \
     | bar \
-    -F "${COLOR_FOREGROUND}"\
-    -B "${COLOR_BACKGROUND}"\
+    -F "${COLOR_FOREGROUND}" \
+    -B "${COLOR_BACKGROUND}" \
     -g "${PANEL_GEOMETRY}"

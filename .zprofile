@@ -31,7 +31,7 @@ path=(
     ${HOME}/.gem/ruby/2.1.0/bin
     ${HOME}/.scripts
     ${HOME}/.cabal/bin
-    ${NPM_LOCAL}
+    ${NPM_LOCAL}/bin
 )
 
 unset MANPATH
@@ -55,5 +55,8 @@ fi
 
 export XDG_CONFIG_HOME="${HOME}/.config"
 export PANEL_FIFO="/tmp/panel-fifo"
+
+export _JAVA_AWT_WM_NONREPARTENTING=1
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx

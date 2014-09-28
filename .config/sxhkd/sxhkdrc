@@ -129,11 +129,17 @@ XF86AudioMute
 XF86Audio{Lower,Raise}Volume
 	~/.scripts/volume_adjust {down,up}
 
+super + alt + {Home,End}
+	~/.scripts/volume_adjust {down,up}
+
 XF86Audio{Prev,Next}
     mpc -q {prev,next}
 
-XF86MonBrightness{Up,Down}
-	~/.scripts/brightness_adjust {up,down}
+XF86MonBrightness{Down,Up}
+    ~/.scripts/brightness_adjust {down,up}
+
+super + {Home,End}
+    ~/.scripts/brightness_adjust {down,up}
 
 super + F1
 	xautolock -locknow
