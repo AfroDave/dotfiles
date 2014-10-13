@@ -7,11 +7,11 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 
 " theme
-Plugin 'w0ng/vim-hybrid'
 Plugin 'jonathanfilip/vim-lucius'
 
 " general
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'majutsushi/tagbar'
@@ -19,9 +19,11 @@ Plugin 'scrooloose/syntastic'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Yggdroot/indentLine'
-Plugin 'bling/vim-bufferline'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'tpope/vim-repeat'
+Plugin 'mileszs/ack.vim'
+Plugin 'coderifous/textobj-word-column.vim'
+Plugin 'kshenoy/vim-signature'
+Plugin 'junegunn/goyo.vim'
+Plugin 'tomtom/tcomment_vim'
 
 " autocomplete
 Plugin 'Valloric/YouCompleteMe'
@@ -31,7 +33,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
 " status
-Plugin 'itchyny/lightline.vim'
+Plugin 'bling/vim-airline'
 
 " git
 Plugin 'tpope/vim-fugitive'
@@ -45,6 +47,8 @@ Plugin 'gregsexton/MatchTag'
 " js
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'othree/javascript-libraries-syntax.vim'
 
 " clojure
 Plugin 'tpope/vim-fireplace'
