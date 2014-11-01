@@ -38,11 +38,15 @@ Plugin 'bling/vim-airline'
 " git
 Plugin 'tpope/vim-fugitive'
 
+" c/c++
+Plugin 'octol/vim-cpp-enhanced-highlight'
+
 " html
-Plugin 'amirh/HTML-AutoCloseTag'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'gregsexton/MatchTag'
+Plugin 'tpope/vim-ragtag'
+Plugin 'rstacruz/sparkup'
 
 " js
 Plugin 'jelera/vim-javascript-syntax'
@@ -57,11 +61,15 @@ Plugin 'tpope/vim-fireplace'
 Plugin 'wting/rust.vim'
 
 " python
+Plugin 'python_fold'
 Plugin 'hdima/python-syntax'
 
 " markdown
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
+
+" latex
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
 
 call vundle#end()
 filetype plugin indent on

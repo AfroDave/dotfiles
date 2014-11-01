@@ -8,12 +8,12 @@ alignment top_right
 use_xft yes
 xftfont terminus:size=8
 double_buffered yes
-gap_x 5
+gap_x 6
 gap_y 6
 update_interval 5
-default_bar_size 45 5
+default_bar_size 32 5
 minimum_size 16 8
 maximum_size 16 8
 
 TEXT
-${execibar 5 ~/.scripts/panel_volume} | ${execibar 5 ~/.scripts/panel_battery} | ${execi 5 ~/.scripts/panel_clock}
+   | ${execibar 5 ~/.scripts/panel_volume} | ${execibar 5 ~/.scripts/panel_battery} | ${execi 5 ~/.scripts/panel_clock}

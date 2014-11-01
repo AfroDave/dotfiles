@@ -13,15 +13,15 @@ URxvt*locale: true
 UXTerm*locale: true
 
 ! Font
-URxvt*font: xft:Monospace:size=11
-UXTerm*font: xft:Monospace:size=11
+URxvt*font: xft:Monospace:size=10.8
+UXTerm*font: xft:Monospace:size=10.8
 UXTerm*faceName: Monospace
-UXTerm*faceSize: 11
+UXTerm*faceSize: 10.8
 
 URxvt*boldMode: false
 UXTerm*boldMode: false
 UXTerm*allowBoldFonts: false
-URxvt*boldFont: xft:Monospace:size=11
+URxvt*boldFont: xft:Monospace:size=10.8
 UXTerm*boldFont: Monospace
 
 ! URxvt General
@@ -78,9 +78,9 @@ UXTerm*buffered : false
 *color11:     #C8BC45
 *color4:      #87D7FF
 *color12:     #D0D0FF
-*color5:      #D7AFD7
+*color5:      #C7AFD7
 *color13:     #A761C2
-*color6:      #87D7AF
+*color6:      #65B58D
 *color14:     #6E98A4
 *color7:      #D7D7D7
 *color15:     #C2C2C2

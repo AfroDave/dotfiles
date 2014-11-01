@@ -274,6 +274,11 @@ nnoremap <silent> <Down> <C-W>j
 nnoremap <Leader>= <C-W>=
 nnoremap <Leader>_ <C-W>_
 nnoremap <Leader><bar> <C-W><bar>
+
+nnoremap <C-S-k> ddkP
+nnoremap <C-S-j> ddp
+vnoremap <C-S-k> xkP`[V`]
+vnoremap <C-S-j> xp`[V`]
 " }}}
 
 " Syntastic {{{

@@ -103,7 +103,6 @@ super + shift + space
 super + shift + {Left,Right}
 	bspc desktop -f {prev,next}
 
-
 # select previous / next desktop
 super + {Left,Right}
 	bspc desktop -f {prev.occupied,next.occupied}

@@ -7,12 +7,12 @@ xset -dpms
 xset s off
 xset -b
 
+[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources &
+
 wmname LG3D &
 thunar --daemon &
 xautolock -locker 'i3lock -c 000000' -time 20 -corners 0-00 &
 start-pulseaudio-x11 &
 numlockx on &
-conky -c ~/.scripts/panel_conky &
 udiskie &
-
-[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources &
+nm-applet &
