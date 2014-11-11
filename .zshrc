@@ -39,8 +39,10 @@ export GREP_COLOR='032;255'
 export GREP_OPTIONS='--color=auto'
 
 # keys
-bindkey -v '^A' vi-beginning-of-line
-bindkey -v '^E' vi-end-of-line
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+bindkey "^[[C" forward-word
+bindkey "^[[D" backward-word
 
 # functions
 mkcd() {

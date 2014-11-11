@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 source $(dirname $0)/panel_config
 
@@ -8,7 +8,7 @@ while read -r line ; do
             sys_infos="%{r}${line#?}"
             ;;
         T*)
-            title=" %{F$COLOR_FOREGROUND}%{F-} >"
+            title=" %{F$COLOUR_FOREGROUND}%{F-} >"
             ;;
         W*)
             wm_infos="%{c}"
@@ -19,16 +19,16 @@ while read -r line ; do
                 name=${item#?}
                 case $item in
                     [OFU]*)
-                        wm_infos="$wm_infos %{U$COLOR_ACTIVE}%{+u} + %{-u}"
+                        wm_infos="$wm_infos %{U$COLOUR_ACTIVE}%{+u} + %{-u}"
                         ;;
                     o*)
-                        wm_infos="$wm_infos %{U$COLOR_OCCUPIED}%{+u} - %{-u}"
+                        wm_infos="$wm_infos %{U$COLOUR_OCCUPIED}%{+u} - %{-u}"
                         ;;
                     f*)
                         wm_infos="$wm_infos    "
                         ;;
                     u*)
-                        wm_infos="$wm_infos %{U$COLOR_URGENT}%{+u} ! %{-u}"
+                        wm_infos="$wm_infos %{U$COLOUR_URGENT}%{+u} ! %{-u}"
                         ;;
                     L*)
                         wm_infos="$wm_infos $layout"

@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+vol=$(printf '%03d' $(amixer get Master | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq))
+bat=$(printf '%03d' $(cat /sys/class/power_supply/BAT0/capacity))
+dat=$(date +'%H:%M %d/%m/%y')
+
+echo " | ${vol} | ${bat} | ${dat}"

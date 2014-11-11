@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /usr/bin/env bash
 
 cd $(dirname $0)
 source $(dirname $)/panel_config
@@ -14,11 +14,14 @@ trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 mkfifo "${PANEL_FIFO}"
 
 bspc control --subscribe > "${PANEL_FIFO}" &
-xtitle -sf 'T%s' > "${PANEL_FIFO}" &
+echo 'T' > "${PANEL_FIFO}" &
+conky -c $(dirname $)/panel_conky > "${PANEL_FIFO}" &
 
 cat ${PANEL_FIFO} \
     | ./panel_bar \
     | bar \
-    -F "${COLOR_FOREGROUND}" \
-    -B "${COLOR_BACKGROUND}" \
+    -F "${COLOUR_FOREGROUND}" \
+    -B "${COLOUR_BACKGROUND}" \
     -g "${PANEL_GEOMETRY}"
+
+wait

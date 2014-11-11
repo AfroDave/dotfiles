@@ -11,11 +11,15 @@ source_these=(
 	"${HOME}/.profile"
 	"${HOME}/.zprofile"
 	"${XDG_CONFIG_HOME:-"$HOME/.config"}/bspwm/autostart"
+	"${XDG_CONFIG_HOME:-"$HOME/.config"}/bspwm/bspwmrc"
 )
 
 for file in "${source_these[@]}"; do
 	[ -r "${file}" ] && . "${file}"
 done
 
+eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)
+export GPG_AGENT_INFO SSH_AUTH_SOCK
+
 sxhkd &
-exec bspwm
+exec bspwm -c ~/.config/bspwm/bspwmrc

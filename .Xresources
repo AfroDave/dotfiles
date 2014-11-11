@@ -9,41 +9,16 @@ Xft.dpi: 96
 
 *loginShell: true
 
-URxvt*locale: true
 UXTerm*locale: true
 
 ! Font
-URxvt*font: xft:Monospace:size=10.8
 UXTerm*font: xft:Monospace:size=10.8
 UXTerm*faceName: Monospace
 UXTerm*faceSize: 10.8
 
-URxvt*boldMode: false
 UXTerm*boldMode: false
 UXTerm*allowBoldFonts: false
-URxvt*boldFont: xft:Monospace:size=10.8
 UXTerm*boldFont: Monospace
-
-! URxvt General
-URxvt*depth: 32
-URxvt*intensityStyles: true
-URxvt*scrollBar: false
-URxvt*jumpScroll: true
-URxvt*skipScroll: true
-URxvt*transparent: false
-URxvt*letterSpace: 0
-URxvt*internalBorder: 6
-URxvt*saveLines: 4095
-URxvt*perl-ext-common: default,clipboard,matcher
-URxvt*cursorBlink: 1
-URxvt*termName: rxvt-unicode-256color
-URxvt*matcher.button: 1
-URxvt*url-launcher: firefox
-URxvt*underlineURLs: true
-URxvt*url-select.underline: true
-URxvt*urgentOnBell : false
-URxvt*visualBell : false
-URxvt*buffered : false
 
 ! UXTerm General
 UXTerm*intensityStyles: true
@@ -52,17 +27,15 @@ UXTerm*jumpScroll: true
 UXTerm*skipScroll: true
 UXTerm*letterSpace: 0
 UXTerm*internalBorder: 6
-UXTerm*saveLines: 4095
+UXTerm*saveLines: 10000
 UXTerm*perl-ext-common: default,clipboard,matcher
 UXTerm*cursorBlink: 1
 UXTerm*termName: xterm-256color
 UXTerm*matcher.button: 1
-UXTerm*url-launcher: firefox
-UXTerm*underlineURLs: true
-UXTerm*url-select.underline: true
 UXTerm*urgentOnBell : false
 UXTerm*visualBell : false
 UXTerm*buffered : false
+UXTerm*selectToClipboard: true
 
 ! Theme
 *background:  #303030
@@ -95,12 +68,14 @@ UXTerm*buffered : false
 *keysym.Shift-Control-C: perl:clipboard:copy
 *iso14755: False
 
-*VT100.Translations: #override \
-        Shift <Key>Up: scroll-back(1) \n\
-        Shift <Key>Down: scroll-forw(1) \n\
-        ~Meta Shift Ctrl <Key>V: insert-selection(CLIPBOARD) \n\
-        Meta Shift Ctrl <Key>V: insert-selection(CLIPBOARD) \n\
-        ~Shift <Btn1Up>: select-end(CLIPBOARD, CUT_BUFFER0) \n\
-        Shift <Btn1Up>: select-end(CLIPBOARD, CUT_BUFFER1) \n\
-        ~Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(CLIPBOARD, CUT_BUFFER0) \n\
-        Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(CLIPBOARD, CUT_BUFFER1)
+UXTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+UXTerm*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+
+*VT100.Translations: #override
+    Shift <Btn1Down>: select-start()
+    Shift <Btn1Motion>:     select-extend()
+    Shift <Btn1Up>: select-end(CLIPBOARD)
+    Shift <Btn2Up>: insert-selection(CLIPBOARD)
+    Shift <Btn3Down>: start-extend()
+    Shift <Btn3Motion>: select-extend()
+    Shift <BtnUp>: select-end(CLIPBOARD)

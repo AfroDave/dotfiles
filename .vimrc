@@ -20,7 +20,7 @@ set nostartofline
 
 set encoding=utf-8
 setglobal fileencoding=utf-8
-set fileencodings=utf-8,latin1
+set fileencodings=utf-8
 scriptencoding utf-8
 
 let mapleader=','
@@ -260,8 +260,8 @@ nnoremap <Leader>f :bn<CR>
 nnoremap <Leader>g :e#<CR>
 nnoremap <C-B> :b#<CR>
 
-noremap <Tab> :<C-U>bn<CR>
-noremap <C-Tab> :<C-U>bp<CR>
+noremap <Tab> :bn<CR>
+noremap <S-Tab> :bp<CR>
 
 nnoremap <Space> za
 vnoremap <Space> za
@@ -322,4 +322,8 @@ let g:airline_right_sep=''
 let g:airline_theme='lucius'
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#fnamemod=':t'
+" }}}
+
+" Jedi {{{
+autocmd FileType python setlocal completeopt-=preview
 " }}}

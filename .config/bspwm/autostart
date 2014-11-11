@@ -16,3 +16,4 @@ start-pulseaudio-x11 &
 numlockx on &
 udiskie &
 nm-applet &
+hsetroot -full ~/pic/wallpapers/cymac.png
