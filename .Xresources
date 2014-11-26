@@ -1,24 +1,27 @@
 !Xft settings
-Xft.autohint: 0
+Xft.autohint: false
 Xft.lcdfilter: lcddefault
-Xft.hintstyle: hintfull
-Xft.hinting: 1
-Xft.antialias: 1
+Xft.hintstyle: hintslight
+Xft.hinting: true
+Xft.antialias: true
 Xft.rgba: rgb
-Xft.dpi: 96
+UXTerm*utf8: true
 
 *loginShell: true
 
 UXTerm*locale: true
 
 ! Font
-UXTerm*font: xft:Monospace:size=10.8
-UXTerm*faceName: Monospace
-UXTerm*faceSize: 10.8
+UXTerm*font:    -*-ttyp0-medium-r-*-*-15-*-*-*-*-*-iso10646-*
+UXTerm*font1:   -*-ttyp0-medium-r-*-*-11-*-*-*-*-*-iso10646-*
+UXTerm*font2:   -*-ttyp0-medium-r-*-*-12-*-*-*-*-*-iso10646-*
+UXTerm*font3:   -*-ttyp0-medium-r-*-*-14-*-*-*-*-*-iso10646-*
+UXTerm*font4:   -*-ttyp0-medium-r-*-*-16-*-*-*-*-*-iso10646-*
+UXTerm*font5:   -*-ttyp0-medium-r-*-*-18-*-*-*-*-*-iso10646-*
+UXTerm*font6:   -*-ttyp0-medium-r-*-*-22-*-*-*-*-*-iso10646-*
 
 UXTerm*boldMode: false
 UXTerm*allowBoldFonts: false
-UXTerm*boldFont: Monospace
 
 ! UXTerm General
 UXTerm*intensityStyles: true
@@ -38,30 +41,24 @@ UXTerm*buffered : false
 UXTerm*selectToClipboard: true
 
 ! Theme
-*background:  #303030
-*foreground:  #D7D7D7
-*cursorColor: #87AFD7
-*color0:      #303030
-*color8:      #474747
-*color1:      #FF5F5F
-*color9:      #FF6C5C
-*color2:      #AFD787
-*color10:     #8FB676
-*color3:      #D7D7AF
-*color11:     #C8BC45
-*color4:      #87D7FF
-*color12:     #D0D0FF
-*color5:      #C7AFD7
-*color13:     #A761C2
-*color6:      #65B58D
-*color14:     #6E98A4
-*color7:      #D7D7D7
-*color15:     #C2C2C2
-
-! Man
-*colorIT: #AFD787
-*colorBD: #FF5F5F
-*colorUL: #87D7FF
+*background:    #262626
+*foreground:    #EBDBB2
+*color0:        #282828
+*color8:        #928374
+*color1:        #CC241D
+*color9:        #FB4934
+*color2:        #98971A
+*color10:       #B8BB26
+*color3:        #D79921
+*color11:       #FABD2F
+*color4:        #458588
+*color12:       #83A598
+*color5:        #B16286
+*color13:       #D3869B
+*color6:        #689D6A
+*color14:       #8EC07C
+*color7:        #A89984
+*color15:       #EBDBB2
 
 ! Bindings
 *keysym.Shift-Control-V: perl:clipboard:paste
@@ -73,7 +70,7 @@ UXTerm*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]
 
 *VT100.Translations: #override
     Shift <Btn1Down>: select-start()
-    Shift <Btn1Motion>:     select-extend()
+    Shift <Btn1Motion>: select-extend()
     Shift <Btn1Up>: select-end(CLIPBOARD)
     Shift <Btn2Up>: insert-selection(CLIPBOARD)
     Shift <Btn3Down>: start-extend()

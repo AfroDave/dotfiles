@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /usr/bin/env bash
 
 bspc config border_width                1
 bspc config split_ratio                 0.52

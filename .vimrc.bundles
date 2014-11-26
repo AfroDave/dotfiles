@@ -7,7 +7,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 
 " theme
-Plugin 'jonathanfilip/vim-lucius'
+Plugin 'morhetz/gruvbox'
 
 " general
 Plugin 'tpope/vim-surround'
@@ -15,14 +15,11 @@ Plugin 'tpope/vim-repeat'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/syntastic'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Yggdroot/indentLine'
 Plugin 'mileszs/ack.vim'
-Plugin 'coderifous/textobj-word-column.vim'
 Plugin 'kshenoy/vim-signature'
-Plugin 'junegunn/goyo.vim'
 Plugin 'tomtom/tcomment_vim'
 
 " autocomplete
@@ -35,24 +32,22 @@ Plugin 'honza/vim-snippets'
 " status
 Plugin 'bling/vim-airline'
 
-" git
-Plugin 'tpope/vim-fugitive'
-
 " c/c++
 Plugin 'octol/vim-cpp-enhanced-highlight'
+
+"glsl
+Plugin 'tikhomirov/vim-glsl'
 
 " html
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'ap/vim-css-color'
 Plugin 'gregsexton/MatchTag'
-Plugin 'tpope/vim-ragtag'
 Plugin 'rstacruz/sparkup'
 
 " js
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
 Plugin 'marijnh/tern_for_vim'
-Plugin 'othree/javascript-libraries-syntax.vim'
 
 " clojure
 Plugin 'tpope/vim-fireplace'
@@ -61,8 +56,8 @@ Plugin 'tpope/vim-fireplace'
 Plugin 'wting/rust.vim'
 
 " python
-Plugin 'python_fold'
 Plugin 'hdima/python-syntax'
+Plugin 'python_fold'
 
 " markdown
 Plugin 'vim-pandoc/vim-pandoc'
@@ -70,6 +65,9 @@ Plugin 'vim-pandoc/vim-pandoc-syntax'
 
 " latex
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
+
+" julia
+Plugin 'JuliaLang/julia-vim'
 
 call vundle#end()
 filetype plugin indent on

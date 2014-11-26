@@ -66,7 +66,7 @@ endif
 
 autocmd BufEnter * silent! lcd %:p:h
 
-colorscheme lucius
+colorscheme gruvbox
 
 let &t_SI .= "\<Esc>[5 q"
 let &t_EI .= "\<Esc>[0 q"
@@ -169,7 +169,7 @@ set listchars=tab:›\ ,trail:·,extends:»,precedes:«,nbsp:×
 set omnifunc=syntaxcomplete#Complete
 
 set complete=.,w,b,u,t
-set completeopt=menu,preview,longest
+set completeopt=menu,longest
 " }}}
 
 " CtrlP {{{
@@ -196,7 +196,7 @@ if has("gui_running")
     set guioptions-=l
     set guioptions-=r
     set guioptions-=R
-    set guifont=Monospace\ 11
+    set guifont=ttyp0\ 12
 else
     set t_Co=256
     set t_ut=
@@ -274,18 +274,7 @@ nnoremap <silent> <Down> <C-W>j
 nnoremap <Leader>= <C-W>=
 nnoremap <Leader>_ <C-W>_
 nnoremap <Leader><bar> <C-W><bar>
-
-nnoremap <C-S-k> ddkP
-nnoremap <C-S-j> ddp
-vnoremap <C-S-k> xkP`[V`]
-vnoremap <C-S-j> xp`[V`]
 " }}}
-
-" Syntastic {{{
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = ' -std=c++1y'
-"}}}
 
 " Pandoc {{{
 command! -nargs=1 Silent
@@ -309,19 +298,19 @@ let g:UltiSnipsJumpBackwardTrigger="<C-S-K>"
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_add_preview_to_completeopt=0
 let g:ycm_confirm_extra_conf=0
-" }}}
-
-" Tern {{{
-let g:tern_map_keys=1
-autocmd FileType *.js set updatetime 1000
+let g:ycm_autoclose_preview_window_after_completion=1
 " }}}
 
 " Airline {{{
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline_theme='lucius'
+let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#fnamemod=':t'
+" }}}
+
+" tern_for_vim {{{
+autocmd FileType javascript setlocal completeopt-=preview
 " }}}
 
 " Jedi {{{

@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 xset +fp /usr/share/fonts/local
 xset +fp /usr/share/fonts/misc
@@ -11,7 +11,7 @@ xset -b
 
 wmname LG3D &
 thunar --daemon &
-xautolock -locker 'i3lock -c 000000' -time 20 -corners 0-00 &
+xautolock -locker 'i3lock -c 262626' -time 20 -corners 0-00 &
 start-pulseaudio-x11 &
 numlockx on &
 udiskie &

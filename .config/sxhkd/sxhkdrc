@@ -114,7 +114,7 @@ super + Return
 	uxterm -e tmux -2
 
 super + x
-	dmenu_run -i -x 4 -y 4 -h 16 -w 1914 -q -p " > " -nb "#303030" -nf "#A8A8A8" -sb "#303030" -sf "#999999"
+	dmenu_run -i -x 4 -y 4 -h 16 -w 1914 -q -p " > " -nb "#262626" -nf "#A8A8A8" -sb "#949494" -sf "#262626"
 
 super + r
 	uxterm -e ranger
