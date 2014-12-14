@@ -19,13 +19,12 @@ bspc config focus_follows_pointer		true
 
 bspc rule -a Firefox desktop=^1
 bspc rule -a plugin-container floating=true
-bspc rule -a smplayer floating=on
 bspc rule -a pavucontrol follow=true floating=true center=true
 bspc rule -a lxappearance floating=true center=true
 bspc rule -a lxtask floating=true center=true
 bspc rule -a gcolor2 floating=true center=true
 bspc rule -a sxiv floating=true center=true
-bspc rule -a Conky sticky=on manage=off lower=on
+bspc rule -a Conky sticky=true manage=false lower=true
 bspc rule -a Steam desktop=^5
 
 bspc monitor -d I II III IV V

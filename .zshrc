@@ -36,7 +36,6 @@ DISABLE_CORRECTION="true"
 
 # grep
 export GREP_COLOR='032;255'
-export GREP_OPTIONS='--color=auto'
 
 # keys
 bindkey '^A' beginning-of-line
@@ -135,6 +134,8 @@ alias tls='tmux ls'
 alias tlp='tmux lsp'
 alias tlw='tmux lsw'
 alias tsw='tmux select-window -t'
+
+alias pacman='sudo pacman'
 
 # config
 autoload -U compinit promptinit colors

@@ -20,8 +20,9 @@ conky -c $(dirname $)/panel_conky > "${PANEL_FIFO}" &
 cat ${PANEL_FIFO} \
     | ./panel_bar \
     | bar \
+    -f "$FONT" \
     -F "${COLOUR_FOREGROUND}" \
     -B "${COLOUR_BACKGROUND}" \
-    -g "${PANEL_GEOMETRY}"
+    -g "${PANEL_GEOMETRY}" \
 
 wait

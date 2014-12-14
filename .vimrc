@@ -9,6 +9,15 @@ endif
 
 " General {{{
 filetype plugin indent on
+
+set omnifunc=syntaxcomplete#Complete
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType cpp set omnifunc=omni#cpp#complete#Main
+
 syntax enable
 set background=dark
 set fileformats=unix,dos,mac
@@ -66,6 +75,7 @@ endif
 
 autocmd BufEnter * silent! lcd %:p:h
 
+let g:gruvbox_italic=0
 colorscheme gruvbox
 
 let &t_SI .= "\<Esc>[5 q"
@@ -299,6 +309,10 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_add_preview_to_completeopt=0
 let g:ycm_confirm_extra_conf=0
 let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_semantic_triggers = {
+\   'c,cpp': ['.', '->', 're![a-zA-Z]'],
+\   'python,java,javascript': ['.', 're![a-zA-Z]']
+\ }
 " }}}
 
 " Airline {{{
@@ -315,4 +329,18 @@ autocmd FileType javascript setlocal completeopt-=preview
 
 " Jedi {{{
 autocmd FileType python setlocal completeopt-=preview
+" }}}
+
+" Syntastic {{{
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++1y'
+let g:syntastic_enable_signs = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_no_include_search = 0
+"}}}
+
+" Eclim {{{
+let g:EclimCompletionMethod = 'omnifunc'
 " }}}
