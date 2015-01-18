@@ -1,7 +1,6 @@
-" Vundle {{{
 set nocompatible
 filetype off
-
+" vim-plug {{{
 if filereadable(expand("~/.vimrc.bundles"))
     source ~/.vimrc.bundles
 endif
@@ -32,8 +31,9 @@ setglobal fileencoding=utf-8
 set fileencodings=utf-8
 scriptencoding utf-8
 
-let mapleader=','
-let maplocalleader=','
+nnoremap <Space> <NOP>
+let mapleader="\<Space>"
+let maplocalleader="\<Space>"
 
 if has('clipboard')
     if has('unnamedplus')
@@ -86,6 +86,7 @@ set cursorline
 set nocursorcolumn
 set lazyredraw
 set ttyfast
+set ttymouse=xterm2
 set winminheight=0
 
 highlight clear NonText
@@ -113,11 +114,11 @@ set linespace=0
 set nu
 set showmatch
 set incsearch
-set hlsearch
+set hlsearch | nohlsearch
 set ignorecase
 set smartcase
 
-set wildmode=list:longest
+set wildmode=list:longest,list:full
 
 set wildignore+=.hg,.git,.svn
 set wildignore+=*.aux,*.out,*.toc
@@ -144,16 +145,16 @@ set foldlevelstart=99
 set foldmethod=syntax
 
 set timeout
-set timeoutlen=600
+set timeoutlen=200
 set ttimeout
 set ttimeoutlen=10
 
 set autoread
 set autochdir
 set number
+set numberwidth=5
 
 set spelllang=en_gb
-nmap <silent> <Leader>s :set spell!<CR>
 " }}}
 
 " Formatting {{{
@@ -165,13 +166,14 @@ set preserveindent
 set softtabstop=4
 set shiftwidth=4
 set tabstop=4
+set smarttab
 set shiftround
 set nojoinspaces
 set splitright
 set splitbelow
 set textwidth=0
 set wrapmargin=0
-set synmaxcol=512
+set synmaxcol=120
 
 set list
 set listchars=tab:›\ ,trail:·,extends:»,precedes:«,nbsp:×
@@ -180,17 +182,6 @@ set omnifunc=syntaxcomplete#Complete
 
 set complete=.,w,b,u,t
 set completeopt=menu,longest
-" }}}
-
-" CtrlP {{{
-let g:ctrlp_working_path_mode='ra'
-let g:ctrlp_custom_ignore = {
-            \ 'dir': '\.git$\|\.hg$\|\.svn$',
-            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
-
-let g:ctrlp_extensions = ['funky']
-
-nnoremap <Leader>fu :CtrlPFunky<Cr>
 " }}}
 
 " GUI {{{
@@ -216,21 +207,7 @@ else
 endif
 " }}}
 
-" Commands {{{
-function! StripTrailingWhitespace()
-    normal mZ
-    %s/\s\+$//e
-    if line("'Z") != line(".")
-        echo "Stripped whitespace\n"
-    endif
-    normal `Z
-endfunction
-" }}}
-
 " Mapping {{{
-nnoremap j jzz
-nnoremap k kzz
-
 command! -bang -nargs=* -complete=file E e<bang> <args>
 command! -bang -nargs=* -complete=file W w<bang> <args>
 command! -bang -nargs=* -complete=file Wq wq<bang> <args>
@@ -253,37 +230,52 @@ vnoremap > >gv
 vnoremap . :normal .<CR>
 
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
-map <Leader>ew :e %%
-map <Leader>es :sp %%
-map <Leader>ev :vsp %%
-map <Leader>bs :split<CR>
-map <Leader>bv :vsp<CR>
-map <Leader>et :tabe %%
+nnoremap <Leader>bs :split<CR>
+nnoremap <Leader>bv :vsp<CR>
 
-map zl zL
-map zh zH
+nnoremap <Leader>e :e
+nnoremap <Leader>w :w<CR>
 
-nnoremap <silent> <Leader>q gwip
-nnoremap <Leader>l :ls<CR>
-nnoremap <Leader>b :bp<CR>
-nnoremap <Leader>f :bn<CR>
-nnoremap <Leader>g :e#<CR>
-nnoremap <C-B> :b#<CR>
+nnoremap <Leader>ls :ls<CR>
 
-noremap <Tab> :bn<CR>
-noremap <S-Tab> :bp<CR>
-
-nnoremap <Space> za
-vnoremap <Space> za
+noremap <Leader><Leader> :bn<CR>
+noremap <Leader><Leader>b :bp<CR>
+noremap <Leader><Leader>p :CtrlPBuffer<CR>
 
 nnoremap <silent> <Right> <C-W>l
 nnoremap <silent> <Left> <C-W>h
 nnoremap <silent> <Up> <C-W>k
 nnoremap <silent> <Down> <C-W>j
 
-nnoremap <Leader>= <C-W>=
-nnoremap <Leader>_ <C-W>_
-nnoremap <Leader><bar> <C-W><bar>
+nnoremap <silent> <Leader>sp :set spell!<CR>
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
+
+map q: :q
+" }}}
+
+" Commands {{{
+function! StripTrailingWhitespace()
+    normal mZ
+    %s/\s\+$//e
+    if line("'Z") != line(".")
+        echo "Stripped whitespace\n"
+    endif
+    normal `Z
+endfunction
+" }}}
+
+" CtrlP {{{
+let g:ctrlp_working_path_mode='ra'
+let g:ctrlp_custom_ignore={
+            \ 'dir': '\.git$\|\.hg$\|\.svn$',
+            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+
+let g:ctrlp_extensions=['funky']
+
+nnoremap <Leader>p :CtrlP<Cr>
+nnoremap <Leader>fu :CtrlPFunky<Cr>
 " }}}
 
 " Pandoc {{{
@@ -292,6 +284,7 @@ command! -nargs=1 Silent
             \ | execute ':redraw!'
 nnoremap <Leader>hmd :Silent htmlmd %<Cr>
 let g:pandoc_use_conceal=0
+let g:pandoc#syntax#conceal#use=0
 " }}}
 
 " indentLine {{{
@@ -305,11 +298,11 @@ let g:UltiSnipsJumpBackwardTrigger="<C-S-K>"
 " }}}
 
 " YouCompleteMe {{{
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf="~/.vim/.ycm_extra_conf.py"
 let g:ycm_add_preview_to_completeopt=0
 let g:ycm_confirm_extra_conf=0
 let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_semantic_triggers = {
+let g:ycm_semantic_triggers={
 \   'c,cpp': ['.', '->', 're![a-zA-Z]'],
 \   'python,java,javascript': ['.', 're![a-zA-Z]']
 \ }
@@ -327,20 +320,54 @@ let g:airline#extensions#tabline#fnamemod=':t'
 autocmd FileType javascript setlocal completeopt-=preview
 " }}}
 
+" python-syntax {{{
+let python_highlight_all=1
+" }}}
 " Jedi {{{
 autocmd FileType python setlocal completeopt-=preview
 " }}}
 
 " Syntastic {{{
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = ' -std=c++1y'
-let g:syntastic_enable_signs = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_cpp_check_header = 1
-let g:syntastic_cpp_no_include_search = 0
+let g:syntastic_mode_map={ 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+let g:syntastic_cpp_compiler='clang++'
+let g:syntastic_cpp_compiler_options=' -std=c++1y'
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=2
+let g:syntastic_cpp_check_header=1
+let g:syntastic_cpp_no_include_search=0
 "}}}
 
 " Eclim {{{
-let g:EclimCompletionMethod = 'omnifunc'
+let g:EclimCompletionMethod='omnifunc'
+" }}}
+
+" incsearch {{{
+let g:incsearch#auto_nohlsearch=1
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+" }}}
+
+" matchit {{{
+let g:html_indent_tags='li\p'
+" }}}
+
+" easy-align {{{
+vmap <Enter> <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+" }}}
+
+" LiteDFM {{{
+nnoremap <Leader>z :LiteDFMToggle<CR>
+" }}}
+
+" vim-expand-region {{{
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 " }}}

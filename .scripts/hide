@@ -1,0 +1,27 @@
+#! /usr/bin/env bash
+
+action="${1}"
+window=$(xdotool getactivewindow)
+desktop=$(xdotool get_desktop)
+hidden="/tmp/hidden.wl.${desktop}"
+
+function push {
+    echo "${1}" >> "${hidden}"
+}
+
+function pop {
+    window=$(tail -n1 "${hidden}")
+    head -n-1 "${hidden}" | sponge "${hidden}"
+    echo -e "${window}"
+}
+
+case $action in
+    'hide')
+        xdotool windowunmap "${window}"
+        push "${window}"
+        ;;
+    'show')
+        window=$(pop)
+        xdotool windowmap "${window}"
+        ;;
+esac

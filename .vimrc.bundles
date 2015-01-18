@@ -1,75 +1,88 @@
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-Plugin 'gmarik/Vundle.vim'
+Plug 'gmarik/Vundle.vim'
 
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
 
 " theme
-Plugin 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 
 " general
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tacahiroy/ctrlp-funky'
-Plugin 'scrooloose/syntastic'
-Plugin 'majutsushi/tagbar'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'Yggdroot/indentLine'
-Plugin 'mileszs/ack.vim'
-Plugin 'kshenoy/vim-signature'
-Plugin 'tpope/vim-commentary'
-Plugin 'sjl/gundo.vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'kien/ctrlp.vim'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'scrooloose/syntastic'
+Plug 'majutsushi/tagbar'
+Plug 'Yggdroot/indentLine'
+Plug 'rking/ag.vim'
+Plug 'tpope/vim-commentary'
+Plug 'sjl/gundo.vim'
+Plug 'cohama/lexima.vim'
+Plug 'Wolfy87/vim-expand'
+Plug 'Wolfy87/vim-enmasse'
+Plug 'haya14busa/incsearch.vim'
+Plug 'justinmk/vim-sneak'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'bilalq/lite-dfm'
+Plug 'terryma/vim-expand-region'
 
 " autocomplete
-Plugin 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang' }
 
 " snippets
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " status
-Plugin 'bling/vim-airline'
+Plug 'bling/vim-airline'
 
 " c/c++
-Plugin 'octol/vim-cpp-enhanced-highlight'
+Plug 'octol/vim-cpp-enhanced-highlight'
 
-"glsl
-Plugin 'tikhomirov/vim-glsl'
+" opengl
+Plug 'tikhomirov/vim-glsl'
 
 " html
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'ap/vim-css-color'
-Plugin 'gregsexton/MatchTag'
-Plugin 'rstacruz/sparkup'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'ap/vim-css-color'
+Plug 'Valloric/MatchTagAlways'
+Plug 'vim-scripts/matchit.zip'
+Plug 'rstacruz/sparkup'
 
 " js
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'pangloss/vim-javascript'
-Plugin 'marijnh/tern_for_vim'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'pangloss/vim-javascript'
+Plug 'itspriddle/vim-jquery'
+Plug 'walm/jshint.vim'
+Plug 'marijnh/tern_for_vim'
+Plug 'leshill/vim-json'
 
 " clojure
-Plugin 'tpope/vim-fireplace'
+Plug 'tpope/vim-fireplace'
+Plug 'amdt/vim-niji'
 
 " rust
-Plugin 'wting/rust.vim'
+Plug 'wting/rust.vim'
 
 " python
-Plugin 'hdima/python-syntax'
-Plugin 'python_fold'
+Plug 'hdima/python-syntax'
+Plug 'python_fold'
+Plug 'mitsuhiko/jinja2'
 
 " markdown
-Plugin 'vim-pandoc/vim-pandoc'
-Plugin 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " latex
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
+Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 " julia
-Plugin 'JuliaLang/julia-vim'
+Plug 'JuliaLang/julia-vim'
 
-call vundle#end()
-filetype plugin indent on
+" Nim
+Plug 'zah/nimrod.vim'
+
+call plug#end()

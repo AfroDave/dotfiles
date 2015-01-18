@@ -6,14 +6,15 @@ xset fp rehash
 xset -dpms
 xset s off
 xset -b
+xset r rate 200 20
+
+xsetroot -cursor_name left_ptr
+
+setxkbmap -option 'caps:ctrl_modifier'
+xcape -e 'Caps_Lock=Escape'
 
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources &
 
 wmname LG3D &
-thunar --daemon &
-xautolock -locker 'i3lock -c 262626' -time 20 -corners 0-00 &
-start-pulseaudio-x11 &
-numlockx on &
-udiskie &
-nm-applet &
+xautolock -locker 'i3lock -c 262626' -time 20 -detectsleep &
 hsetroot -full ~/pic/wallpapers/cymaw.png

@@ -10,7 +10,7 @@ source_these=(
 	"/etc/zsh/zprofile"
 	"${HOME}/.profile"
 	"${HOME}/.zprofile"
-	"${XDG_CONFIG_HOME:-"${HOME}/.config"}/bspwm/autostart"
+	"${XDG_CONFIG_HOME:-"${HOME}/.autostart"
 	"${XDG_CONFIG_HOME:-"${HOME}/.config"}/bspwm/bspwmrc"
 )
 
