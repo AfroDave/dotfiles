@@ -13,8 +13,8 @@ xsetroot -cursor_name left_ptr
 setxkbmap -option 'caps:ctrl_modifier'
 xcape -e 'Caps_Lock=Escape'
 
-[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources &
+[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
-wmname LG3D &
+urxvtd -f &
 xautolock -locker 'i3lock -c 262626' -time 20 -detectsleep &
-hsetroot -full ~/pic/wallpapers/cymaw.png
+hsetroot -center ~/pic/wall/tri.png &

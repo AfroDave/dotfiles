@@ -1,8 +1,0 @@
-#!/bin/sh
-
-adjust=${1}
-if [[ "${adjust}" == "up" ]]; then
-    xbacklight -inc 5
-elif [[ "${adjust}" == "down" ]]; then
-    xbacklight -dec 5
-fi

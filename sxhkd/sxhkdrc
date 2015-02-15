@@ -70,16 +70,16 @@ super + {_,shift} + backslash
     ~/.scripts/hide {hide, show}
 
 super + Return
-	uxterm -e tmux -2
+	urxvtc -e tmux -2
 
 super + ctrl + Return
-    uxterm
+    urxvtc
 
 super + x
 	dmenu_run -i -x 4 -y 4 -h 16 -w 1912 -q -p " > " -nb "#262626" -nf "#A8A8A8" -sb "#949494" -sf "#262626"
 
 super + r
-	uxterm -e ranger
+	urxvtc -e ranger
 
 super + shift + s
     ~/.scripts/pop "%\{c\}$(~/.scripts/sys)"
@@ -90,7 +90,7 @@ XF86AudioMute
 XF86Audio{Lower,Raise}Volume
 	~/.scripts/vol {down,up}
 
-super + {Next,Prior}
+super + ctrl + {Down,Up}
 	~/.scripts/vol {down,up}
 
 XF86Audio{Prev,Next}
@@ -99,7 +99,7 @@ XF86Audio{Prev,Next}
 XF86MonBrightness{Down,Up}
     ~/.scripts/backlight {down,up}
 
-super + {Home,End}
+super + {Down,Up}
     ~/.scripts/backlight {down,up}
 
 super + F1

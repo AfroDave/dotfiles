@@ -1,10 +1,12 @@
 # dotfiles
 
-+ vim
++ urxvt
 + tmux
 + zsh
++ vim
 + bspwm
 + sxhkd
 + ranger
-+ uxterm
-+ misc
++ mpd/ncmpcpp
++ x11
++ scripts

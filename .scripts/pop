@@ -1,5 +1,0 @@
-#! /usr/bin/env bash
-
-source "$(dirname ${0})/config"
-
-(echo -e "${@}"; sleep "${POP_DURATION}") | bar -g ${POP_W}x${POP_H}+${POP_X}+${POP_Y} -F ${POP_FG} -B ${POP_BG} -f ${POP_FONT} &

@@ -1,0 +1,90 @@
+#! /usr/bin/env bash
+
+symlink() {
+    local target="${2}"
+    [[ -z "${2}" ]] && target=".${1##*/}"
+    [[ -d "${HOME}/${target}" ]] && rm "${HOME}/${target}"
+    ln -fs "${HOME}/.dotfiles/${1}" "${HOME}/${target}"
+}
+
+install_shell() {
+    git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+    symlink shell/zshrc
+    symlink shell/zprofile
+    symlink shell/zpreztorc
+    symlink shell/prompt.zsh .zprezto/modules/prompt/functions/prompt_custom_setup
+}
+
+install_bspwm() {
+    symlink bspwm
+    symlink sxhkd
+}
+
+install_vim() {
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    symlink vim/vimrc
+    symlink vim/vimrc.bundles
+}
+
+install_ranger() {
+    symlink ranger .config/ranger
+}
+
+install_tmux() {
+    symlink tmux/tmux.conf
+}
+
+install_x11() {
+    symlink x11/Xresources
+    symlink x11/xinitrc
+    symlink x11/autostart
+}
+
+install_mpd() {
+    symlink mpd/mpd.conf .mpd/mpd.conf
+}
+
+install_ncmpcpp() {
+    symlink ncmpcpp
+}
+
+install_userdirs() {
+    symlink userdirs/user-dirs.dirs .config/user-dirs.dirs
+}
+
+install_gtk() {
+    symlink gtk/gtkrc-2.0.mine
+}
+
+install_scripts() {
+    symlink scripts
+    symlink pop
+}
+
+install_dotfiles() {
+    [[ ! -h "${HOME}/.dotfiles" ]] && ln -fs "${HOME}/dev/dotfiles" "${HOME}/.dotfiles"
+    install_shell
+    install_bspwm
+    install_ranger
+    install_tmux
+    install_x11
+    install_mpd
+    install_ncmpcpp
+    install_userdirs
+    install_gtk
+    install_scripts
+    install_vim
+}
+
+install() {
+    case "${1:-print}" in
+        install)
+            printf "installing %s\n" "${2}"
+            install_${2}
+            ;;
+        print)
+            ;;
+    esac
+}
+
+install ${@}

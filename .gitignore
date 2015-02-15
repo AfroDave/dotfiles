@@ -2,3 +2,6 @@
 *history*
 *bookmarks*
 *tagged*
+*.log
+*.bak
+*.old

@@ -1,0 +1,77 @@
+! xft settings
+Xft.autohint: false
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintslight
+Xft.hinting: true
+Xft.antialias: true
+Xft.rgba: rgb
+*utf8: true
+
+*loginShell: true
+
+*locale: true
+
+! font
+UXTerm*font: -*-ttyp0-medium-r-*-*-14-*-*-*-*-*-iso10646-*
+UXTerm*font1: -*-ttyp0-medium-r-*-*-11-*-*-*-*-*-iso10646-*
+UXTerm*font2: -*-ttyp0-medium-r-*-*-12-*-*-*-*-*-iso10646-*
+UXTerm*font3: -*-ttyp0-medium-r-*-*-15-*-*-*-*-*-iso10646-*
+UXTerm*font4: -*-ttyp0-medium-r-*-*-16-*-*-*-*-*-iso10646-*
+UXTerm*font5: -*-ttyp0-medium-r-*-*-18-*-*-*-*-*-iso10646-*
+UXTerm*font6: -*-ttyp0-medium-r-*-*-22-*-*-*-*-*-iso10646-*
+
+URxvt*font: -*-ttyp0-medium-r-*-*-14-*-*-*-*-*-iso10646-*
+URxvt*boldFont: -*-ttyp0-medium-r-*-*-14-*-*-*-*-*-iso10646-*
+URxvt*italicFont: -*-ttyp0-medium-r-*-*-14-*-*-*-*-*-iso10646-*
+URxvt*boldItalicFont: -*-ttyp0-medium-r-*-*-14-*-*-*-*-*-iso10646-*
+
+*boldMode: false
+*allowBoldFonts: false
+
+! general
+URxvt*depth: 32
+URxvt*cursorColor: #EBDBB2
+URxvt*cursorColor2: #6A614F
+*intensityStyles: true
+*scrollBar: false
+*jumpScroll: true
+*skipScroll: true
+*letterSpace: 0
+*internalBorder: 4
+*saveLines: 10000
+*cursorBlink: true
+*termName: xterm-256color
+*urgentOnBell: false
+*visualBell: false
+*buffered: true
+*selectToClipboard: true
+
+URxvt.perl-ext-common: default,clipboard,url-select
+URxvt.url-select.launcher: firefox-developer
+URxvt.url-select.underline: true
+URxvt.matcher.button: 1
+URxvt.clipboard.copycmd:  xclip -i -s c
+URxvt.clipboard.pastecmd: xclip -o -s c
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
+URxvt.keysym.M-S-v: perl:clipboard:paste_escaped
+
+! theme
+*background: #262626
+*foreground: #EBDBB2
+*color0: #282828
+*color8: #928374
+*color1: #CC241D
+*color9: #FB4934
+*color2: #98971A
+*color10: #B8BB26
+*color3: #D79921
+*color11: #FABD2F
+*color4: #458588
+*color12: #83A598
+*color5: #B16286
+*color13: #D3869B
+*color6: #689D6A
+*color14: #8EC07C
+*color7: #A89984
+*color15: #EBDBB2

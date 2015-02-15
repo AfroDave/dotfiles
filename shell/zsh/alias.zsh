@@ -1,17 +1,5 @@
-# functions
-mkcd() {
-    if [ -d "${1}" ] ; then
-        cd "${1}"
-    else
-        mkdir -p "${1}" && cd "${1}"
-    fi
-}
+#! /usr/bin/env zsh
 
-calc() {
-    qalc -t "${@}"
-}
-
-# aliases
 alias cb='cd -'
 alias cdh='cd ~'
 alias ..="cd .."
@@ -22,10 +10,12 @@ alias .5="cd ../../../../.."
 
 alias more='less'
 
-alias l='ls'
-alias ls='ls -hF --color=auto'
+alias l='ls -FNh --tabsize=0 --color=auto --show-control-chars --group-directories-first'
+alias ls='l'
 alias la='ls -alhFG'
 alias lr='ls -R'
+
+alias tree='tree -C'
 
 alias c='clear'
 
@@ -55,3 +45,4 @@ alias tlw='tmux lsw'
 alias tsw='tmux select-window -t'
 
 alias pacman='sudo pacman'
+alias cower='cower --color=auto'

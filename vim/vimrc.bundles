@@ -26,15 +26,14 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'bilalq/lite-dfm'
-Plug 'terryma/vim-expand-region'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
+Plug 'oblitum/rainbow'
+Plug 'Chiel92/vim-autoformat'
 
 " autocomplete
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang' }
-
-" snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 
 " status
 Plug 'bling/vim-airline'
@@ -65,7 +64,7 @@ Plug 'tpope/vim-fireplace'
 Plug 'amdt/vim-niji'
 
 " rust
-Plug 'wting/rust.vim'
+Plug 'rust-lang/rust.vim'
 
 " python
 Plug 'hdima/python-syntax'
@@ -76,13 +75,8 @@ Plug 'mitsuhiko/jinja2'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 
-" latex
-Plug 'LaTeX-Box-Team/LaTeX-Box'
-
-" julia
-Plug 'JuliaLang/julia-vim'
-
-" Nim
-Plug 'zah/nimrod.vim'
+" php
+Plug 'xsbeats/vim-blade'
+Plug 'shawncplus/phpcomplete.vim'
 
 call plug#end()
