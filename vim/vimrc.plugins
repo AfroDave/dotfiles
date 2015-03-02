@@ -1,0 +1,117 @@
+" CtrlP
+let g:ctrlp_working_path_mode='ra'
+let g:ctrlp_custom_ignore={
+            \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+            \ 'file': '\v\.(exe|so|dll|pyc|o|png|jpg|tar|gz|bz2|xz|zip|rar)$',
+            \ }
+
+let g:ctrlp_extensions=['funky']
+
+nnoremap <Leader>p :CtrlP<CR>
+noremap <Leader>pb :CtrlPBuffer<CR>
+nnoremap <Leader>pf :CtrlPFunky<CR>
+nnoremap <Leader>pt :CtrlPTag<CR>
+"
+
+" YouCompleteMe
+let g:ycm_key_invoke_completion='<C-a>'
+let g:ycm_confirm_extra_conf=0
+let g:ycm_global_ycm_extra_conf="~/.vim/.ycm_extra_conf.py"
+let g:ycm_add_preview_to_completeopt=0
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_semantic_triggers={
+            \   'c,cpp': ['.', '->', 're![a-zA-Z]'],
+            \   'python,java,javascript': ['.', 're![a-zA-Z]']
+            \ }
+let g:ycm_collect_identifiers_from_tags_files=1
+"
+
+" Pandoc
+command! -nargs=1 Silent
+            \ | execute ':silent !'.<q-args>
+            \ | execute ':redraw!'
+nnoremap <Leader>md <Esc>:w<CR>:Silent htmlmd %<CR>
+let g:pandoc_use_conceal=0
+let g:pandoc#syntax#conceal#use=0
+autocmd BufEnter,BufNew *.md :set cole=0
+"
+
+" indentLine
+let g:indentLine_char='│'
+"
+
+" Airline
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_theme='gruvbox'
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#fnamemod=':t'
+"
+
+" python-syntax
+let python_highlight_all=1
+"
+
+" Syntastic
+let g:syntastic_mode_map={ 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+let g:syntastic_cpp_compiler='clang++'
+let g:syntastic_cpp_compiler_options=' -std=c++1y'
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=2
+let g:syntastic_cpp_check_header=1
+let g:syntastic_cpp_no_include_search=0
+"
+
+" Eclim
+let g:EclimCompletionMethod='omnifunc'
+"
+
+" incsearch
+let g:incsearch#auto_nohlsearch=1
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+"
+
+" matchit
+let g:html_indent_tags='li\p'
+"
+
+" easy-align
+vmap <Enter> <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+"
+
+" niji
+let g:niji_matching_filetypes=['lisp', 'scheme', 'clojure', 'python', 'cpp', 'c', 'bash', 'sh']
+"
+
+" autoformat
+nnoremap <Leader>fc :Autoformat<CR><CR>
+"
+
+" Gundo
+nnoremap <Leader>g :GundoToggle<CR>
+"
+
+" Tagbar
+nnoremap <Leader>tb :TagbarToggle<CR>
+"
+
+" easytags
+let g:easytags_file='~/.vim/tags'
+let g:easytags_opts=['--extra=+f']
+let g:easytags_suppress_report=1
+let g:easytags_dynamic_files=2
+"
+
+" easymotion
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
+"

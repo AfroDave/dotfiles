@@ -42,6 +42,14 @@ super + {_,shift + }Tab
 super + ctrl + {h,j,k,l}
 	bspc window -p {left,down,up,right}
 
+# increase window size to the left/down/up/right
+super + alt + {h,j,k,l}
+    bspc window -e {left -25,down +25,up -25,right +25}
+
+# decrease window size to the left/down/up/right
+super + alt + shift + {h,j,k,l}
+    bspc window -e {right -25,up +25,down -25,left +25}
+
 # focus/move to desktop
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,window -d} \^{1-9,10}; ~/.scripts/pop "%\{c\}$(bspc query --desktops --desktop focused)"
@@ -70,28 +78,28 @@ super + {_,shift} + backslash
     ~/.scripts/hide {hide, show}
 
 super + Return
-	urxvtc -e tmux -2
+	uxterm -e tmux -2
 
 super + ctrl + Return
-    urxvtc
+    uxterm
 
 super + x
 	dmenu_run -i -x 4 -y 4 -h 16 -w 1912 -q -p " > " -nb "#262626" -nf "#A8A8A8" -sb "#949494" -sf "#262626"
 
 super + r
-	urxvtc -e ranger
+	uxterm -e ranger
 
 super + shift + s
     ~/.scripts/pop "%\{c\}$(~/.scripts/sys)"
 
 XF86AudioMute
-	~/.scripts/vol mute
+	pulseaudio-ctl mute
 
 XF86Audio{Lower,Raise}Volume
-	~/.scripts/vol {down,up}
+	pulseaudio-ctl {down,up}
 
 super + ctrl + {Down,Up}
-	~/.scripts/vol {down,up}
+	pulseaudio-ctl {down,up}
 
 XF86Audio{Prev,Next}
     mpc -q {prev,next}

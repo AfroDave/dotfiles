@@ -1,18 +1,21 @@
 set nocompatible
 filetype off
-" vim-plug {{{
+" vim-plug
 if filereadable(expand("~/.vimrc.bundles"))
     source ~/.vimrc.bundles
 endif
-" }}}
+"
 
-" General {{{
+" General
 filetype plugin indent on
 
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 syntax enable
 set background=dark
@@ -29,11 +32,20 @@ set fileencodings=utf-8
 scriptencoding utf-8
 
 nnoremap <Space> <NOP>
-let mapleader="\<Space>"
-let maplocalleader="\<Space>"
+let mapleader=' '
+let maplocalleader=' '
+let g:mapleader=' '
 
 if has('clipboard')
-    set clipboard=unnamed
+    if has('unnamedplus')
+        set clipboard=unnamedplus
+    else
+        set clipboard=unnamed
+    endif
+endif
+
+if has('conceal')
+    set conceallevel=0
 endif
 
 set shortmess+=filmnrxoOtT
@@ -92,6 +104,7 @@ endif
 
 if has('statusline')
     set laststatus=2
+    set noshowmode
     set statusline+=%<%f\ " Filename
     set statusline+=%w%h%m%r
     set statusline+=\ [%{&ff}/%Y]
@@ -102,9 +115,11 @@ endif
 set backspace=indent,eol,start
 set linespace=0
 set showmatch
+set matchpairs+=<:>
 set matchtime=5
-set incsearch
 set hlsearch | nohlsearch
+set incsearch
+set magic
 set ignorecase
 set smartcase
 
@@ -128,12 +143,12 @@ set wildignore+=classes
 set wildignore+=lib
 
 set complete=.,w,b,u,t
-set completeopt=menu,preview
+set completeopt=menu
 
 set whichwrap=b,s,h,l,<,>,[,]
 set scrolljump=5
 set scrolloff=3
-set nofoldenable
+set foldenable
 set foldlevelstart=99
 set foldmethod=indent
 
@@ -145,17 +160,22 @@ set ttimeoutlen=200
 set autoread
 set autochdir
 set number
-set numberwidth=4
+set numberwidth=2
 
 set spelllang=en_gb
-" }}}
 
-" Formatting {{{
-set wrap linebreak nolist
+set tags=./.tags,${HOME}/vim/tmp/tags
+"
+
+" Formatting
+set wrap
+set linebreak
 set autoindent
-set expandtab
+set cindent
 set copyindent
+set smartindent
 set preserveindent
+set expandtab
 set softtabstop=4
 set shiftwidth=4
 set tabstop=4
@@ -171,18 +191,11 @@ set synmaxcol=240
 set list
 set listchars=tab:›\ ,trail:·,extends:»,precedes:«,nbsp:×
 
-if &term == 'xterm-256color' || &term == 'screen-256color'
-    let &t_SI .= "\<Esc>[5 q"
-    let &t_EI .= "\<Esc>[1 q"
-endif
+let &t_SI .= "\<Esc>[5 q"
+let &t_EI .= "\<Esc>[1 q"
+"
 
-if exists('$TMUX')
-    let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-    let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-endif
-" }}}
-
-" GUI {{{
+" GUI
 if has("gui_running")
     set guiheadroom=0
     set guioptions-=r
@@ -203,9 +216,9 @@ else
     set novisualbell
     let g:rehash256=1
 endif
-" }}}
+"
 
-" Mapping {{{
+" Mapping
 command! -bang -nargs=* -complete=file E e<bang> <args>
 command! -bang -nargs=* -complete=file W w<bang> <args>
 command! -bang -nargs=* -complete=file Wq wq<bang> <args>
@@ -215,32 +228,30 @@ command! -bang WA wa<bang>
 command! -bang Q q<bang>
 command! -bang QA qa<bang>
 command! -bang Qa qa<bang>
+map q: :q
 
 cmap Tabe tab
 
 nnoremap Y y$
-
-cmap cwd lcd %:p:h
-
 vnoremap < <gv
 vnoremap > >gv
+
+nnoremap <C-Up> V:move '<-2<CR><Esc>
+nnoremap <C-Down> V:move '>+1<CR><Esc>
+vnoremap <C-Up> :move '<-2<CR>gv
+vnoremap <C-Down> :move '>+1<CR>gv
+
+cmap cwd lcd %:p:h
 
 vnoremap . :normal .<CR>
 
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
 
-nnoremap <Leader><Leader> :bn<CR>
+noremap <Tab> :bn<CR>
+noremap <S-Tab> :bp<CR>
 nnoremap <Leader>b :bn<CR>
 nnoremap <Leader>bs :split<CR>
 nnoremap <Leader>bv :vsp<CR>
-
-noremap <Tab> :tabnext<CR>
-noremap <S-Tab> :tabprevious<CR>
-
-nnoremap <Leader>tne :tabnew<CR>
-nnoremap <Leader>tn :tabnext<CR>
-nnoremap <Leader>tp :tabprevious<CR>
-nnoremap <Leader>tc :tabclose<CR>
 
 nnoremap <Leader>e :e
 nnoremap <Leader>w :w<CR>
@@ -252,123 +263,21 @@ nnoremap <silent> <Left> <C-W>h
 nnoremap <silent> <Up> <C-W>k
 nnoremap <silent> <Down> <C-W>j
 
-nnoremap <silent> <Leader>sw :call StripTrailingWhitespace()<CR><CR>
-
 nnoremap <silent> <Leader>sp :set spell!<CR>
 
-map q: :q
-" }}}
+nnoremap <Leader>sw :call StripTrailingWhitespace()<CR>
+"
 
-" Commands {{{
+" Commands
 function! StripTrailingWhitespace()
     normal mZ
     %s/\s\+$//e
     normal `Z
 endfunction
-" }}}
+"
 
-" CtrlP {{{
-let g:ctrlp_working_path_mode='ra'
-let g:ctrlp_custom_ignore={
-            \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-            \ 'file': '\v\.(exe|so|dll|pyc|o|png|jpg|tar|gz|bz2|xz|zip|rar)$',
-            \ }
-
-let g:ctrlp_extensions=['funky']
-
-nnoremap <Leader>p :CtrlP<CR>
-noremap <Leader>pb :CtrlPBuffer<CR>
-nnoremap <Leader>pf :CtrlPFunky<CR>
-nnoremap <Leader>pt :CtrlPTag<CR>
-" }}}
-
-" YouCompleteMe {{{
-let g:ycm_key_invoke_completion='<C-a>'
-let g:ycm_confirm_extra_conf=0
-let g:ycm_global_ycm_extra_conf="~/.vim/.ycm_extra_conf.py"
-let g:ycm_add_preview_to_completeopt=1
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_semantic_triggers={
-            \   'c,cpp': ['.', '->', 're![a-zA-Z]'],
-            \   'python,java,javascript': ['.', 're![a-zA-Z]']
-            \ }
-" }}}
-
-" Pandoc {{{
-command! -nargs=1 Silent
-            \ | execute ':silent !'.<q-args>
-            \ | execute ':redraw!'
-nnoremap <Leader>md <Esc>:w<CR>:Silent htmlmd %<CR>
-let g:pandoc_use_conceal=0
-let g:pandoc#syntax#conceal#use=0
-autocmd BufEnter,BufNew *.md :set cole=0
-" }}}
-
-" indentLine {{{
-let g:indentLine_char='│'
-" }}}
-
-" Airline {{{
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline_theme='gruvbox'
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#fnamemod=':t'
-" }}}
-
-" python-syntax {{{
-let python_highlight_all=1
-" }}}
-
-" Syntastic {{{
-let g:syntastic_mode_map={ 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-let g:syntastic_cpp_compiler='clang++'
-let g:syntastic_cpp_compiler_options=' -std=c++1y'
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
-let g:syntastic_cpp_check_header=1
-let g:syntastic_cpp_no_include_search=0
-"}}}
-
-" Eclim {{{
-let g:EclimCompletionMethod='omnifunc'
-" }}}
-
-" incsearch {{{
-let g:incsearch#auto_nohlsearch=1
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
-" }}}
-
-" matchit {{{
-let g:html_indent_tags='li\p'
-" }}}
-
-" easy-align {{{
-vmap <Enter> <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-" }}}
-
-" easytags {{{
-let g:easytags_file='~/.vim/tags'
-let g:easytags_suppress_report=1
-" }}}
-
-" rainbow {{{
-let g:rainbow_active=1
-let g:rainbow_load_separately = [
-            \ [ '*.{cpp,c,py,java,nim,rs}' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
-            \ [ '*.{html,htm}' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['<\a[^>]*>', '</[^>]*>']] ],
-            \ ]
-" }}}
-
-" autoformat {{{
-nnoremap <Leader>fc :Autoformat<CR><CR>
-" }}}
+" Plugins
+if filereadable(expand("~/.vimrc.plugins"))
+    source ~/.vimrc.plugins
+endif
+"

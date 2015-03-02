@@ -1,7 +1,5 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'gmarik/Vundle.vim'
-
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 
@@ -11,17 +9,15 @@ Plug 'morhetz/gruvbox'
 " general
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
 Plug 'kien/ctrlp.vim'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'scrooloose/syntastic'
 Plug 'majutsushi/tagbar'
 Plug 'Yggdroot/indentLine'
 Plug 'rking/ag.vim'
-Plug 'tpope/vim-commentary'
 Plug 'sjl/gundo.vim'
 Plug 'cohama/lexima.vim'
-Plug 'Wolfy87/vim-expand'
-Plug 'Wolfy87/vim-enmasse'
 Plug 'haya14busa/incsearch.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -29,8 +25,8 @@ Plug 'junegunn/vim-easy-align'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
-Plug 'oblitum/rainbow'
 Plug 'Chiel92/vim-autoformat'
+Plug 'Lokaltog/vim-easymotion'
 
 " autocomplete
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang' }
@@ -50,25 +46,21 @@ Plug 'ap/vim-css-color'
 Plug 'Valloric/MatchTagAlways'
 Plug 'vim-scripts/matchit.zip'
 Plug 'rstacruz/sparkup'
+Plug 'othree/html5.vim'
 
 " js
-Plug 'jelera/vim-javascript-syntax'
-Plug 'pangloss/vim-javascript'
-Plug 'itspriddle/vim-jquery'
-Plug 'walm/jshint.vim'
+Plug 'othree/yajs.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'marijnh/tern_for_vim'
-Plug 'leshill/vim-json'
 
 " clojure
 Plug 'tpope/vim-fireplace'
-Plug 'amdt/vim-niji'
 
 " rust
 Plug 'rust-lang/rust.vim'
 
 " python
 Plug 'hdima/python-syntax'
-Plug 'python_fold'
 Plug 'mitsuhiko/jinja2'
 
 " markdown

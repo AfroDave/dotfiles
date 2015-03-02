@@ -1,10 +1,10 @@
 ! xft settings
-Xft.autohint: false
-Xft.lcdfilter: lcddefault
-Xft.hintstyle: hintslight
-Xft.hinting: true
-Xft.antialias: true
-Xft.rgba: rgb
+Xft*autohint: false
+Xft*lcdfilter: lcddefault
+Xft*hintstyle: hintslight
+Xft*hinting: true
+Xft*antialias: true
+Xft*rgba: rgb
 *utf8: true
 
 *loginShell: true
@@ -20,41 +20,23 @@ UXTerm*font4: -*-ttyp0-medium-r-*-*-16-*-*-*-*-*-iso10646-*
 UXTerm*font5: -*-ttyp0-medium-r-*-*-18-*-*-*-*-*-iso10646-*
 UXTerm*font6: -*-ttyp0-medium-r-*-*-22-*-*-*-*-*-iso10646-*
 
-URxvt*font: -*-ttyp0-medium-r-*-*-14-*-*-*-*-*-iso10646-*
-URxvt*boldFont: -*-ttyp0-medium-r-*-*-14-*-*-*-*-*-iso10646-*
-URxvt*italicFont: -*-ttyp0-medium-r-*-*-14-*-*-*-*-*-iso10646-*
-URxvt*boldItalicFont: -*-ttyp0-medium-r-*-*-14-*-*-*-*-*-iso10646-*
-
-*boldMode: false
-*allowBoldFonts: false
+UXTerm*boldMode: false
+UXTerm*allowBoldFonts: false
 
 ! general
-URxvt*depth: 32
-URxvt*cursorColor: #EBDBB2
-URxvt*cursorColor2: #6A614F
-*intensityStyles: true
-*scrollBar: false
-*jumpScroll: true
-*skipScroll: true
-*letterSpace: 0
-*internalBorder: 4
-*saveLines: 10000
-*cursorBlink: true
-*termName: xterm-256color
-*urgentOnBell: false
-*visualBell: false
-*buffered: true
-*selectToClipboard: true
-
-URxvt.perl-ext-common: default,clipboard,url-select
-URxvt.url-select.launcher: firefox-developer
-URxvt.url-select.underline: true
-URxvt.matcher.button: 1
-URxvt.clipboard.copycmd:  xclip -i -s c
-URxvt.clipboard.pastecmd: xclip -o -s c
-URxvt.keysym.M-c: perl:clipboard:copy
-URxvt.keysym.M-v: perl:clipboard:paste
-URxvt.keysym.M-S-v: perl:clipboard:paste_escaped
+UXTerm*termName: xterm-256color
+UXTerm*intensityStyles: true
+UXTerm*scrollBar: false
+UXTerm*jumpScroll: true
+UXTerm*skipScroll: true
+UXTerm*letterSpace: 0
+UXTerm*internalBorder: 4
+UXTerm*saveLines: 10000
+UXTerm*cursorBlink: true
+UXTerm*urgentOnBell: false
+UXTerm*visualBell: false
+UXTerm*buffered: true
+UXTerm*selectToClipboard: true
 
 ! theme
 *background: #262626
@@ -75,3 +57,17 @@ URxvt.keysym.M-S-v: perl:clipboard:paste_escaped
 *color14: #8EC07C
 *color7: #A89984
 *color15: #EBDBB2
+
+UXTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+UXTerm*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+
+*VT100.Translations: #override \
+        Shift <Key>Up: scroll-back(1) \n\
+        Shift <Key>Down: scroll-forw(1) \n\
+        ~Meta Shift Ctrl <Key>V: insert-selection(CLIPBOARD) \n\
+        Meta Shift Ctrl <Key>V: insert-selection(PRIMARY) \n\
+        ~Shift <Btn1Up>: select-end(PRIMARY, CUT_BUFFER0) \n\
+        Shift <Btn1Up>: select-end(CLIPBOARD, CUT_BUFFER1) \n\
+        ~Shift ~Ctrl ~Meta <Btn2Up>: insert-selection(PRIMARY, CUT_BUFFER0) \n\
+        Shift ~Ctrl ~Meta <Btn2Up>: insert-selection(CLIPBOARD, CUT_BUFFER1) \n\
+        Meta <Btn1Up>: exec-formated("firefox-nightly '%t'", PRIMARY)

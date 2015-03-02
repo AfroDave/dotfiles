@@ -25,7 +25,7 @@ prompt_custom_setup() {
     [[ -n ${SSH_CONNECTION} ]] && prompt_custom_username='%n@%m '
 
     PROMPT='%(?.%F{green}.%F{red})━%f '
-    RPROMPT='%F{242}$prompt_custom_username%f'
+    RPROMPT='%F{242}${prompt_custom_username}%f'
 }
 
 prompt_custom_setup "$@"

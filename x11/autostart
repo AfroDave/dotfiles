@@ -11,10 +11,9 @@ xset r rate 200 20
 xsetroot -cursor_name left_ptr
 
 setxkbmap -option 'caps:ctrl_modifier'
-xcape -e 'Caps_Lock=Escape'
+xcape -e 'Caps_Lock=Escape' &
 
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
-urxvtd -f &
-xautolock -locker 'i3lock -c 262626' -time 20 -detectsleep &
+xautolock -locker 'i3lock -c 262626' -time 40 -detectsleep &
 hsetroot -center ~/pic/wall/tri.png &

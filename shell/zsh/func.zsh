@@ -1,7 +1,7 @@
 #! /usr/bin/env zsh
 
 mkcd() {
-    if [ -d "${1}" ] ; then
+    if [[ -d "${1}" ]] ; then
         cd "${1}"
     else
         mkdir -p "${1}" && cd "${1}"
@@ -16,7 +16,7 @@ agent() {
     local -a envoy
     envoy=(envoy -t gpg-agent)
 
-    case "${1:-list}" in
+    case "${1:-start}" in
         start)
             source <(${envoy} -p)
             ;;
@@ -32,18 +32,14 @@ agent() {
     esac
 }
 
-aur() {
-    case "${1}" in
-        up)
-            pushd "${HOME}/dev/aur"
-            cower -duf
-            popd
-            ;;
-        find)
-            cower -s "${2}"
-            ;;
-        dl)
-            cower -d "${2}"
-            ;;
-    esac
+browser() {
+    if [[ -t 0 ]]; then
+        if [[ -n "${1}" ]]; then
+            xdg-open "${1}"
+        fi
+    else
+        t="/tmp/browser.${RANDOM}.html"
+        cat /dev/stdin > "${t}"
+        xdg-open "${t}"
+    fi
 }

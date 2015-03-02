@@ -1,6 +1,6 @@
 # dotfiles
 
-+ urxvt
++ uxterm
 + tmux
 + zsh
 + vim

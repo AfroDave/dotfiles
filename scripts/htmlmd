@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+[[ ! -d html ]] && mkdir -p html
+
 pandoc --toc -s -S --mathjax="mathjax/MathJax.js?config=TeX-AMS_HTML-full" \
     -c "notes.git.css" --template="${NOTES}/config/default.html" \
     -f 'markdown+pandoc_title_block+simple_tables+table_captions+yaml_metadata_block' \

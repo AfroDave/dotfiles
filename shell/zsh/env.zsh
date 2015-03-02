@@ -7,11 +7,11 @@ export LC_ALL=en_GB.UTF-8
 
 [[ "${TERM}" == xterm ]] && export TERM=xterm-256color
 
-export BROWSER='/usr/bin/firefox-developer'
+export BROWSER='firefox'
 export EDITOR='vim'
 export VISUAL='vim'
-export PAGER='less'
-export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -c 'nmap q :q<Return>' -\""
+export PAGER='vimpager'
+export MANPAGER="${PAGER}"
 export GREP_COLOR='032;255'
 export GREP_COLORS="mt=032;ms=032;mc=032;${GREP_COLORS}"
 export LESS='-FgiMRSwXz-4'
