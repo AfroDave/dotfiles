@@ -35,11 +35,11 @@ agent() {
 browser() {
     if [[ -t 0 ]]; then
         if [[ -n "${1}" ]]; then
-            xdg-open "${1}"
+            xdg-open "${1}" 2> /dev/null
         fi
     else
         t="/tmp/browser.${RANDOM}.html"
         cat /dev/stdin > "${t}"
-        xdg-open "${t}"
+        xdg-open "${t}" 2> /dev/null
     fi
 }

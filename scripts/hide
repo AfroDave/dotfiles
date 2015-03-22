@@ -1,27 +1,40 @@
 #! /usr/bin/env bash
 
-action="${1}"
-window=$(xdotool getactivewindow)
-desktop=$(xdotool get_desktop)
-hidden="/tmp/hidden.wl.${desktop}"
+active_window=$(xdotool getactivewindow)
+active_desktop=$(xdotool get_desktop)
+window_list="/tmp/hide.${active_desktop}"
 
-function push {
-    echo "${1}" >> "${hidden}"
+usage() {
+    echo 'Usage: hide [OPTION]'
+    echo 'Options:'
+    echo '  -H        hide active window'
+    echo '  -S        show hidden window'
 }
 
-function pop {
-    window=$(tail -n1 "${hidden}")
-    head -n-1 "${hidden}" | sponge "${hidden}"
-    echo -e "${window}"
+push() {
+    xdotool windowunmap "${1}"
+    echo "${1}" >> "${window_list}"
 }
 
-case $action in
-    'hide')
-        xdotool windowunmap "${window}"
-        push "${window}"
-        ;;
-    'show')
-        window=$(pop)
-        xdotool windowmap "${window}"
-        ;;
-esac
+pop() {
+    local window=$(tail -n1 "${window_list}")
+    head -n-1 "${window_list}" | sponge "${window_list}"
+    xdotool windowmap "${window}"
+}
+
+while getopts ':S :H' opt; do
+    case "${opt}" in
+        S)
+            pop
+            ;;
+        H)
+            push "${active_window}"
+            ;;
+        *)
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+[[ "${OPTIND}" -eq 1 ]] && usage && exit 1

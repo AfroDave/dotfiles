@@ -20,4 +20,3 @@ done
 
 sxhkd &
 exec bspwm -c ~/.config/bspwm/bspwmrc
-#exec i3

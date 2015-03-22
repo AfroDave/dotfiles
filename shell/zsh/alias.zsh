@@ -10,7 +10,7 @@ alias .5="cd ../../../../.."
 
 alias more='less'
 
-alias ls='ls -FNh --tabsize=0 --color=auto --show-control-chars --group-directories-first'
+alias ls='ls -FNhv --tabsize=0 --color=auto --show-control-chars --group-directories-first --sort=extension'
 alias ll='ls -l'
 alias lt='ls -ltr'
 alias la='ls -alFG'

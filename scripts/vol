@@ -1,0 +1,35 @@
+#! /usr/bin/env bash
+
+while getopts ':U :D :S: :B :E' opt; do
+    case "${opt}" in
+        U)
+            pulseaudio-ctl up
+            ;;
+        D)
+            pulseaudio-ctl down
+            ;;
+        S)
+            pulseaudio-ctl set ${OPTARG}
+            ;;
+        B)
+            volume=$(amixer get Master 2> /dev/null | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq)
+            volume_bar="——————————"
+            n=$(( (${volume%.*} + 5) / 10 ))
+
+            echo -e -d 1 -b '#FF262626' "%{c}%{F#FF98971A}${volume_bar:0:${n}}%{Fwhite}${volume_bar:${n}:${#volume_bar}}"
+            ;;
+        E)
+            volume=$(amixer get Master 2> /dev/null | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq)
+            printf '%03d\n' "${volume}" 2> /dev/null
+            ;;
+        \?)
+            echo "invalid option: -${OPTARG}" >&2
+            exit 1
+            ;;
+        :)
+            echo "required argument: -${OPTARG}" >&2
+            exit 1
+            ;;
+    esac
+done
+shift $((OPTIND - 1))

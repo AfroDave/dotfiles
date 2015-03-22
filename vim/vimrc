@@ -12,7 +12,7 @@ filetype plugin indent on
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete foldmethod=indent
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
@@ -55,18 +55,6 @@ set virtualedit=block
 set history=1000
 set hidden
 
-function! ResCur()
-    if line("'\"") <= line("$")
-        normal! g`"
-        return 1
-    endif
-endfunction
-
-augroup resCur
-    autocmd!
-    autocmd BufWinEnter * call ResCur()
-augroup END
-
 set backup
 set backupdir=~/.vim/tmp/backup
 set swapfile
@@ -86,6 +74,7 @@ colorscheme gruvbox
 set tabpagemax=8
 set cursorline
 set nocursorcolumn
+set colorcolumn=81
 set lazyredraw
 set ttyfast
 set ttymouse=xterm2
@@ -150,7 +139,8 @@ set scrolljump=5
 set scrolloff=3
 set foldenable
 set foldlevelstart=99
-set foldmethod=indent
+set foldmethod=syntax
+set foldnestmax=2
 
 set timeout
 set timeoutlen=400
@@ -249,11 +239,10 @@ cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
 
 noremap <Tab> :bn<CR>
 noremap <S-Tab> :bp<CR>
-nnoremap <Leader>b :bn<CR>
+nnoremap <Leader>bn :bn<CR>
 nnoremap <Leader>bs :split<CR>
 nnoremap <Leader>bv :vsp<CR>
 
-nnoremap <Leader>e :e
 nnoremap <Leader>w :w<CR>
 
 nnoremap <Leader>ls :ls<CR>
@@ -262,6 +251,10 @@ nnoremap <silent> <Right> <C-W>l
 nnoremap <silent> <Left> <C-W>h
 nnoremap <silent> <Up> <C-W>k
 nnoremap <silent> <Down> <C-W>j
+nnoremap <silent> <Leader>l <C-W>l
+nnoremap <silent> <Leader>h <C-W>h
+nnoremap <silent> <Leader>k <C-W>k
+nnoremap <silent> <Leader>j <C-W>j
 
 nnoremap <silent> <Leader>sp :set spell!<CR>
 
@@ -274,6 +267,32 @@ function! StripTrailingWhitespace()
     %s/\s\+$//e
     normal `Z
 endfunction
+
+function! s:ZoomToggle() abort
+    if exists('t:zoomed') && t:zoomed
+        execute t:zoom_winrestcmd
+        let t:zoomed = 0
+    else
+        let t:zoom_winrestcmd = winrestcmd()
+        resize
+        vertical resize
+        let t:zoomed = 1
+    endif
+endfunction
+command! ZoomToggle call s:ZoomToggle()
+nnoremap <silent> <Leader>o :ZoomToggle<CR>
+
+function! ResCur()
+    if line("'\"") <= line("$")
+        normal! g`"
+        return 1
+    endif
+endfunction
+
+augroup resCur
+    autocmd!
+    autocmd BufWinEnter * call ResCur()
+augroup end
 "
 
 " Plugins

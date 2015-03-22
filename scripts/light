@@ -1,0 +1,35 @@
+#! /usr/bin/env bash
+
+while getopts ':U :D :S: :B :E' opt; do
+    case "${opt}" in
+        U)
+            xbacklight -inc 5
+            ;;
+        D)
+            xbacklight -dec 5
+            ;;
+        S)
+            xbacklight -set ${OPTARG}
+            ;;
+        B)
+            light=$(xbacklight)
+            light_bar="——————————"
+            n=$(( (${light%.*} + 5) / 10 ))
+
+            echo -e -d 1 -b '#FF262626' "%{c}%{F#FF98971A}${light_bar:0:${n}}%{Fwhite}${light_bar:${n}:${#light_bar}}"
+            ;;
+        E)
+            light=$(xbacklight)
+            printf '%03d\n' "${light}" 2> /dev/null
+            ;;
+        \?)
+            echo "invalid option: -${OPTARG}" >&2
+            exit 1
+            ;;
+        :)
+            echo "required argument: -${OPTARG}" >&2
+            exit 1
+            ;;
+    esac
+done
+shift $((OPTIND - 1))

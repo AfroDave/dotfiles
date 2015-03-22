@@ -4,7 +4,7 @@
 
 # quit bspwm
 super + shift + q
-	pkill -x panel; bspc quit
+	bspc quit
 
 # close window
 super + shift + x
@@ -15,8 +15,8 @@ super + b
 	bspc desktop -B
 
 # toggle floating/sticky/pseudo_tiled/fullscreen
-super + {a,s,d,f}
-	bspc window -t {floating,sticky,pseudo_tiled,fullscreen}
+super + {a,s,d,f,g}
+	bspc window -t {floating,sticky,pseudo_tiled,fullscreen,private}
 
 # swap window with biggest window on current desktop
 super + m
@@ -44,15 +44,15 @@ super + ctrl + {h,j,k,l}
 
 # increase window size to the left/down/up/right
 super + alt + {h,j,k,l}
-    bspc window -e {left -25,down +25,up -25,right +25}
+    bspc window -e {left -25,down +25,down -25,left +25}
 
 # decrease window size to the left/down/up/right
 super + alt + shift + {h,j,k,l}
-    bspc window -e {right -25,up +25,down -25,left +25}
+    bspc window -e {right -25,up +25,up -25,right +25}
 
 # focus/move to desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,window -d} \^{1-9,10}; ~/.scripts/pop "%\{c\}$(bspc query --desktops --desktop focused)"
+	bspc {desktop -f,window -d} \^{1-9,10} && ~/.scripts/pop "%\{c\}$(bspc query --desktops --desktop focused)"
 
 # move/resize window
 super + button{1-3}
@@ -74,8 +74,8 @@ super + space
 super + {Left,Right}
 	bspc desktop -f {prev,next}
 
-super + {_,shift} + backslash
-    ~/.scripts/hide {hide, show}
+super + {_,shift} + z
+    ~/.scripts/hide {-H,-S}
 
 super + Return
 	uxterm -e tmux -2
@@ -86,6 +86,9 @@ super + ctrl + Return
 super + x
 	dmenu_run -i -x 4 -y 4 -h 16 -w 1912 -q -p " > " -nb "#262626" -nf "#A8A8A8" -sb "#949494" -sf "#262626"
 
+super + {minus,equal}
+    bspc config -d focused window_gap $(( $(bspc config -d focused window_gap) {+,-}2 ))
+
 super + r
 	uxterm -e ranger
 
@@ -93,22 +96,22 @@ super + shift + s
     ~/.scripts/pop "%\{c\}$(~/.scripts/sys)"
 
 XF86AudioMute
-	pulseaudio-ctl mute
+    ~/.scripts/pop $(~/.scripts/vol -B -S 0)
 
 XF86Audio{Lower,Raise}Volume
-	pulseaudio-ctl {down,up}
+    ~/.scripts/pop $(~/.scripts/vol -B {-D,-U})
 
 super + ctrl + {Down,Up}
-	pulseaudio-ctl {down,up}
+    ~/.scripts/pop $(~/.scripts/vol -B {-D,-U})
 
 XF86Audio{Prev,Next}
     mpc -q {prev,next}
 
 XF86MonBrightness{Down,Up}
-    ~/.scripts/backlight {down,up}
+    ~/.scripts/pop $(~/.scripts/light -B {-D,-U})
 
 super + {Down,Up}
-    ~/.scripts/backlight {down,up}
+    ~/.scripts/pop $(~/.scripts/light -B {-D,-U})
 
 super + F1
 	xautolock -locknow

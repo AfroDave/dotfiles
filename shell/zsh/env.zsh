@@ -35,6 +35,7 @@ typeset -gU cdpath fpath path
 
 cdpath=(
     ${cdpath}
+    ${HOME}
     ${HOME}/dev
     ${HOME}/dev/proj
 )

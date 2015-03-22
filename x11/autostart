@@ -2,18 +2,17 @@
 
 xset +fp /usr/share/fonts/local
 xset +fp /usr/share/fonts/misc
+xset +fp ${HOME}/.fonts/*
 xset fp rehash
 xset -dpms
 xset s off
 xset -b
-xset r rate 200 20
+xset r rate 200 40
 
 xsetroot -cursor_name left_ptr
 
-setxkbmap -option 'caps:ctrl_modifier'
-xcape -e 'Caps_Lock=Escape' &
-
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
+numlockx &
 xautolock -locker 'i3lock -c 262626' -time 40 -detectsleep &
 hsetroot -center ~/pic/wall/tri.png &
