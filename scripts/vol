@@ -1,5 +1,17 @@
 #! /usr/bin/env bash
 
+usage() {
+    cat <<-EOL
+Usage: vol [OPTION]
+Options:
+    -U      increase volume
+    -D      decrease volume
+    -S      set volume
+    -B      print bar formatted string
+    -E      print current volume
+EOL
+}
+
 while getopts ':U :D :S: :B :E' opt; do
     case "${opt}" in
         U)
@@ -22,14 +34,10 @@ while getopts ':U :D :S: :B :E' opt; do
             volume=$(amixer get Master 2> /dev/null | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq)
             printf '%03d\n' "${volume}" 2> /dev/null
             ;;
-        \?)
-            echo "invalid option: -${OPTARG}" >&2
-            exit 1
-            ;;
         :)
-            echo "required argument: -${OPTARG}" >&2
-            exit 1
+            echo -e "-${OPTARG} requires an argument"
             ;;
     esac
 done
-shift $((OPTIND - 1))
+
+[[ "${OPTIND}" -eq 1 ]] && usage && exit 1

@@ -5,10 +5,12 @@ active_desktop=$(xdotool get_desktop)
 window_list="/tmp/hide.${active_desktop}"
 
 usage() {
-    echo 'Usage: hide [OPTION]'
-    echo 'Options:'
-    echo '  -H        hide active window'
-    echo '  -S        show hidden window'
+    cat <<-EOL
+Usage: hide [OPTION]
+Options:
+    -H        hide active window
+    -S        show hidden window
+EOL
 }
 
 push() {
@@ -29,10 +31,6 @@ while getopts ':S :H' opt; do
             ;;
         H)
             push "${active_window}"
-            ;;
-        *)
-            usage
-            exit 1
             ;;
     esac
 done

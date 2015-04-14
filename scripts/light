@@ -1,5 +1,17 @@
 #! /usr/bin/env bash
 
+usage() {
+    cat <<-EOL
+Usage: light [OPTION]
+Options:
+    -U      increase brightness
+    -D      decrease brightness
+    -S      set brightness
+    -B      print bar formatted string
+    -E      print current brightness
+EOL
+}
+
 while getopts ':U :D :S: :B :E' opt; do
     case "${opt}" in
         U)
@@ -9,7 +21,7 @@ while getopts ':U :D :S: :B :E' opt; do
             xbacklight -dec 5
             ;;
         S)
-            xbacklight -set ${OPTARG}
+            xbacklight -set "${OPTARG}"
             ;;
         B)
             light=$(xbacklight)
@@ -22,14 +34,10 @@ while getopts ':U :D :S: :B :E' opt; do
             light=$(xbacklight)
             printf '%03d\n' "${light}" 2> /dev/null
             ;;
-        \?)
-            echo "invalid option: -${OPTARG}" >&2
-            exit 1
-            ;;
         :)
-            echo "required argument: -${OPTARG}" >&2
-            exit 1
+            echo -e "-${OPTARG} requires an argument"
             ;;
     esac
 done
-shift $((OPTIND - 1))
+
+[[ "${OPTIND}" -eq 1 ]] && usage && exit 1

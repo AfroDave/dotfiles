@@ -16,7 +16,7 @@ UXTerm*font: -*-ttyp0-medium-r-*-*-14-*-*-*-*-*-iso10646-*
 UXTerm*font1: -*-ttyp0-medium-r-*-*-11-*-*-*-*-*-iso10646-*
 UXTerm*font2: -*-ttyp0-medium-r-*-*-12-*-*-*-*-*-iso10646-*
 UXTerm*font3: -*-ttyp0-medium-r-*-*-15-*-*-*-*-*-iso10646-*
-UXTerm*font4: -*-unifont-medium-r-*-*-16-*-*-*-*-*-iso10646-*
+UXTerm*font4: -*-unifont-medium-r-*-*-17-*-*-*-*-*-iso10646-*
 UXTerm*font5: -*-ttyp0-medium-r-*-*-18-*-*-*-*-*-iso10646-*
 UXTerm*font6: -*-ttyp0-medium-r-*-*-22-*-*-*-*-*-iso10646-*
 
@@ -30,7 +30,7 @@ UXTerm*scrollBar: false
 UXTerm*jumpScroll: true
 UXTerm*skipScroll: true
 UXTerm*letterSpace: 0
-UXTerm*internalBorder: 4
+UXTerm*internalBorder: 8
 UXTerm*saveLines: 10000
 UXTerm*cursorBlink: true
 UXTerm*urgentOnBell: false

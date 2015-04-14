@@ -7,25 +7,22 @@ Plug 'tomtom/tlib_vim'
 Plug 'morhetz/gruvbox'
 
 " general
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'
-Plug 'kien/ctrlp.vim'
-Plug 'tacahiroy/ctrlp-funky'
-Plug 'scrooloose/syntastic'
-Plug 'majutsushi/tagbar'
+Plug 'Chiel92/vim-autoformat'
 Plug 'Yggdroot/indentLine'
-Plug 'rking/ag.vim'
-Plug 'sjl/gundo.vim'
 Plug 'cohama/lexima.vim'
 Plug 'haya14busa/incsearch.vim'
-Plug 'justinmk/vim-sneak'
+Plug 'jpalardy/vim-slime'
+Plug 'kien/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/syntastic'
+Plug 'sjl/gundo.vim'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'xolox/vim-misc'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 Plug 'xolox/vim-easytags'
-Plug 'Chiel92/vim-autoformat'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'sjl/splice.vim'
+Plug 'xolox/vim-misc'
 
 " autocomplete
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang' }
@@ -50,7 +47,6 @@ Plug 'othree/html5.vim'
 
 " js
 Plug 'othree/yajs.vim'
-Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'marijnh/tern_for_vim'
 
 " clojure
@@ -65,8 +61,15 @@ Plug 'cespare/vim-toml'
 Plug 'hdima/python-syntax'
 Plug 'mitsuhiko/jinja2'
 
+" haskell
+Plug 'raichoo/haskell-vim'
+Plug 'eagletmt/neco-ghc'
+
 " markdown
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+
+" latex
+Plug 'lervag/vimtex'
 
 call plug#end()

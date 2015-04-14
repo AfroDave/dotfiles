@@ -25,10 +25,7 @@ install_vim() {
     symlink vim/vimrc
     symlink vim/vimrc.bundles
     symlink vim/vimrc.plugins
-}
-
-install_ranger() {
-    symlink ranger .config/ranger
+    vim +PlugInstall +PlugClean +qall
 }
 
 install_tmux() {
@@ -66,7 +63,6 @@ install_dotfiles() {
     [[ ! -h "${HOME}/.dotfiles" ]] && ln -fs "${HOME}/dev/dotfiles" "${HOME}/.dotfiles"
     install_shell
     install_bspwm
-    install_ranger
     install_tmux
     install_x11
     install_mpd

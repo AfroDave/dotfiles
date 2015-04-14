@@ -10,13 +10,39 @@ source_these=(
 	"/etc/zsh/zprofile"
 	"${HOME}/.profile"
 	"${HOME}/.zprofile"
-	"${HOME}/.autostart"
-	"${HOME}/.config/bspwm/bspwmrc"
 )
 
 for file in "${source_these[@]}"; do
 	[ -r "${file}" ] && . "${file}"
 done
 
-sxhkd &
-exec bspwm -c ~/.config/bspwm/bspwmrc
+xset +fp /usr/share/fonts/local
+xset +fp /usr/share/fonts/misc
+xset +fp "${HOME}/.fonts/*"
+xset fp rehash
+xset -dpms
+xset s off
+xset -b
+xset r rate 200 40
+
+xsetroot -cursor_name left_ptr
+
+[[ -f "${HOME}/.Xresources" ]] && xrdb -merge "${HOME}/.Xresources"
+
+numlockx &
+xautolock -locker 'i3lock -c 262626' -time 40 -detectsleep &
+hsetroot -center "${HOME}/pic/wall/tri.png" &
+compton -Ccb &
+
+[[ -f "${HOME}/.postload.xinit" ]] && source "${HOME}/.postload.xinit"
+
+case "${WM-bspwm}" in
+    "bspwm")
+        sxhkd &
+        exec bspwm
+        ;;
+    "2bwm")
+        sxhkd -c "${HOME}/.config/sxhkd/sxhkdrc_2bwm" &
+        exec 2bwm
+        ;;
+esac

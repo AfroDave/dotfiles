@@ -1,5 +1,6 @@
 set nocompatible
 filetype off
+
 " vim-plug
 if filereadable(expand("~/.vimrc.bundles"))
     source ~/.vimrc.bundles
@@ -9,6 +10,7 @@ endif
 " General
 filetype plugin indent on
 
+autocmd FileType txt setlocal omnifunc=complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -50,9 +52,7 @@ endif
 
 set shortmess+=filmnrxoOtT
 set viewoptions=folds,options,cursor,unix,slash
-set sessionoptions=buffers,folds,tabpages,winsize
 set virtualedit=block
-set history=1000
 set hidden
 
 set backup
@@ -62,8 +62,6 @@ set dir=~/.vim/tmp/swap
 set undodir=~/.vim/tmp/undo
 if has('persistent_undo')
     set undofile
-    set undolevels=1000
-    set undoreload=10000
 endif
 
 autocmd BufEnter * silent! lcd %:p:h
@@ -71,19 +69,11 @@ autocmd BufEnter * silent! lcd %:p:h
 let g:gruvbox_italic=0
 colorscheme gruvbox
 
-set tabpagemax=8
 set cursorline
-set nocursorcolumn
 set colorcolumn=81
 set lazyredraw
 set ttyfast
 set ttymouse=xterm2
-set winminheight=0
-
-highlight clear NonText
-highlight clear SpecialKey
-highlight NonText guifg=#4A4A59 ctermfg=black
-highlight SpecialKey guifg=#4A4A59 ctermfg=black
 
 if has('cmdline_info')
     set ruler
@@ -94,21 +84,13 @@ endif
 if has('statusline')
     set laststatus=2
     set noshowmode
-    set statusline+=%<%f\ " Filename
-    set statusline+=%w%h%m%r
-    set statusline+=\ [%{&ff}/%Y]
-    set statusline+=\ [%{getcwd()}]
-    set statusline+=%=%-14.(%l,%c%V%)\ %p%%
 endif
 
 set backspace=indent,eol,start
-set linespace=0
 set showmatch
 set matchpairs+=<:>
-set matchtime=5
 set hlsearch | nohlsearch
 set incsearch
-set magic
 set ignorecase
 set smartcase
 
@@ -131,18 +113,14 @@ set wildignore+=*.orig
 set wildignore+=classes
 set wildignore+=lib
 
-set complete=.,w,b,u,t
 set completeopt=menu
 
 set whichwrap=b,s,h,l,<,>,[,]
-set scrolljump=5
-set scrolloff=3
-set foldenable
+set scrolloff=5
 set foldlevelstart=99
 set foldmethod=syntax
-set foldnestmax=2
+set foldnestmax=3
 
-set timeout
 set timeoutlen=400
 set ttimeout
 set ttimeoutlen=200
@@ -150,7 +128,6 @@ set ttimeoutlen=200
 set autoread
 set autochdir
 set number
-set numberwidth=2
 
 set spelllang=en_gb
 
@@ -158,7 +135,6 @@ set tags=./.tags,${HOME}/vim/tmp/tags
 "
 
 " Formatting
-set wrap
 set linebreak
 set autoindent
 set cindent
@@ -174,15 +150,10 @@ set shiftround
 set nojoinspaces
 set splitright
 set splitbelow
-set textwidth=0
-set wrapmargin=0
 set synmaxcol=240
 
 set list
 set listchars=tab:›\ ,trail:·,extends:»,precedes:«,nbsp:×
-
-let &t_SI .= "\<Esc>[5 q"
-let &t_EI .= "\<Esc>[1 q"
 "
 
 " GUI
@@ -205,6 +176,8 @@ else
     set noerrorbells
     set novisualbell
     let g:rehash256=1
+    let &t_SI .= "\<Esc>[5 q"
+    let &t_EI .= "\<Esc>[1 q"
 endif
 "
 
@@ -226,26 +199,10 @@ nnoremap Y y$
 vnoremap < <gv
 vnoremap > >gv
 
-nnoremap <C-Up> V:move '<-2<CR><Esc>
-nnoremap <C-Down> V:move '>+1<CR><Esc>
-vnoremap <C-Up> :move '<-2<CR>gv
-vnoremap <C-Down> :move '>+1<CR>gv
-
-cmap cwd lcd %:p:h
-
-vnoremap . :normal .<CR>
-
-cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
-
 noremap <Tab> :bn<CR>
 noremap <S-Tab> :bp<CR>
-nnoremap <Leader>bn :bn<CR>
 nnoremap <Leader>bs :split<CR>
 nnoremap <Leader>bv :vsp<CR>
-
-nnoremap <Leader>w :w<CR>
-
-nnoremap <Leader>ls :ls<CR>
 
 nnoremap <silent> <Right> <C-W>l
 nnoremap <silent> <Left> <C-W>h
@@ -267,20 +224,6 @@ function! StripTrailingWhitespace()
     %s/\s\+$//e
     normal `Z
 endfunction
-
-function! s:ZoomToggle() abort
-    if exists('t:zoomed') && t:zoomed
-        execute t:zoom_winrestcmd
-        let t:zoomed = 0
-    else
-        let t:zoom_winrestcmd = winrestcmd()
-        resize
-        vertical resize
-        let t:zoomed = 1
-    endif
-endfunction
-command! ZoomToggle call s:ZoomToggle()
-nnoremap <silent> <Leader>o :ZoomToggle<CR>
 
 function! ResCur()
     if line("'\"") <= line("$")

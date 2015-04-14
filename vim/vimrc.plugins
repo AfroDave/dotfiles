@@ -1,9 +1,9 @@
 " CtrlP
 let g:ctrlp_working_path_mode='ra'
 let g:ctrlp_custom_ignore={
-            \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-            \ 'file': '\v\.(exe|so|dll|pyc|o|png|jpg|tar|gz|bz2|xz|zip|rar)$',
-            \ }
+    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+    \ 'file': '\v\.(exe|so|dll|pyc|o|png|jpg|tar|gz|bz2|xz|zip|rar)$',
+    \ }
 
 let g:ctrlp_extensions=['funky']
 
@@ -11,7 +11,6 @@ nnoremap <Leader>p :CtrlP<CR>
 noremap <Leader>pb :CtrlPBuffer<CR>
 nnoremap <Leader>pf :CtrlPFunky<CR>
 nnoremap <Leader>pt :CtrlPTag<CR>
-"
 
 " YouCompleteMe
 let g:acp_enableAtStartup=0
@@ -22,28 +21,28 @@ let g:ycm_global_ycm_extra_conf="~/.vim/.ycm_extra_conf.py"
 let g:ycm_add_preview_to_completeopt=0
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_semantic_triggers={
-            \   'c,cpp': ['.', '->', 're![a-zA-Z]'],
-            \   'python,java,javascript': ['.', 're![a-zA-Z]']
-            \ }
+    \   'c,cpp': ['.', '->', 're![a-zA-Z]'],
+    \   'python,java,javascript': ['.', 're![a-zA-Z]'],
+    \   'haskell': ['.']
+    \ }
 let g:ycm_collect_identifiers_from_tags_files=1
+
+" UltiSnips
 let g:UltiSnipsExpandTrigger='<C-j>'
 let g:UltiSnipsJumpForwardTrigger='<C-j>'
 let g:UltiSnipsJumpBackwardTrigger='<C-k>'
-"
 
 " Pandoc
 command! -nargs=1 Silent
-            \ | execute ':silent !'.<q-args>
-            \ | execute ':redraw!'
-nnoremap <Leader>md <Esc>:w<CR>:Silent htmlmd %<CR>
+    \ | execute ':silent !'.<q-args>
+    \ | execute ':redraw!'
+nnoremap <Leader>md <Esc>:w<CR>:Silent md %<CR>
 let g:pandoc_use_conceal=0
 let g:pandoc#syntax#conceal#use=0
 autocmd BufEnter,BufNew *.md :set cole=0
-"
 
 " indentLine
-let g:indentLine_char='│'
-"
+let g:indentLine_char='┊'
 
 " Airline
 let g:airline_left_sep=''
@@ -51,11 +50,9 @@ let g:airline_right_sep=''
 let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#fnamemod=':t'
-"
 
 " python-syntax
 let python_highlight_all=1
-"
 
 " Syntastic
 let g:syntastic_mode_map={ 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
@@ -65,11 +62,9 @@ let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=2
 let g:syntastic_cpp_check_header=1
 let g:syntastic_cpp_no_include_search=0
-"
 
 " Eclim
 let g:EclimCompletionMethod='omnifunc'
-"
 
 " incsearch
 let g:incsearch#auto_nohlsearch=1
@@ -82,44 +77,26 @@ map *  <Plug>(incsearch-nohl-*)
 map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
-"
-
-" matchit
-let g:html_indent_tags='li\p'
-"
-
-" easy-align
-vmap <Enter> <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-"
-
-" niji
-let g:niji_matching_filetypes=['lisp', 'scheme', 'clojure', 'python', 'cpp', 'c', 'bash', 'sh']
-"
 
 " autoformat
 nnoremap <Leader>fc :Autoformat<CR><CR>
-"
 
 " Gundo
 nnoremap <Leader>gd :GundoToggle<CR>
-"
 
 " Tagbar
 nnoremap <Leader>tb :TagbarToggle<CR>
-"
 
 " easytags
 let g:easytags_file='~/.vim/tags'
 let g:easytags_opts=['--extra=+f']
 let g:easytags_suppress_report=1
 let g:easytags_dynamic_files=2
-"
-
-" easymotion
-nmap s <Plug>(easymotion-s2)
-"
 
 " multiple-cursors
 let g:multi_cursor_prev_key='<C-M>'
-"
+
+" slime
+let g:slime_target="tmux"
+let g:slime_paste_file=tempname()
+let g:slime_python_ipython=1

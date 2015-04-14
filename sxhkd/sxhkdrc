@@ -84,13 +84,7 @@ super + ctrl + Return
     uxterm
 
 super + x
-	dmenu_run -i -x 4 -y 4 -h 16 -w 1912 -q -p " > " -nb "#262626" -nf "#A8A8A8" -sb "#949494" -sf "#262626"
-
-super + {minus,equal}
-    bspc config -d focused window_gap $(( $(bspc config -d focused window_gap) {+,-}2 ))
-
-super + r
-	uxterm -e ranger
+	dmenu_run -i -x 16 -y 16 -h 16 -w 1888 -q -p " > " -nb "#262626" -nf "#A8A8A8" -sb "#949494" -sf "#262626"
 
 super + shift + s
     ~/.scripts/pop "%\{c\}$(~/.scripts/sys)"
