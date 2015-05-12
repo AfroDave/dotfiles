@@ -1,93 +1,74 @@
-#
-# bspwm hotkeys
-#
-
-# quit bspwm
 super + shift + q
-	bspc quit
+    bspc quit
 
-# close window
 super + shift + x
-	bspc window -c
+    bspc window -c
 
-# balance current desktop
 super + b
-	bspc desktop -B
+    bspc desktop -B
 
-# toggle floating/sticky/pseudo_tiled/fullscreen
 super + {a,s,d,f,g}
-	bspc window -t {floating,sticky,pseudo_tiled,fullscreen,private}
+    bspc window -t {floating,sticky,pseudo_tiled,fullscreen,private}
 
-# swap window with biggest window on current desktop
 super + m
-	bspc window -s biggest
+    bspc window -s biggest
 
-# flip bsp tree
 super + {comma,period}
-	bspc desktop -F {horizontal,vertical}
+    bspc desktop -F {horizontal,vertical}
 
-# rotate bsp tree
 super + shift + {comma,period}
-	bspc desktop -R {90,270}
+    bspc desktop -R {90,270}
 
-# focus/move window left/down/up/right
 super + {_,shift + }{h,j,k,l}
-	bspc window -{f,s} {left,down,up,right}
+    bspc window -{f,s} {left,down,up,right}
 
-# focus next/previous window
 super + {_,shift + }Tab
-	bspc window -f {next,prev}
+    bspc window -f {next,prev}
 
-# presel left/down/up/right
 super + ctrl + {h,j,k,l}
-	bspc window -p {left,down,up,right}
+    bspc window -p {left,down,up,right}
 
-# increase window size to the left/down/up/right
 super + alt + {h,j,k,l}
     bspc window -e {left -25,down +25,down -25,left +25}
 
-# decrease window size to the left/down/up/right
 super + alt + shift + {h,j,k,l}
     bspc window -e {right -25,up +25,up -25,right +25}
 
-# focus/move to desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,window -d} \^{1-9,10} && ~/.scripts/pop "%\{c\}$(bspc query --desktops --desktop focused)"
+    bspc {desktop -f,window -d} \^{1-9,10} && ~/.scripts/pop $(~/.scripts/desktop -B)
 
-# move/resize window
 super + button{1-3}
-	bspc pointer -g {move,resize_side,resize_corner}
+    bspc pointer -g {move,resize_side,resize_corner}
 
-# required for above
 super + !button{1-3}
-	bspc pointer -t %i %i
+    bspc pointer -t %i %i
 
-# required for above
 super + @button{1-3}
-	bspc pointer -u
+    bspc pointer -u
 
-# toggle monocle
 super + space
-	bspc desktop -l next
+    bspc desktop -l next
 
-# select previous / next desktop
 super + {Left,Right}
-	bspc desktop -f {prev,next}
+    bspc desktop -f {prev,next}
 
 super + {_,shift} + z
     ~/.scripts/hide {-H,-S}
 
 super + Return
-	uxterm -e tmux -2
+    uxterm -e tmux -2
 
 super + ctrl + Return
     uxterm
 
 super + x
-	dmenu_run -i -x 16 -y 16 -h 16 -w 1888 -q -p " > " -nb "#262626" -nf "#A8A8A8" -sb "#949494" -sf "#262626"
+    dmenu_run -i -x 16 -y 16 -h 16 -w 1888 -q -p " > " -nb "#262626" -nf "#A8A8A8" -sb "#949494" -sf "#262626"
 
 super + shift + s
-    ~/.scripts/pop "%\{c\}$(~/.scripts/sys)"
+    ~/.scripts/pop $(~/.scripts/sys -B)
+
+super + shift + c
+    ~/.scripts/sys -C
 
 XF86AudioMute
     ~/.scripts/pop $(~/.scripts/vol -B -S 0)
@@ -108,8 +89,7 @@ super + {Down,Up}
     ~/.scripts/pop $(~/.scripts/light -B {-D,-U})
 
 super + F1
-	xautolock -locknow
+    ~/.scripts/lock -L
 
-# reload sxhkd
 super + shift + r
-	pkill -USR1 -x sxhkd
+    pkill -USR1 -x sxhkd

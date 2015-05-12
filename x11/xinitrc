@@ -30,11 +30,12 @@ xsetroot -cursor_name left_ptr
 [[ -f "${HOME}/.Xresources" ]] && xrdb -merge "${HOME}/.Xresources"
 
 numlockx &
-xautolock -locker 'i3lock -c 262626' -time 40 -detectsleep &
+xautolock -locker 'i3lock -i /tmp/lock.png' -time 40 -detectsleep &
 hsetroot -center "${HOME}/pic/wall/tri.png" &
-compton -Ccb &
+compton -Cc &
+conky &
 
-[[ -f "${HOME}/.postload.xinit" ]] && source "${HOME}/.postload.xinit"
+[[ -f "${HOME}/.xinitrc.local" ]] && source "${HOME}/.xinitrc.local"
 
 case "${WM-bspwm}" in
     "bspwm")

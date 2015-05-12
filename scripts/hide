@@ -8,8 +8,10 @@ usage() {
     cat <<-EOL
 Usage: hide [OPTION]
 Options:
-    -H        hide active window
-    -S        show hidden window
+    -H          hide active window
+    -S          show hidden window
+
+    -h          displays this help message
 EOL
 }
 
@@ -24,7 +26,7 @@ pop() {
     xdotool windowmap "${window}"
 }
 
-while getopts ':S :H' opt; do
+while getopts ':S :H :h' opt; do
     case "${opt}" in
         S)
             pop
@@ -32,7 +34,22 @@ while getopts ':S :H' opt; do
         H)
             push "${active_window}"
             ;;
+        h)
+            usage
+            exit 0
+            ;;
+        :)
+            echo -e "-${OPTARG} requires an argument"
+            usage
+            exit 1
+            ;;
+        \?)
+            echo -e "-${OPTARG} is not a valid option"
+            usage
+            exit 1
+            ;;
     esac
 done
 
-[[ "${OPTIND}" -eq 1 ]] && usage && exit 1
+[[ "${OPTIND}" -eq 1 ]] && usage
+exit 0

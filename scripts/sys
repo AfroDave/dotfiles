@@ -4,4 +4,60 @@ volume=$(printf '%03d' "$(amixer get Master | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/
 battery=$(printf '%03d' "$(battery | awk '{ print $2 }')")
 date=$(date +'%H:%M %d/%m/%y')
 
-echo -e "${volume} ${battery} ${date}"
+usage() {
+    cat <<-EOL
+Usage: sys [OPTION]
+Options:
+    -B          print bar formatted string
+    -E          print current system details
+    -C          toggle conky
+
+    -h          displays this help message
+EOL
+}
+
+while getopts ':B :E :C :h' opt; do
+    case "${opt}" in
+        B)
+            echo -e -D 1 -B '#FF262626' "%{c}${volume} ${battery} ${date}"
+            ;;
+        E)
+            echo -e "${volume} ${battery} ${date}"
+            ;;
+        C)
+            wid=$(xdotool search --class conky)
+            geometry=($(xwininfo -id "${wid}" | \
+                sed -n \
+                -e 's/^ \+Absolute upper-left X: \+\([0-9]\+\).*/\1/p' \
+                -e 's/^ \+Absolute upper-left Y: \+\([0-9]\+\).*/\1/p' \
+                -e 's/^ \+Width: \+\([0-9]\+\).*/\1/p' \
+                -e 's/^ \+Height: \+\([0-9]\+\).*/\1/p'))
+            monitor="$(bspc query -M)"
+            padding=$(bspc config -m "${monitor}" right_padding)
+            if [[  ${padding} -eq 0 ]]; then
+                $(xdotool windowmap "${wid}")
+                $(bspc config -m "${monitor}" right_padding $(( ${geometry[2]} + $(bspc config window_gap) )))
+            elif [[ ${padding} -ne 0 ]]; then
+                $(xdotool windowunmap "${wid}")
+                $(bspc config -m "${monitor}" right_padding 0)
+            fi
+            ;;
+        h)
+            usage
+            exit 0
+            ;;
+        :)
+            echo -e "-${OPTARG} requires an argument"
+            usage
+            exit 1
+            ;;
+        \?)
+            echo -e "-${OPTARG} is not a valid option"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+[[ "${OPTIND}" -eq 1 ]] && usage
+exit 0

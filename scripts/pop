@@ -1,5 +1,21 @@
 #! /usr/bin/env bash
 
+usage() {
+    cat <<-EOL
+Usage: pop [OPTION]
+Options:
+    -X          pop x position
+    -Y          pop y position
+    -W          pop width
+    -H          pop height
+    -F          pop foreground
+    -B          pop background
+    -D          pop duration
+
+    -h          displays this help message
+EOL
+}
+
 [[ -f "${HOME}/.pop/config" ]] && source "${HOME}/.pop/config"
 
 POP_FG="${POP_FG:-#FF1D1F21}"
@@ -12,35 +28,41 @@ POP_W="${POP_W:-180}"
 POP_GEOMETRY="${POP_GEOMETRY:-"${POP_WIDTH}x${POP_HEIGHT}+${POP_X}+${POP_Y}"}"
 POP_FONT="${POP_FONT:--*-ttyp0-medium-r-*--14-*-*-*-*-*-iso10646-1}"
 
-while getopts ':x: :y: :w: :h: :b: :f: :d:' opt; do
+while getopts ':X: :Y: :W: :H: :B: :F: :D: :h' opt; do
     case "${opt}" in
-        x)
+        X)
             POP_X="${OPTARG}"
             ;;
-        y)
+        Y)
             POP_Y="${OPTARG}"
             ;;
-        w)
+        W)
             POP_W="${OPTARG}"
             ;;
-        h)
+        H)
             POP_H="${OPTARG}"
             ;;
-        f)
+        F)
             POP_FG="${OPTARG}"
             ;;
-        b)
+        B)
             POP_BG="${OPTARG}"
             ;;
-        d)
+        D)
             POP_DURATION="${OPTARG}"
             ;;
-        \?)
-            echo "invalid option: -${OPTARG}" >&2
-            exit 1
+        h)
+            usage
+            exit 0
             ;;
         :)
-            echo "required argument: -${OPTARG}" >&2
+            echo -e "-${OPTARG} requires an argument"
+            usage
+            exit 1
+            ;;
+        \?)
+            echo -e "-${OPTARG} is not a valid option"
+            usage
             exit 1
             ;;
     esac

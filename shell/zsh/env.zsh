@@ -10,7 +10,7 @@ export LC_ALL=en_GB.UTF-8
 export BROWSER='firefox'
 export EDITOR='vim'
 export VISUAL='vim'
-export PAGER='vimpager'
+export PAGER='less'
 export MANPAGER="${PAGER}"
 export GREP_COLOR='032;255'
 export GREP_COLORS="mt=032;ms=032;mc=032;${GREP_COLORS}"

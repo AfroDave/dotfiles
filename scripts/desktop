@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+usage() {
+    cat <<-EOL
+Usage: desktop [OPTION]
+Options:
+    -B          print bar formatted string
+    -E          print current desktop
+
+    -h          displays this help message
+EOL
+}
+
+while getopts ':B :E :h' opt; do
+    case "${opt}" in
+        B)
+            focused=$(bspc query -D -d focused)
+            echo -e -n -D 1 -B '#FF262626' %{c}
+            for d in $(bspc query -D); do
+                [[ "${d}" == "${focused}" ]] && echo -e -n '%{F#FF98971A} ● '
+                [[ "${d}" != "${focused}" ]] && echo -e -n '%{F#FFFFFFFF} ○ '
+            done
+            ;;
+        E)
+            echo -e "$(bspc query -D -d focused)"
+            ;;
+        h)
+            usage
+            exit 0
+            ;;
+        :)
+            echo -e "-${OPTARG} requires an argument"
+            usage
+            exit 1
+            ;;
+        \?)
+            echo -e "-${OPTARG} is not a valid option"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+[[ "${OPTIND}" -eq 1 ]] && usage
+exit 0

@@ -1,0 +1,61 @@
+background no
+use_xft yes
+xftfont tamsyn:size=9
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type desktop
+own_window_hints undecorated,below,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 220 220
+maximum_width 220
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+default_color 949494
+default_shade_color 010101
+default_outline_color 949494
+alignment top_right
+gap_x 21
+gap_y 20
+no_buffers yes
+cpu_avg_samples 2
+override_utf8_locale no
+
+TEXT
+${font tamsyn:size=16} ${alignc}${time %H:%M}
+${font tamsyn:size=14}  ${alignc}${time %a %b %d %Y}$font
+
+${color 999999}PROCESSORS$color
+CPU0: ${cpu cpu1}% ${color 949494}${cpubar cpu1}$color
+CPU1: ${cpu cpu2}% ${color 949494}${cpubar cpu2}$color
+CPU2: ${cpu cpu3}% ${color 949494}${cpubar cpu3}$color
+CPU3: ${cpu cpu4}% ${color 949494}${cpubar cpu4}$color
+CPU4: ${cpu cpu5}% ${color 949494}${cpubar cpu1}$color
+CPU5: ${cpu cpu6}% ${color 949494}${cpubar cpu2}$color
+CPU6: ${cpu cpu7}% ${color 949494}${cpubar cpu3}$color
+CPU7: ${cpu cpu8}% ${color 949494}${cpubar cpu4}$color
+
+${color 999999}MEMORY$color
+$mem / $memmax $alignr $memperc%
+${color 949494}$membar$color
+
+${color 999999}DISK$color
+/ $alignr ${fs_used /} / ${fs_size /} $alignr ${fs_used_perc /}%
+/home $alignr ${fs_used /home} / ${fs_size /} $alignr ${fs_used_perc /}%
+${fs_bar 6 /}
+
+${color 999999}TOP PROCESSES$color
+${top_mem name 1}${alignr}${top mem 1}%
+${top_mem name 2}${alignr}${top mem 2}%
+${top_mem name 3}${alignr}${top mem 3}%
+${top_mem name 4}${alignr}${top mem 4}%
+${top_mem name 5}${alignr}${top mem 5}%
+
+${color 999999}NETWORK$color
+${color 949494}${downspeedgraph wlp3s0 25, 150 89bb01 89bb01}$color
+DL: ${downspeed wlp3s0} $alignr total: ${totaldown wlp3s0}
+${color 949494}${upspeedgraph wlp3s0 25, 150 89bb01 89bb01}$color
+UL: ${upspeed wlp3s0} $alignr total: ${totalup eth1}

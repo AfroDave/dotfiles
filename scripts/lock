@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+usage() {
+    cat <<-EOL
+Usage: lock [OPTION]
+Options:
+    -L          lock screen
+
+    -h          displays this help message
+EOL
+}
+
+while getopts ':L :h' opt; do
+    case "${opt}" in
+        L)
+            scrot /tmp/lock.png
+            convert -scale 10% -scale 1000% /tmp/lock.png /tmp/lock.png
+            xautolock -locknow
+            ;;
+        h)
+            usage
+            exit 0
+            ;;
+        :)
+            echo -e "-${OPTARG} requires an argument"
+            usage
+            exit 1
+            ;;
+        \?)
+            echo -e "-${OPTARG} is not a valid option"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+[[ "${OPTIND}" -eq 1 ]] && usage
+exit 0

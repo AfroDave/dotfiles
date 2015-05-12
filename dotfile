@@ -23,8 +23,6 @@ install_bspwm() {
 install_vim() {
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     symlink vim/vimrc
-    symlink vim/vimrc.bundles
-    symlink vim/vimrc.plugins
     vim +PlugInstall +PlugClean +qall
 }
 
@@ -35,7 +33,6 @@ install_tmux() {
 install_x11() {
     symlink x11/Xresources
     symlink x11/xinitrc
-    symlink x11/autostart
 }
 
 install_mpd() {
@@ -59,6 +56,10 @@ install_scripts() {
     symlink pop
 }
 
+install_conky() {
+    symlink conky/conkyrc
+}
+
 install_dotfiles() {
     [[ ! -h "${HOME}/.dotfiles" ]] && ln -fs "${HOME}/dev/dotfiles" "${HOME}/.dotfiles"
     install_shell
@@ -71,6 +72,7 @@ install_dotfiles() {
     install_gtk
     install_scripts
     install_vim
+    install_conky
 }
 
 install() {

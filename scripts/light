@@ -4,15 +4,17 @@ usage() {
     cat <<-EOL
 Usage: light [OPTION]
 Options:
-    -U      increase brightness
-    -D      decrease brightness
-    -S      set brightness
-    -B      print bar formatted string
-    -E      print current brightness
+    -U          increase brightness
+    -D          decrease brightness
+    -S          set brightness
+    -B          print bar formatted string
+    -E          print current brightness
+
+    -h          displays this help message
 EOL
 }
 
-while getopts ':U :D :S: :B :E' opt; do
+while getopts ':U :D :S: :B :E :h' opt; do
     case "${opt}" in
         U)
             xbacklight -inc 5
@@ -28,16 +30,28 @@ while getopts ':U :D :S: :B :E' opt; do
             light_bar="——————————"
             n=$(( (${light%.*} + 5) / 10 ))
 
-            echo -e -d 1 -b '#FF262626' "%{c}%{F#FF98971A}${light_bar:0:${n}}%{Fwhite}${light_bar:${n}:${#light_bar}}"
+            echo -e -D 1 -B '#FF262626' "%{c}%{F#FF98971A}${light_bar:0:${n}}%{F#FFFFFFFF}${light_bar:${n}:${#light_bar}}"
             ;;
         E)
             light=$(xbacklight)
             printf '%03d\n' "${light}" 2> /dev/null
             ;;
+        h)
+            usage
+            exit 0
+            ;;
         :)
             echo -e "-${OPTARG} requires an argument"
+            usage
+            exit 1
+            ;;
+        \?)
+            echo -e "-${OPTARG} is not a valid option"
+            usage
+            exit 1
             ;;
     esac
 done
 
-[[ "${OPTIND}" -eq 1 ]] && usage && exit 1
+[[ "${OPTIND}" -eq 1 ]] && usage
+exit 0

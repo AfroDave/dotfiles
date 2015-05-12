@@ -4,15 +4,17 @@ usage() {
     cat <<-EOL
 Usage: vol [OPTION]
 Options:
-    -U      increase volume
-    -D      decrease volume
-    -S      set volume
-    -B      print bar formatted string
-    -E      print current volume
+    -U          increase volume
+    -D          decrease volume
+    -S          set volume
+    -B          print bar formatted string
+    -E          print current volume
+
+    -h          displays this help message
 EOL
 }
 
-while getopts ':U :D :S: :B :E' opt; do
+while getopts ':U :D :S: :B :E :h' opt; do
     case "${opt}" in
         U)
             pulseaudio-ctl up
@@ -28,16 +30,28 @@ while getopts ':U :D :S: :B :E' opt; do
             volume_bar="——————————"
             n=$(( (${volume%.*} + 5) / 10 ))
 
-            echo -e -d 1 -b '#FF262626' "%{c}%{F#FF98971A}${volume_bar:0:${n}}%{Fwhite}${volume_bar:${n}:${#volume_bar}}"
+            echo -e -D 1 -B '#FF262626' "%{c}%{F#FF98971A}${volume_bar:0:${n}}%{F#FFFFFFFF}${volume_bar:${n}:${#volume_bar}}"
             ;;
         E)
             volume=$(amixer get Master 2> /dev/null | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq)
             printf '%03d\n' "${volume}" 2> /dev/null
             ;;
+        h)
+            usage
+            exit 0
+            ;;
         :)
             echo -e "-${OPTARG} requires an argument"
+            usage
+            exit 1
+            ;;
+        \?)
+            echo -e "-${OPTARG} is not a valid option"
+            usage
+            exit 1
             ;;
     esac
 done
 
-[[ "${OPTIND}" -eq 1 ]] && usage && exit 1
+[[ "${OPTIND}" -eq 1 ]] && usage
+exit 0

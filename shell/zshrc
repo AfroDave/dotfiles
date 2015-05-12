@@ -1,4 +1,3 @@
-[[ -f "${HOME}/.preload.zsh" ]] && source "${HOME}/.preload.zsh"
 [[ -s "${HOME}/.zprezto/init.zsh" ]] && source "${HOME}/.zprezto/init.zsh"
 
 export HISTFILE="${HOME}"/.zsh_history
@@ -56,6 +55,6 @@ for conf in $(find "${HOME}/.dotfiles/shell/zsh/" -name '*.zsh'); do
     source "${conf}"
 done
 
-[[ -f "${HOME}/.postload.zsh" ]] && source "${HOME}/.postload.zsh"
+[[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
 
 return 0
