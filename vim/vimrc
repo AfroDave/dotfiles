@@ -8,22 +8,34 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 
 Plug 'morhetz/gruvbox'
+Plug 'nice/sweater'
+Plug 'vyshane/cleanroom-vim-color'
 
-Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'bronson/vim-visual-star-search'
 Plug 'cohama/lexima.vim'
+Plug 'gorkunov/smartpairs.vim'
 Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/vim-easyoperator-line'
+Plug 'junegunn/vim-easy-align'
+Plug 'justinmk/vim-sneak'
 Plug 'kien/ctrlp.vim'
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
-Plug 'scrooloose/syntastic'
+Plug 'kshenoy/vim-signature'
+Plug 'Lokaltog/vim-easymotion'
 Plug 'mbbill/undotree'
+Plug 'rhysd/clever-f.vim'
+Plug 'scrooloose/syntastic'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'Yggdroot/indentLine'
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 
 Plug 'bling/vim-airline'
 
@@ -31,21 +43,20 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 
 Plug 'tikhomirov/vim-glsl'
 
-Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
-Plug 'Valloric/MatchTagAlways'
-Plug 'rstacruz/sparkup'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'gregsexton/MatchTag'
 Plug 'othree/html5.vim'
+Plug 'rstacruz/sparkup'
 
-Plug 'othree/yajs.vim'
 Plug 'marijnh/tern_for_vim'
+Plug 'othree/yajs.vim'
 
-Plug 'tpope/vim-fireplace'
 Plug 'guns/vim-clojure-static'
-Plug 'guns/vim-sexp'
+Plug 'tpope/vim-fireplace'
 
-Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
+Plug 'rust-lang/rust.vim'
 
 Plug 'hdima/python-syntax'
 Plug 'mitsuhiko/jinja2'
@@ -59,23 +70,30 @@ call plug#end()
 filetype plugin indent on
 syntax enable
 
-let g:gruvbox_italic=0
-colorscheme gruvbox
 set background=dark
+if has('gui_running')
+    let g:rehash256=1
+    set guioptions-=m
+    set guioptions-=T
+    set guioptions-=r
+    set guifont=ttyp0\ 11
+    let g:gruvbox_italic=0
+    let g:gruvbox_invert_selection=0
+    let g:gruvbox_sign_column='dark0'
+    colorscheme gruvbox
+else
+    set t_Co=256
+    let g:gruvbox_italic=0
+    let g:gruvbox_invert_selection=0
+    let g:gruvbox_sign_column='dark0'
+    colorscheme gruvbox
+endif
 
 set fileformats=unix,dos,mac
 set encoding=utf-8
 setglobal fileencoding=utf-8
 set fileencodings=utf-8
 scriptencoding utf-8
-
-if has('clipboard')
-    if has('unnamedplus')
-        set clipboard=unnamedplus
-    else
-        set clipboard=unnamed
-    endif
-endif
 
 set shortmess+=filmnrxoOtT
 set viewoptions=folds,options,cursor,unix,slash
@@ -88,8 +106,6 @@ set undofile
 set backupdir=~/.vim/tmp/backup
 set directory=~/.vim/tmp/swap
 set undodir=~/.vim/tmp/undo
-
-autocmd BufEnter * silent! lcd %:p:h
 
 set mouse=a
 set mousehide
@@ -132,10 +148,11 @@ set number
 
 set spelllang=en_gb
 
-set tags=./.tags,${HOME}/vim/tmp/tags
+set tags=./.tags;
 
 set linebreak
 set autoindent
+set smartindent
 set expandtab
 set softtabstop=4
 set shiftwidth=4
@@ -153,7 +170,7 @@ let &t_SI .= "\<Esc>[5 q"
 let &t_EI .= "\<Esc>[1 q"
 
 " Bindings
-nn <Space> <NOP>
+nn <Space> <Nop>
 let mapleader=' '
 let maplocalleader=' '
 let g:mapleader=' '
@@ -178,7 +195,11 @@ ino <silent> kj <Esc>
 nn <silent> <Leader>fts :set spell!<Cr>
 
 nn <silent> <Leader>ffs :call StripTrailingWhitespace()<Cr>
-"
+
+nn q: <Nop>
+
+nn / /\v
+cno %s/ %s/\v
 
 " Functions
 function! StripTrailingWhitespace()
@@ -194,7 +215,7 @@ function! RestoreCursor()
     endif
 endfunction
 
-augroup restoreCursor
+augroup restore_cursor
     autocmd!
     autocmd BufWinEnter * call RestoreCursor()
 augroup end
@@ -228,6 +249,7 @@ let g:UltiSnipsJumpBackwardTrigger='<C-k>'
 
 " IndentLine
 let g:indentLine_char='┊'
+let g:indentLine_fileTypeExclude=['clojure']
 
 " Airline
 let g:airline_left_sep=''
@@ -261,6 +283,9 @@ nn <silent> <Leader>ut :UndotreeToggle<Cr>
 
 " Multiple-Cursors
 let g:multi_cursor_prev_key='<C-M>'
+
+" EasyMotion
+map <Leader> <Plug>(easymotion-prefix)
 
 " Local Config
 if filereadable(expand("~/.vimrc.local"))
