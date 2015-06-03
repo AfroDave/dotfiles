@@ -1,6 +1,6 @@
 prompt_custom_precmd() {
     vcs_info
-    print -P "%F{248}%~%F{242}${vcs_info_msg_0_}"
+    RPROMPT="${vcs_info_msg_0_}%F{242}${prompt_custom_username}%f"
 }
 
 prompt_custom_setup() {
@@ -20,12 +20,11 @@ prompt_custom_setup() {
     zstyle ':vcs_info:*' unstagedstr '%F{green}!%f'
     zstyle ':vcs_info:git*+set-message:*' hooks git-status
 
-    add-zsh-hook precmd prompt_custom_precmd
-
     [[ -n ${SSH_CONNECTION} ]] && prompt_custom_username='%n@%m '
 
-    PROMPT='%(?.%F{green}.%F{red})━%f '
-    RPROMPT='%F{242}${prompt_custom_username}%f'
+    add-zsh-hook precmd prompt_custom_precmd
+
+    PROMPT='%F{248}%2~%f %(?.%F{green}.%F{red})━%f '
 }
 
 prompt_custom_setup "$@"

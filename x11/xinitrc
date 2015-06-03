@@ -31,7 +31,7 @@ xsetroot -cursor_name left_ptr
 
 numlockx &
 xautolock -locker 'i3lock -i /tmp/lock.png' -time 40 -detectsleep &
-hsetroot -center "${HOME}/pic/wall/tri.png" &
+hsetroot -center "${HOME}/img/wall/tri.png" &
 compton -Cc &
 conky &
 
