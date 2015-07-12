@@ -15,10 +15,10 @@ while getopts ':B :E :h' opt; do
     case "${opt}" in
         B)
             focused=$(bspc query -D -d focused)
-            echo -e -n -D 1 -B '#FF262626' %{c}
+            echo -e -n -D 1 -B '#FF1D1F21' %{c}
             for d in $(bspc query -D); do
-                [[ "${d}" == "${focused}" ]] && echo -e -n '%{F#FF98971A} ● '
-                [[ "${d}" != "${focused}" ]] && echo -e -n '%{F#FFFFFFFF} ○ '
+                [[ "${d}" == "${focused}" ]] && echo -e -n '%{F#FF8C9440} ● '
+                [[ "${d}" != "${focused}" ]] && echo -e -n '%{F#FFC5C8C6} ○ '
             done
             ;;
         E)

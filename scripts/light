@@ -30,7 +30,7 @@ while getopts ':U :D :S: :B :E :h' opt; do
             light_bar="——————————"
             n=$(( (${light%.*} + 5) / 10 ))
 
-            echo -e -D 1 -B '#FF262626' "%{c}%{F#FF98971A}${light_bar:0:${n}}%{F#FFFFFFFF}${light_bar:${n}:${#light_bar}}"
+            echo -e -D 1 -B '#FF1D1F21' "%{c}%{F#FF8C9440}${light_bar:0:${n}}%{F#FFC5C8C6}${light_bar:${n}:${#light_bar}}"
             ;;
         E)
             light=$(xbacklight)

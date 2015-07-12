@@ -1,41 +1,33 @@
-set nocompatible
-filetype off
-
 " Plugins
 call plug#begin('~/.vim/plugged')
 
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 
-Plug 'morhetz/gruvbox'
+Plug 'w0ng/vim-hybrid'
 Plug 'nice/sweater'
-Plug 'vyshane/cleanroom-vim-color'
 
 Plug 'airblade/vim-gitgutter'
-Plug 'AndrewRadev/splitjoin.vim'
 Plug 'bronson/vim-visual-star-search'
 Plug 'cohama/lexima.vim'
 Plug 'gorkunov/smartpairs.vim'
 Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/vim-easyoperator-line'
-Plug 'junegunn/vim-easy-align'
-Plug 'justinmk/vim-sneak'
-Plug 'kien/ctrlp.vim'
-Plug 'kshenoy/vim-signature'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'mbbill/undotree'
 Plug 'rhysd/clever-f.vim'
 Plug 'scrooloose/syntastic'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'Yggdroot/indentLine'
 
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
+Plug 'kien/ctrlp.vim'
+Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'sgur/ctrlp-extensions.vim'
+Plug 'tacahiroy/ctrlp-funky'
+
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 Plug 'bling/vim-airline'
 
@@ -43,20 +35,15 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 
 Plug 'tikhomirov/vim-glsl'
 
-Plug 'ap/vim-css-color'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'gregsexton/MatchTag'
 Plug 'othree/html5.vim'
+Plug 'hail2u/vim-css3-syntax'
 Plug 'rstacruz/sparkup'
 
-Plug 'marijnh/tern_for_vim'
-Plug 'othree/yajs.vim'
-
-Plug 'guns/vim-clojure-static'
 Plug 'tpope/vim-fireplace'
+Plug 'guns/vim-clojure-static'
 
-Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
+Plug 'cespare/vim-toml'
 
 Plug 'hdima/python-syntax'
 Plug 'mitsuhiko/jinja2'
@@ -67,6 +54,7 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 call plug#end()
 
 " General
+set nocompatible
 filetype plugin indent on
 syntax enable
 
@@ -77,16 +65,11 @@ if has('gui_running')
     set guioptions-=T
     set guioptions-=r
     set guifont=ttyp0\ 11
-    let g:gruvbox_italic=0
-    let g:gruvbox_invert_selection=0
-    let g:gruvbox_sign_column='dark0'
-    colorscheme gruvbox
+    colorscheme hybrid
 else
     set t_Co=256
-    let g:gruvbox_italic=0
-    let g:gruvbox_invert_selection=0
-    let g:gruvbox_sign_column='dark0'
-    colorscheme gruvbox
+    let g:hybrid_use_Xresources=1
+    colorscheme hybrid
 endif
 
 set fileformats=unix,dos,mac
@@ -113,7 +96,9 @@ set cursorline
 set colorcolumn=81
 set lazyredraw
 set ttyfast
-set ttymouse=xterm2
+if !has('nvim')
+    set ttymouse=xterm2
+endif
 
 set showcmd
 set laststatus=2
@@ -179,27 +164,26 @@ nn Y y$
 vn < <gv
 vn > >gv
 
-nn <Tab> :bn<Cr>
-nn <S-Tab> :bp<Cr>
-nn <Leader>bs :split<Cr>
-nn <Leader>bv :vsp<Cr>
-nn <Leader>bd :bd<Cr>
-nn <Leader>wc :close<Cr>
+nn <silent> j jzz
+nn <silent> k kzz
+nn <silent> <Tab> :bn<Cr>
+nn <silent> <S-Tab> :bp<Cr>
+nn <silent> <Leader>bs :split<Cr>
+nn <silent> <Leader>bv :vsp<Cr>
+nn <silent> <Leader>bd :bd<Cr>
+nn <silent> <Leader>cc :clo<Cr>
 nn <silent> <Leader>l <C-W>l
 nn <silent> <Leader>h <C-W>h
 nn <silent> <Leader>k <C-W>k
 nn <silent> <Leader>j <C-W>j
 
-ino <silent> kj <Esc>
+ino <silent> jk <Esc>
 
-nn <silent> <Leader>fts :set spell!<Cr>
+nn <silent> <Leader>S :set spell!<Cr>
 
-nn <silent> <Leader>ffs :call StripTrailingWhitespace()<Cr>
+nn <silent> <Leader>cs :call StripTrailingWhitespace()<Cr>
 
 nn q: <Nop>
-
-nn / /\v
-cno %s/ %s/\v
 
 " Functions
 function! StripTrailingWhitespace()
@@ -225,13 +209,15 @@ augroup end
 " CtrlP
 let g:ctrlp_working_path_mode='ra'
 let g:ctrlp_custom_ignore={
-    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-    \ 'file': '\v\.(exe|so|dll|pyc|o|png|jpg|tar|gz|bz2|xz|zip|rar)$',
-    \ }
+    \ 'dir':  '\v[\/](\.git|\.hg|\.svn|build|bin)$',
+    \ 'file': '\v\.(exe|so|dll|pyc|o|png|jpg|tar|gz|bz2|xz|zip|rar)$' }
+let g:ctrlp_match_func={ 'match': 'pymatcher#PyMatch' }
+let g:ctrlp_funky_syntax_highlight=1
 
-nn <Leader>p :CtrlP<Cr>
-nn <Leader>pb :CtrlPBuffer<Cr>
-nn <Leader>pt :CtrlPTag<Cr>
+nn <Leader>b :CtrlPBuffer<Cr>
+nn <Leader>o :CtrlPFunky<Cr>
+nn <Leader>t :CtrlPTag<Cr>
+nn <Leader>y :CtrlPYankring<Cr>
 
 " YouCompleteMe
 let g:acp_enableAtStartup=0
@@ -249,14 +235,14 @@ let g:UltiSnipsJumpBackwardTrigger='<C-k>'
 
 " IndentLine
 let g:indentLine_char='┊'
-let g:indentLine_fileTypeExclude=['clojure']
+let g:indentLine_fileTypeExclude=['clojure', 'cpp', 'c']
 
 " Airline
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline_theme='gruvbox'
+let g:airline_theme='hybridline'
 let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#formatter='unique_tail'
+let g:airline#extensions#tabline#fnamemod=':t'
 
 " Python-Syntax
 let python_highlight_all=1

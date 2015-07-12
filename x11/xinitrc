@@ -18,7 +18,9 @@ done
 
 xset +fp /usr/share/fonts/local
 xset +fp /usr/share/fonts/misc
-xset +fp "${HOME}/.fonts/*"
+for fp in ${HOME}/.fonts/*; do
+    xset +fp "${fp}"
+done
 xset fp rehash
 xset -dpms
 xset s off

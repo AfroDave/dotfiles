@@ -30,7 +30,7 @@ while getopts ':U :D :S: :B :E :h' opt; do
             volume_bar="——————————"
             n=$(( (${volume%.*} + 5) / 10 ))
 
-            echo -e -D 1 -B '#FF262626' "%{c}%{F#FF98971A}${volume_bar:0:${n}}%{F#FFFFFFFF}${volume_bar:${n}:${#volume_bar}}"
+            echo -e -D 1 -B '#FF1D1F21' "%{c}%{F#FF8C9440}${volume_bar:0:${n}}%{F#FFC5C8C6}${volume_bar:${n}:${#volume_bar}}"
             ;;
         E)
             volume=$(amixer get Master 2> /dev/null | sed -n 's/^.*\[\([0-9]\+\)%.*$/\1/p' | uniq)
