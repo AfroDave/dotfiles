@@ -4,52 +4,33 @@ call plug#begin('~/.vim/plugged')
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 
-Plug 'w0ng/vim-hybrid'
-Plug 'nice/sweater'
+Plug 'ajh17/Spacegray.vim'
 
-Plug 'airblade/vim-gitgutter'
+Plug 'bling/vim-airline'
 Plug 'bronson/vim-visual-star-search'
-Plug 'cohama/lexima.vim'
 Plug 'gorkunov/smartpairs.vim'
 Plug 'haya14busa/incsearch.vim'
-Plug 'Lokaltog/vim-easymotion'
+Plug 'Raimondi/delimitMate'
 Plug 'rhysd/clever-f.vim'
-Plug 'scrooloose/syntastic'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'Yggdroot/indentLine'
+Plug 'tpope/vim-unimpaired'
 
 Plug 'kien/ctrlp.vim'
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'sgur/ctrlp-extensions.vim'
 Plug 'tacahiroy/ctrlp-funky'
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
-Plug 'bling/vim-airline'
-
-Plug 'octol/vim-cpp-enhanced-highlight'
-
 Plug 'tikhomirov/vim-glsl'
-
-Plug 'othree/html5.vim'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'rstacruz/sparkup'
-
-Plug 'tpope/vim-fireplace'
-Plug 'guns/vim-clojure-static'
 
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 
-Plug 'hdima/python-syntax'
-Plug 'mitsuhiko/jinja2'
-
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+
+Plug 'vim-scripts/fcitx.vim'
 
 call plug#end()
 
@@ -65,11 +46,10 @@ if has('gui_running')
     set guioptions-=T
     set guioptions-=r
     set guifont=ttyp0\ 11
-    colorscheme hybrid
+    colorscheme spacegray
 else
     set t_Co=256
-    let g:hybrid_use_Xresources=1
-    colorscheme hybrid
+    colorscheme spacegray
 endif
 
 set fileformats=unix,dos,mac
@@ -128,8 +108,8 @@ set ttimeout
 set ttimeoutlen=50
 
 set autoread
-set autochdir
 set number
+set relativenumber
 
 set spelllang=en_gb
 
@@ -151,8 +131,12 @@ set synmaxcol=240
 set list
 set listchars=tab:›\ ,trail:·,extends:»,precedes:«,nbsp:×
 
-let &t_SI .= "\<Esc>[5 q"
-let &t_EI .= "\<Esc>[1 q"
+if has('nvim')
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+else
+    let &t_SI .= "\<Esc>[5 q"
+    let &t_EI .= "\<Esc>[1 q"
+endif
 
 " Bindings
 nn <Space> <Nop>
@@ -168,6 +152,8 @@ nn <silent> j jzz
 nn <silent> k kzz
 nn <silent> <Tab> :bn<Cr>
 nn <silent> <S-Tab> :bp<Cr>
+nn <silent> <Leader>bn :bn<Cr>
+nn <silent> <Leader>bp :bp<Cr>
 nn <silent> <Leader>bs :split<Cr>
 nn <silent> <Leader>bv :vsp<Cr>
 nn <silent> <Leader>bd :bd<Cr>
@@ -176,6 +162,12 @@ nn <silent> <Leader>l <C-W>l
 nn <silent> <Leader>h <C-W>h
 nn <silent> <Leader>k <C-W>k
 nn <silent> <Leader>j <C-W>j
+
+if has('nvim')
+    tnoremap <silent> <Esc> <C-\><C-n>
+    tnoremap <silent> <Leader>bn :bn<Cr>
+    tnoremap <silent> <Leader>bp :bp<Cr>
+endif
 
 ino <silent> jk <Esc>
 
@@ -204,53 +196,47 @@ augroup restore_cursor
     autocmd BufWinEnter * call RestoreCursor()
 augroup end
 
+augroup filetype_cpp
+    autocmd!
+    autocmd FileType c,cpp syn keyword StorageClass local global
+    autocmd FileType c,cpp syn keyword Statement elif loop
+    autocmd FileType c,cpp syn keyword Type i8 i16 i32 i64 i128
+    autocmd FileType c,cpp syn keyword Type u8 u16 u32 u64 u128
+    autocmd FileType c,cpp syn keyword Type f32 f64 f128
+    autocmd FileType c,cpp syn keyword Type b32 usize isize
+    autocmd FileType c,cpp syn keyword Type GLbyte GLubyte GLshort GLushort
+    autocmd FileType c,cpp syn keyword Type GLint GLuint GLint64 GLuint64
+    autocmd FileType c,cpp syn keyword Type GLsizei GLenum GLintptr GLsizeiptr
+    autocmd FileType c,cpp syn keyword Type GLfloat GLdouble GLhalf GLboolean
+
+    autocmd FileType c,cpp syn match Type '\w\+_t\>'
+    autocmd FileType c,cpp syn match Type '\w\+_fn\>'
+    autocmd FileType c,cpp syn match cCustomParen "(" contains=cParen contains=cCppParen
+    autocmd FileType c,cpp syn match cCustomFunc "\w\+\s*(\@=" contains=cCustomParen
+    autocmd FileType c,cpp hi def link cCustomFunc Function
+augroup end
+
 " Plugin Config
 
 " CtrlP
 let g:ctrlp_working_path_mode='ra'
 let g:ctrlp_custom_ignore={
-    \ 'dir':  '\v[\/](\.git|\.hg|\.svn|build|bin)$',
+    \ 'dir':  '\v[\/](\.git|\.hg|\.svn|bin|extern|res)$',
     \ 'file': '\v\.(exe|so|dll|pyc|o|png|jpg|tar|gz|bz2|xz|zip|rar)$' }
-let g:ctrlp_match_func={ 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_funky_syntax_highlight=1
 
-nn <Leader>b :CtrlPBuffer<Cr>
+nn <Leader>bb :CtrlPBuffer<Cr>
 nn <Leader>o :CtrlPFunky<Cr>
-nn <Leader>t :CtrlPTag<Cr>
+nn <Leader>t :CtrlPBufTagAll<Cr>
+nn <Leader>ct :CtrlPTag<Cr>
 nn <Leader>y :CtrlPYankring<Cr>
-
-" YouCompleteMe
-let g:acp_enableAtStartup=0
-let g:ycm_key_invoke_completion='<C-a>'
-let g:ycm_collect_identifiers_from_tags_files=1
-let g:ycm_confirm_extra_conf=0
-let g:ycm_global_ycm_extra_conf="~/.vim/.ycm_extra_conf.py"
-let g:ycm_add_preview_to_completeopt=0
-let g:ycm_autoclose_preview_window_after_completion=1
-
-" UltiSnips
-let g:UltiSnipsExpandTrigger='<C-j>'
-let g:UltiSnipsJumpForwardTrigger='<C-j>'
-let g:UltiSnipsJumpBackwardTrigger='<C-k>'
-
-" IndentLine
-let g:indentLine_char='┊'
-let g:indentLine_fileTypeExclude=['clojure', 'cpp', 'c']
 
 " Airline
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline_theme='hybridline'
+let g:airline_theme='wombat'
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#fnamemod=':t'
-
-" Python-Syntax
-let python_highlight_all=1
-
-" Syntastic
-let g:syntastic_mode_map={ 'mode': 'passive' }
-let g:syntastic_cpp_compiler_options=' -std=c++1y'
-let g:syntastic_enable_signs=1
 
 " IncSearch
 let g:incsearch#auto_nohlsearch=1
@@ -264,14 +250,25 @@ map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 
-" UndoTree
-nn <silent> <Leader>ut :UndotreeToggle<Cr>
-
 " Multiple-Cursors
 let g:multi_cursor_prev_key='<C-M>'
 
-" EasyMotion
-map <Leader> <Plug>(easymotion-prefix)
+" Pandoc
+let g:pandoc#syntax#conceal#use=0
+let g:pandoc#modules#disabled = [ "folding" ]
+
+" DelimitMate
+let delimitMate_expand_cr=1
+let delimitMate_matchpairs = '(:),[:],{:}'
+
+" Dispatch
+augroup filetype_c
+    autocmd!
+    nn <silent> gmm :Dispatch ./BUILD<Cr>
+    nn <silent> gmr :Dispatch ./RUN<Cr>
+    nn <silent> gmg :Dispatch ./RUN g<Cr>
+    nn <silent> gmt :Dispatch ./TEST<Cr>
+augroup end
 
 " Local Config
 if filereadable(expand("~/.vimrc.local"))

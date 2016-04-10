@@ -39,25 +39,32 @@ UXTerm*buffered: true
 UXTerm*selectToClipboard: true
 
 ! theme
-*background: #1D1F21
-*foreground: #C5C8C6
-
-*color0: #282A2E
-*color8: #373B41
-*color1: #A54242
-*color9: #CC6666
-*color2: #8C9440
-*color10: #B5BD68
-*color3: #DE935F
-*color11: #F0C674
-*color4: #5F819D
-*color12: #81A2BE
-*color5: #85678F
-*color13: #B294BB
-*color6: #5E8D87
-*color14: #8ABEB7
-*color7: #707880
-*color15: #C5C8C6
+*background: #111314
+*foreground: #B7BBB7
+! black
+*color0: #2C2F33
+*color8: #4B5056
+! red
+*color1: #B04C50
+*color9: #B04C50
+! green
+*color2: #919652
+*color10: #94985B
+! yellow
+*color3: #E2995C
+*color11: #E2995C
+! blue
+*color4: #66899D
+*color12: #66899D
+! magenta
+*color5: #8D6494
+*color13: #8D6494
+! cyan
+*color6: #527C77
+*color14: #527C77
+! white
+*color7: #727572
+*color15: #D3D9D2
 
 UXTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
 UXTerm*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
@@ -71,4 +78,4 @@ UXTerm*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]
     Shift <Btn1Up>: select-end(CLIPBOARD, CUT_BUFFER1) \n\
     ~Shift ~Ctrl ~Meta <Btn2Up>: insert-selection(PRIMARY, CUT_BUFFER0) \n\
     Shift ~Ctrl ~Meta <Btn2Up>: insert-selection(CLIPBOARD, CUT_BUFFER1) \n\
-    Meta <Btn1Up>: exec-formated("firefox-nightly '%t'", PRIMARY)
+    Meta <Btn1Up>: exec-formated("firefox '%t'", PRIMARY)

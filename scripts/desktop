@@ -14,11 +14,12 @@ EOL
 while getopts ':B :E :h' opt; do
     case "${opt}" in
         B)
+            [[ -f "${HOME}/.pop/config" ]] && source "${HOME}/.pop/config"
             focused=$(bspc query -D -d focused)
-            echo -e -n -D 1 -B '#FF1D1F21' %{c}
+            echo -e -n -D 1 -B "${POP_BG}" %{c}
             for d in $(bspc query -D); do
-                [[ "${d}" == "${focused}" ]] && echo -e -n '%{F#FF8C9440} ● '
-                [[ "${d}" != "${focused}" ]] && echo -e -n '%{F#FFC5C8C6} ○ '
+                [[ "${d}" == "${focused}" ]] && echo -e -n "%{F${POP_HI}} ● "
+                [[ "${d}" != "${focused}" ]] && echo -e -n "%{F${POP_FG}} ○ "
             done
             ;;
         E)

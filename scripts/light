@@ -26,11 +26,12 @@ while getopts ':U :D :S: :B :E :h' opt; do
             xbacklight -set "${OPTARG}"
             ;;
         B)
+            [[ -f "${HOME}/.pop/config" ]] && source "${HOME}/.pop/config"
             light=$(xbacklight)
             light_bar="——————————"
             n=$(( (${light%.*} + 5) / 10 ))
 
-            echo -e -D 1 -B '#FF1D1F21' "%{c}%{F#FF8C9440}${light_bar:0:${n}}%{F#FFC5C8C6}${light_bar:${n}:${#light_bar}}"
+            echo -e -D 1 -B "${POP_BG}" "%{c}%{F${POP_HI}}${light_bar:0:${n}}%{F${POP_FG}}${light_bar:${n}:${#light_bar}}"
             ;;
         E)
             light=$(xbacklight)

@@ -2,11 +2,11 @@
 
 alias cb='cd -'
 alias cdh='cd ~'
-alias ..="cd .."
-alias .2="cd ../.."
-alias .3="cd ../../.."
-alias .4="cd ../../../.."
-alias .5="cd ../../../../.."
+alias ..='cd ..'
+alias .2='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias .5='cd ../../../../..'
 
 alias more='less'
 
@@ -45,5 +45,9 @@ alias tlp='tmux lsp'
 alias tlw='tmux lsw'
 alias tsw='tmux select-window -t'
 
-alias pacman='sudo pacman'
 alias cower='cower --color=auto'
+
+alias calc='ipython --no-banner'
+alias python='ipython'
+
+alias vim='vim'

@@ -1,6 +1,19 @@
 #! /usr/bin/env bash
 
-pandoc --toc -s -S --mathjax="mathjax/MathJax.js?config=TeX-AMS_HTML-full" \
-    -H "${NOTES}/config/note.css" --template="${NOTES}/config/template.html" \
-    -f 'markdown+pandoc_title_block+simple_tables+table_captions+yaml_metadata_block' \
-    -t html5 "${1}" > "$(basename -s '.md' ${1}).html"
+fname="$(basename -s '.md' ${1})"
+
+if [[ -z "${2}" ]]; then
+    pandoc --toc -s -S --mathjax="${NOTES}/config/mathjax/MathJax.js?config=TeX-AMS_HTML-full" \
+        -H "${NOTES}/config/note.css" \
+        --template="${NOTES}/config/template.html" \
+        -f 'markdown+pandoc_title_block+simple_tables+table_captions+yaml_metadata_block' \
+        --highlight-style kate \
+        -t html5 "${1}" > "${fname}.html"
+else
+    pandoc --toc \
+        -r 'markdown+yaml_metadata_block+tex_math_dollars' \
+        --template="${NOTES}/config/template.tex" \
+        -t latex "${1}" -o "${fname}.pdf"
+    rm *.tex *.out *.aux *.log
+fi
+

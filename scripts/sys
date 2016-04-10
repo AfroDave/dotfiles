@@ -19,7 +19,8 @@ EOL
 while getopts ':B :E :C :h' opt; do
     case "${opt}" in
         B)
-            echo -e -D 1 -B '#FF262626' "%{c}${volume} ${battery} ${date}"
+            [[ -f "${HOME}/.pop/config" ]] && source "${HOME}/.pop/config"
+            echo -e -D 1 -B "${POP_BG}" "%{c}${volume} ${battery} ${date}"
             ;;
         E)
             echo -e "${volume} ${battery} ${date}"

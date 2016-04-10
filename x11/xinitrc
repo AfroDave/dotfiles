@@ -32,10 +32,7 @@ xsetroot -cursor_name left_ptr
 [[ -f "${HOME}/.Xresources" ]] && xrdb -merge "${HOME}/.Xresources"
 
 numlockx &
-xautolock -locker 'i3lock -i /tmp/lock.png' -time 40 -detectsleep &
 hsetroot -center "${HOME}/img/wall/tri.png" &
-compton -Cc &
-conky &
 
 [[ -f "${HOME}/.xinitrc.local" ]] && source "${HOME}/.xinitrc.local"
 
